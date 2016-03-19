@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="classic_min_width">120dp</dimen>
+    <dimen name="classic_min_width_small_views">104dp</dimen>
+    <dimen name="classic_max_width">168dp</dimen>
+    <dimen name="classic_width_padding">12dp</dimen>
+
+    <dimen name="classic_height">56dp</dimen>
+    <dimen name="classic_height_top_padding_inactive">8dp</dimen>
+    <dimen name="classic_height_top_padding_active">6dp</dimen>
+    <dimen name="classic_height_bottom_padding">10dp</dimen>
+
+    <dimen name="classic_label_active">14sp</dimen>
+    <dimen name="classic_label_inactive">12sp</dimen>
+
+    <dimen name="classic_icon_grid">24dp</dimen>
+
+
+    <dimen name="shifting_min_width_active">96dp</dimen>
+    <dimen name="shifting_max_width_active">168dp</dimen>
+    <dimen name="shifting_min_width_inactive">64dp</dimen>
+    <dimen name="shifting_max_width_inactive">96dp</dimen>
+
+    <dimen name="shifting_height">56dp</dimen>
+    <dimen name="shifting_height_bottom_padding_inactive">16dp</dimen>
+    <dimen name="shifting_height_bottom_padding_active">10dp</dimen>
+    <dimen name="shifting_height_top_padding_active">6dp</dimen>
+    <dimen name="shifting_height_top_padding_inactive">16dp</dimen><!-- 56 - 24 - 16 = 16 -->
+
+    <dimen name="shifting_label">14sp</dimen>
+
+
+    <dimen name="shifting_icon_grid">24dp</dimen>
+
+    <dimen name="bottom_navigation_elevation">8dp</dimen>
+    <dimen name="bottom_navigation_height">56dp</dimen>
+
+
+</resources>

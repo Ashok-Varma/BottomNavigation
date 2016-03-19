@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/classic_bottom_navigation_container"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/bottom_navigation_height"
+    android:background="?selectableItemBackgroundBorderless"
+    android:paddingBottom="@dimen/classic_height_bottom_padding"
+    android:paddingTop="@dimen/classic_height_top_padding_inactive">
+
+    <ImageView
+        android:id="@+id/classic_bottom_navigation_icon"
+        android:layout_width="@dimen/shifting_icon_grid"
+        android:layout_height="@dimen/shifting_icon_grid"
+        android:layout_gravity="center_horizontal|top"
+        android:gravity="center"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/classic_bottom_navigation_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:lines="1"
+        android:textSize="@dimen/classic_label_inactive" />
+
+</FrameLayout>
