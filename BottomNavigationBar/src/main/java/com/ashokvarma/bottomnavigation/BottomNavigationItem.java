@@ -15,7 +15,6 @@ import android.text.TextUtils;
  *
  * @author ashokvarma
  * @version 1.0
- * @see
  * @since 19 Mar 2016
  */
 public class BottomNavigationItem {

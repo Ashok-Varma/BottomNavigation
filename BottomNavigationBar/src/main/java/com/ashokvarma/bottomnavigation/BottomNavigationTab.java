@@ -18,7 +18,7 @@ import android.widget.TextView;
  *
  * @author ashokvarma
  * @version 1.0
- * @see
+ * @see FrameLayout
  * @since 19 Mar 2016
  */
 class BottomNavigationTab extends FrameLayout {

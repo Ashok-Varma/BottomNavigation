@@ -13,7 +13,6 @@ import android.view.ViewAnimationUtils;
  *
  * @author ashokvarma
  * @version 1.0
- * @see
  * @since 19 Mar 2016
  */
 class BottomNavigationUtils {

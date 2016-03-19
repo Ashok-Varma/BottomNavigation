@@ -17,7 +17,7 @@ import android.widget.TextView;
  *
  * @author ashokvarma
  * @version 1.0
- * @see
+ * @see BottomNavigationTab
  * @since 19 Mar 2016
  */
 class ShiftingBottomNavigationTab extends BottomNavigationTab {
