@@ -15,9 +15,7 @@ This component that mimics the new [Material Design Bottom Navigation pattern][g
 * Choose your background style and tab mode.
 * each tab has it's own colors
 
-## How to Use
-
-### Download
+## Download
 
 Based on your IDE you can import library in one of the following ways
 
@@ -41,11 +39,11 @@ or Ivy:
   <artifact name='$AID' ext='pom'></artifact>
 </dependency>
 ```
-### Usage
+## Usage
 
-#### Basic setup
+### Basic setup
 
-in your activity xml :
+**in your activity xml :**
 
 ```xml
     <com.ashokvarma.bottomnavigation.BottomNavigationBar
@@ -55,7 +53,7 @@ in your activity xml :
         android:layout_height="wrap_content"/>
 ```
 
-In your class
+**In your class**
 ```java
 BottomNavigationBar bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
 
@@ -67,7 +65,7 @@ bottomNavigationBar
                 .addItem(new BottomNavigationItem(R.drawable.ic_videogame_asset_white_24dp, "Games"))
                 .initialise();
 ```
-#### Add TabChangeListener
+### Add TabChangeListener
 
 ```java
         bottomNavigationBar.setTabSelectedListener(new BottomNavigationBar.OnTabSelectedListener(){
@@ -82,47 +80,47 @@ bottomNavigationBar
             }
         });
 ```
-all methods are self explanatory
+**all methods are self explanatory**
 
-#### BottomNavigationBar Cutomisations
+### BottomNavigationBar Cutomisations
 
  | MODE_CLASSIC | MODE_SHIFTING
 ------------ | ------------ | -------------
 BACKGROUND_STYLE_STATIC | <img src="https://raw.githubusercontent.com/Ashok-Varma/BottomNavigation/master/classic_static.gif" width="320" height="50" /> | <img src="https://raw.githubusercontent.com/Ashok-Varma/BottomNavigation/master/shift_static.gif" width="320" height="50" />
 BACKGROUND_STYLE_RIPPLE | <img src="https://raw.githubusercontent.com/Ashok-Varma/BottomNavigation/master/classic_ripple.gif" width="320" height="50" /> | <img src="https://raw.githubusercontent.com/Ashok-Varma/BottomNavigation/master/shift_ripple.gif" width="320" height="50" />
 
-##### 1) Modes
+#### 1) Modes
 library provides two modes MODE_CLASSIC and MODE_SHIFTING
 
-to set mode :
+**to set mode :**
 ```java
 bottomNavigationBar
                 .setMode(BottomNavigationBar.MODE_CLASSIC)
 ```
-###### default behaviour
-MODE_DEFAULT: if number of tabs are less than or equal to three then MODE_CLASSIC will be used other cases MODE_SHIFTING will be used.
+##### default behaviour
+**MODE_DEFAULT:** if number of tabs are less than or equal to three then MODE_CLASSIC will be used other cases MODE_SHIFTING will be used.
 
-##### 2) Background Styles
+#### 2) Background Styles
 library provides two background styles BACKGROUND_STYLE_STATIC and BACKGROUND_STYLE_RIPPLE
 
-to set background style:
+**to set background style:**
 ```java
 bottomNavigationBar
                 .setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_RIPPLE)
 ```
-###### default behaviour
-BACKGROUND_STYLE_DEFAULT: if mode is MODE_CLASSIC then BACKGROUND_STYLE_STATIC will be used if mode is MODE_SHIFTING then BACKGROUND_STYLE_RIPPLE will be used.
+##### default behaviour
+**BACKGROUND_STYLE_DEFAULT:** if mode is MODE_CLASSIC then BACKGROUND_STYLE_STATIC will be used if mode is MODE_SHIFTING then BACKGROUND_STYLE_RIPPLE will be used.
 
-##### 3) Colors
+#### 3) Colors
 user can play with three colors : background color, active color and in-active color
 
-in-active color : is the icon and text color of the in-active/un-selected tab
+**in-active color :** is the icon and text color of the in-active/un-selected tab
 
-active color : In BACKGROUND_STYLE_STATIC active color is the icon and text color of the active/selected tab. In BACKGROUND_STYLE_RIPPLE active color is the bottom bar background color (which comes with ripple animation)
+**active color :** In BACKGROUND_STYLE_STATIC active color is the icon and text color of the active/selected tab. In BACKGROUND_STYLE_RIPPLE active color is the bottom bar background color (which comes with ripple animation)
 
-background color : In BACKGROUND_STYLE_STATIC background color is the bottom bar background color. In BACKGROUND_STYLE_RIPPLE background color is the icon and text color of the active/selected tab.
+**background color :** In BACKGROUND_STYLE_STATIC background color is the bottom bar background color. In BACKGROUND_STYLE_RIPPLE background color is the icon and text color of the active/selected tab.
 
-you can set color either by colorResId or direct color code string:
+**set colors :** you can set color either by colorResId or direct color code string:
 ```java
 bottomNavigationBar
                 .setActiveColor(R.color.primary)
@@ -130,7 +128,7 @@ bottomNavigationBar
                 .setBarBackgroundColor("#ECECEC")
 ```
 
-if you need different active/in-active colors for different tabs. you can also set active and inactive color for the BottomNavigationItem.
+**set colors to BottomNavigationItem :** if you need different active/in-active colors for different tabs. you can also set active and inactive color for the BottomNavigationItem.
 ```java
         bottomNavigationBar
                 .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColor(R.color.orange).setInActiveColor(R.color.teal))
@@ -139,9 +137,11 @@ if you need different active/in-active colors for different tabs. you can also s
                 .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV"))
                 .addItem(new BottomNavigationItem(R.drawable.ic_videogame_asset_white_24dp, "Games").setActiveColor(R.color.grey))
 ```
-if you didn't set active/in-active colors for the BottomNavigationItem then these will inherited from BottomNavigationBar active/in-active colors respectively
-###### default colors
-primary color will be active color, Color.WHITE will be background color and Color.LTGRAY will be in-active color.
+**BottomNavigationItem color behaviour :** if you didn't set active/in-active colors for the BottomNavigationItem then these will inherited from BottomNavigationBar active/in-active colors respectively
+##### default colors
+1. primary color will be active color
+2. Color.WHITE will be background color
+3. Color.LTGRAY will be in-active color.
 
 ## License
 
