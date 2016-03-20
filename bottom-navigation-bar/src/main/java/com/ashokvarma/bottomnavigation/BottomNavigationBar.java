@@ -166,6 +166,11 @@ public class BottomNavigationBar extends FrameLayout {
                 }
             }
 
+            if(mBackgroundStyle == BACKGROUND_STYLE_STATIC){
+                mBackgroundOverlay.setBackgroundColor(mBackgroundColor);
+                mContainer.setBackgroundColor(mBackgroundColor);
+            }
+
             int screenWidth = Utils.getScreenWidth(getContext());
 
             if (mMode == MODE_CLASSIC) {
