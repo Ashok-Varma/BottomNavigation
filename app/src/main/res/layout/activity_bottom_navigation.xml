@@ -54,6 +54,34 @@
                 android:text="BS_RIPPLE" />
         </LinearLayout>
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/items_3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="3 items" />
+
+            <CheckBox
+                android:id="@+id/items_4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="4 items" />
+
+            <CheckBox
+                android:id="@+id/items_5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="5 items" />
+        </LinearLayout>
+
         <Button
             android:id="@+id/refresh"
             android:text="Refresh"

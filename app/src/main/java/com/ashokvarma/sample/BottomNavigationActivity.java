@@ -20,6 +20,9 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
     CheckBox modeShifting;
     CheckBox bgStatic;
     CheckBox bgRipple;
+    CheckBox items3;
+    CheckBox items4;
+    CheckBox items5;
 
     Button refresh;
 
@@ -38,6 +41,9 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
         modeShifting = (CheckBox) findViewById(R.id.mode_shifting);
         bgStatic = (CheckBox) findViewById(R.id.bg_static);
         bgRipple = (CheckBox) findViewById(R.id.bg_ripple);
+        items3 = (CheckBox) findViewById(R.id.items_3);
+        items4 = (CheckBox) findViewById(R.id.items_4);
+        items5 = (CheckBox) findViewById(R.id.items_5);
 
         refresh = (Button) findViewById(R.id.refresh);
 
@@ -47,6 +53,9 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
         modeShifting.setOnCheckedChangeListener(this);
         bgRipple.setOnCheckedChangeListener(this);
         bgStatic.setOnCheckedChangeListener(this);
+        items3.setOnCheckedChangeListener(this);
+        items4.setOnCheckedChangeListener(this);
+        items5.setOnCheckedChangeListener(this);
 
         refresh.setOnClickListener(this);
 
@@ -73,14 +82,33 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
                 bottomNavigationBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_RIPPLE);
             }
 
-            bottomNavigationBar
-                    .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColor(R.color.orange))
-                    .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp, "Books").setActiveColor(R.color.teal))
-                    .addItem(new BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "Music").setActiveColor(R.color.blue))
-                    .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV").setActiveColor(R.color.brown))
-                    .addItem(new BottomNavigationItem(R.drawable.ic_videogame_asset_white_24dp, "Games").setActiveColor(R.color.grey))
-                    .setFirstSelectedPosition(lastSelectedPosition)
-                    .initialise();
+            if (items3.isChecked()) {
+                bottomNavigationBar
+                        .addItem(new BottomNavigationItem(R.drawable.ic_location_on_white_24dp, "Location").setActiveColor(R.color.orange))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_find_replace_white_24dp, "Find").setActiveColor(R.color.teal))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_favorite_white_24dp, "Favorites").setActiveColor(R.color.blue))
+                        .setFirstSelectedPosition(lastSelectedPosition > 2 ? 2 : lastSelectedPosition)
+                        .initialise();
+            } else if (items4.isChecked()) {
+                bottomNavigationBar
+                        .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColor(R.color.orange))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp, "Books").setActiveColor(R.color.teal))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "Music").setActiveColor(R.color.blue))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV").setActiveColor(R.color.brown))
+                        .setFirstSelectedPosition(lastSelectedPosition > 3 ? 3 : lastSelectedPosition)
+                        .initialise();
+            } else {
+                items5.setChecked(true);
+                bottomNavigationBar
+                        .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColor(R.color.orange))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp, "Books").setActiveColor(R.color.teal))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "Music").setActiveColor(R.color.blue))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV").setActiveColor(R.color.brown))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_videogame_asset_white_24dp, "Games").setActiveColor(R.color.grey))
+                        .setFirstSelectedPosition(lastSelectedPosition)
+                        .initialise();
+            }
+
         }
     }
 
@@ -98,6 +126,24 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
                 break;
             case R.id.mode_shifting:
                 modeClassic.setChecked(!isChecked);
+                break;
+            case R.id.items_3:
+                if (isChecked) {
+                    items4.setChecked(false);
+                    items5.setChecked(false);
+                }
+                break;
+            case R.id.items_4:
+                if (isChecked) {
+                    items3.setChecked(false);
+                    items5.setChecked(false);
+                }
+                break;
+            case R.id.items_5:
+                if (isChecked) {
+                    items4.setChecked(false);
+                    items3.setChecked(false);
+                }
                 break;
         }
     }
