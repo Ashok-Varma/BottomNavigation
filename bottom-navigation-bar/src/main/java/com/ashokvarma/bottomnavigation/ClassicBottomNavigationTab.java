@@ -49,7 +49,7 @@ class ClassicBottomNavigationTab extends BottomNavigationTab {
         labelView = (TextView) view.findViewById(R.id.classic_bottom_navigation_title);
         iconView = (ImageView) view.findViewById(R.id.classic_bottom_navigation_icon);
 
-        labelScale = getResources().getDimension(R.dimen.classic_label_active) / getResources().getDimension(R.dimen.classic_label_inactive);
+        labelScale = getResources().getDimension(R.dimen.classic_label_inactive) / getResources().getDimension(R.dimen.classic_label_active);
 
         super.init();
     }
@@ -57,14 +57,14 @@ class ClassicBottomNavigationTab extends BottomNavigationTab {
     @Override
     public void select(boolean setActiveColor, int animationDuration) {
 
-        labelView.animate().scaleX(labelScale).scaleY(labelScale).setDuration(animationDuration).start();
+        labelView.animate().scaleX(1).scaleY(1).setDuration(animationDuration).start();
 //        labelView.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.classic_label_active));
         super.select(setActiveColor, animationDuration);
     }
 
     @Override
     public void unSelect(boolean setActiveColor, int animationDuration) {
-        labelView.animate().scaleX(1).scaleY(1).setDuration(animationDuration).start();
+        labelView.animate().scaleX(labelScale).scaleY(labelScale).setDuration(animationDuration).start();
 //        labelView.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.classic_label_inactive));
         super.unSelect(setActiveColor, animationDuration);
     }

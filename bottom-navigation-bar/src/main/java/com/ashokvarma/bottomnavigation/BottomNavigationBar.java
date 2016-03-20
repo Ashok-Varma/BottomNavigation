@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
+import android.support.annotation.ColorRes;
 import android.support.annotation.IntDef;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
@@ -59,7 +60,9 @@ public class BottomNavigationBar extends FrameLayout {
     ArrayList<BottomNavigationItem> bottomNavigationItems = new ArrayList<>();
     ArrayList<BottomNavigationTab> bottomNavigationTabs = new ArrayList<>();
 
-    private int mSelectedPosition = -1;
+    private static final int DEFAULT_SELECTED_POSITION = -1;
+    private int mSelectedPosition = DEFAULT_SELECTED_POSITION;
+    private int mFirstSelectedPosition = 0;
     private OnTabSelectedListener mTabSelectedListener;
 
     private int mActiveColor;
@@ -188,10 +191,21 @@ public class BottomNavigationBar extends FrameLayout {
                 }
             }
 
-            if (bottomNavigationTabs.size() > 0) {
+            if (bottomNavigationTabs.size() > mFirstSelectedPosition) {
+                selectTab(mFirstSelectedPosition, true);
+            } else if (bottomNavigationTabs.size() > 0){
                 selectTab(0, true);
             }
         }
+    }
+
+    public void clearAll(){
+        mTabContainer.removeAllViews();
+        bottomNavigationTabs.clear();
+        bottomNavigationItems.clear();
+        mBackgroundOverlay.setBackgroundColor(Color.TRANSPARENT);
+        mContainer.setBackgroundColor(Color.TRANSPARENT);
+        mSelectedPosition = DEFAULT_SELECTED_POSITION;
     }
 
     private void setUpTab(BottomNavigationTab bottomNavigationTab, BottomNavigationItem currentItem, int itemWidth, int itemActiveWidth) {
@@ -218,6 +232,7 @@ public class BottomNavigationBar extends FrameLayout {
     }
 
     private void selectTab(int newPosition, boolean firstTab) {
+        sendListenerCall(mSelectedPosition, newPosition);
         if (mSelectedPosition != newPosition) {
             if (mBackgroundStyle == BACKGROUND_STYLE_STATIC) {
                 if (mSelectedPosition != -1)
@@ -237,7 +252,6 @@ public class BottomNavigationBar extends FrameLayout {
             }
             mSelectedPosition = newPosition;
         }
-        sendListenerCall(mSelectedPosition, newPosition);
     }
 
     private void sendListenerCall(int oldPosition, int newPosition) {
@@ -251,20 +265,44 @@ public class BottomNavigationBar extends FrameLayout {
         }
     }
 
-    public void setTabSelectedListener(OnTabSelectedListener tabSelectedListener) {
+    public BottomNavigationBar setTabSelectedListener(OnTabSelectedListener tabSelectedListener) {
         this.mTabSelectedListener = tabSelectedListener;
+        return this;
     }
 
-    public void setActiveColor(int activeColor) {
-        this.mActiveColor = activeColor;
+    public BottomNavigationBar setActiveColor(@ColorRes int activeColor) {
+        this.mActiveColor = getContext().getResources().getColor(activeColor);
+        return this;
     }
 
-    public void setInActiveColor(int inActiveColor) {
-        this.mInActiveColor = inActiveColor;
+    public BottomNavigationBar setActiveColor(String activeColorCode) {
+        this.mActiveColor = Color.parseColor(activeColorCode);
+        return this;
     }
 
-    public void setBackgroundColor(int backgroundColor) {
-        this.mBackgroundColor = backgroundColor;
+    public BottomNavigationBar setInActiveColor(@ColorRes int inActiveColor) {
+        this.mInActiveColor = getContext().getResources().getColor(inActiveColor);
+        return this;
+    }
+
+    public BottomNavigationBar setInActiveColor(String inActiveColorCode) {
+        this.mInActiveColor = Color.parseColor(inActiveColorCode);
+        return this;
+    }
+
+    public BottomNavigationBar setBarBackgroundColor(@ColorRes int backgroundColor) {
+        this.mBackgroundColor = getContext().getResources().getColor(backgroundColor);
+        return this;
+    }
+
+    public BottomNavigationBar setBarBackgroundColor(String backgroundColorCode) {
+        this.mBackgroundColor = Color.parseColor(backgroundColorCode);
+        return this;
+    }
+
+    public BottomNavigationBar setFirstSelectedPosition(int firstSelectedPosition) {
+        this.mFirstSelectedPosition = firstSelectedPosition;
+        return this;
     }
 
     public int getActiveColor() {

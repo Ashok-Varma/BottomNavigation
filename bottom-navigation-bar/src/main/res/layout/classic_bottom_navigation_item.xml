@@ -21,6 +21,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom"
         android:gravity="center"
+        android:scaleY="@dimen/classic_label_active_to_inactive_ratio"
+        android:scaleX="@dimen/classic_label_active_to_inactive_ratio"
         android:includeFontPadding="false"
         android:lines="1"
         android:textSize="@dimen/classic_label_inactive" />
