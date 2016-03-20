@@ -69,10 +69,13 @@ bottomNavigationBar
 
 #### BottomNavigationBar Cutomisations
 
+ | MODE_CLASSIC | MODE_SHIFTING
+------------ | ------------ | -------------
+BACKGROUND_STYLE_STATIC | <img src="https://raw.githubusercontent.com/Ashok-Varma/BottomNavigation/master/classic_static.gif" width="320" height="50" /> | <img src="https://raw.githubusercontent.com/Ashok-Varma/BottomNavigation/master/shift_static.gif" width="320" height="50" />
+BACKGROUND_STYLE_RIPPLE | <img src="https://raw.githubusercontent.com/Ashok-Varma/BottomNavigation/master/classic_ripple.gif" width="320" height="50" /> | <img src="https://raw.githubusercontent.com/Ashok-Varma/BottomNavigation/master/shift_ripple.gif" width="320" height="50" />
+
 ##### Modes
 library provides two modes MODE_CLASSIC and MODE_SHIFTING
-MODE_CLASSIC:
-MODE_SHIFTING:
 
 to set mode :
 ```java
@@ -84,8 +87,6 @@ MODE_DEFAULT: if number of tabs are less than or equal to three then MODE_CLASSI
 
 ##### Background Styles
 library provides two background styles BACKGROUND_STYLE_STATIC and BACKGROUND_STYLE_RIPPLE
-BACKGROUND_STYLE_STATIC:
-BACKGROUND_STYLE_RIPPLE:
 
 you can set background style:
 ```java
@@ -96,9 +97,12 @@ bottomNavigationBar
 BACKGROUND_STYLE_DEFAULT: if mode is MODE_CLASSIC then BACKGROUND_STYLE_STATIC will be used if mode is MODE_SHIFTING then BACKGROUND_STYLE_RIPPLE will be used.
 
 ##### Colors
-there are three colors background color, active color and in-active color
+user can play with three colors : background color, active color and in-active color
+
 in-active color : is the icon and text color of the in-active/un-selected tab
+
 active color : In BACKGROUND_STYLE_STATIC active color is the icon and text color of the active/selected tab. In BACKGROUND_STYLE_RIPPLE active color is the bottom bar background color (which comes with ripple animation)
+
 background color : In BACKGROUND_STYLE_STATIC background color is the bottom bar background color. In BACKGROUND_STYLE_RIPPLE background color is the icon and text color of the active/selected tab.
 
 you can set color either by colorResId or direct color code string:
