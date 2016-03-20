@@ -6,11 +6,13 @@ jdk:
 
 android:
   components:
+    - platform-tools
+    - tools
     - build-tools-23.0.2
     - android-23
-    - extra-android-support
     - extra-google-m2repository
     - extra-android-m2repository
+# - extra-android-support
 
 notifications:
   email: true
