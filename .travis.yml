@@ -16,10 +16,11 @@ notifications:
   email: true
 
 # Turn off caching to avoid any caching problems
-# cache: false
-cache:
-  directories:
-    - $HOME/.m2
+cache: false
+# cache:
+#  directories:
+#    - $HOME/.m2
+
 # Use the Travis Container-Based Infrastructure (see #203)
 sudo: false
 
