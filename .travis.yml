@@ -36,4 +36,5 @@ before_script:
   # Ensure signing configuration is present
 
 script:
-  - ./gradlew clean test
+    ./gradlew build connectedCheck
+    ./gradlew install
