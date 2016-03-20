@@ -89,7 +89,7 @@ bottomNavigationBar
 BACKGROUND_STYLE_STATIC | <img src="https://raw.githubusercontent.com/Ashok-Varma/BottomNavigation/master/classic_static.gif" width="320" height="50" /> | <img src="https://raw.githubusercontent.com/Ashok-Varma/BottomNavigation/master/shift_static.gif" width="320" height="50" />
 BACKGROUND_STYLE_RIPPLE | <img src="https://raw.githubusercontent.com/Ashok-Varma/BottomNavigation/master/classic_ripple.gif" width="320" height="50" /> | <img src="https://raw.githubusercontent.com/Ashok-Varma/BottomNavigation/master/shift_ripple.gif" width="320" height="50" />
 
-#### 1) Modes
+#### 1. Modes
 library provides two modes MODE_CLASSIC and MODE_SHIFTING
 
 **to set mode :**
@@ -100,7 +100,7 @@ bottomNavigationBar
 ##### default behaviour
 **MODE_DEFAULT:** if number of tabs are less than or equal to three then MODE_CLASSIC will be used other cases MODE_SHIFTING will be used.
 
-#### 2) Background Styles
+#### 2. Background Styles
 library provides two background styles BACKGROUND_STYLE_STATIC and BACKGROUND_STYLE_RIPPLE
 
 **to set background style:**
@@ -111,7 +111,7 @@ bottomNavigationBar
 ##### default behaviour
 **BACKGROUND_STYLE_DEFAULT:** if mode is MODE_CLASSIC then BACKGROUND_STYLE_STATIC will be used if mode is MODE_SHIFTING then BACKGROUND_STYLE_RIPPLE will be used.
 
-#### 3) Colors
+#### 3. Colors
 user can play with three colors : background color, active color and in-active color
 
 **in-active color :** is the icon and text color of the in-active/un-selected tab
