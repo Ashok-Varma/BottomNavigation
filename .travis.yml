@@ -21,14 +21,20 @@ notifications:
 cache: false
 # cache:
 #  directories:
-#    - $HOME/.m2
+#    - $HOME/.gradle/caches/
+#    - $HOME/.gradle/wrapper/
 
 # Use the Travis Container-Based Infrastructure (see #203)
 sudo: false
 
+# Building Specific Branches
+branches:
+  only:
+    - master
+
 install:
   # Ensure Gradle wrapper is executable, download wrapper and show version
-  # - chmod +x ./gradlew; ls -l gradlew; ./gradlew wrapper -v
+  - chmod +x ./gradlew; ls -l gradlew; ./gradlew wrapper -v
   # Download and show android dependencies
   # - ./gradlew androidDependencies
 
@@ -36,5 +42,6 @@ before_script:
   # Ensure signing configuration is present
 
 script:
-    ./gradlew build connectedCheck
-    ./gradlew install
+#    ./gradlew build connectedCheck
+#    ./gradlew install
+    ./gradlew clean test
