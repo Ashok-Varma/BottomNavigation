@@ -27,17 +27,17 @@ Download [the latest JAR][mavenLatestJarDownload] or grab via Maven:
 <dependency>
   <groupId>com.ashokvarma.android</groupId>
   <artifactId>bottom-navigation-bar</artifactId>
-  <version>0.9.2</version>
+  <version>0.9.5</version>
   <type>pom</type>
 </dependency>
 ```
 or Gradle:
 ```groovy
-compile 'com.ashokvarma.android:bottom-navigation-bar:0.9.2'
+compile 'com.ashokvarma.android:bottom-navigation-bar:0.9.5'
 ```
 or Ivy:
 ```xml
-<dependency org='com.ashokvarma.android' name='bottom-navigation-bar' rev='0.9.2'>
+<dependency org='com.ashokvarma.android' name='bottom-navigation-bar' rev='0.9.5'>
   <artifact name='$AID' ext='pom'></artifact>
 </dependency>
 ```
