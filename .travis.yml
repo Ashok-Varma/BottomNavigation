@@ -1,0 +1,36 @@
+language: android
+
+jdk:
+  - oraclejdk7
+  - openjdk7
+
+android:
+  components:
+    - build-tools-23.0.2
+    - android-23
+    - extra-android-support
+    - extra-google-m2repository
+    - extra-android-m2repository
+
+notifications:
+  email: true
+
+# Turn off caching to avoid any caching problems
+# cache: false
+cache:
+  directories:
+    - $HOME/.m2
+# Use the Travis Container-Based Infrastructure (see #203)
+sudo: false
+
+install:
+  # Ensure Gradle wrapper is executable, download wrapper and show version
+  - chmod +x ./gradlew; ls -l gradlew; ./gradlew wrapper -v
+  # Download and show android dependencies
+  # - ./gradlew androidDependencies
+
+before_script:
+  # Ensure signing configuration is present
+
+script:
+  - ./gradlew clean test
