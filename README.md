@@ -106,7 +106,7 @@ you can set color either by colorResId or direct color code string:
 bottomNavigationBar
                 .setActiveColor(R.color.primary)
                 .setInActiveColor("#FFFFFF")
-                .setBackgroundColor("#ECECEC")
+                .setBarBackgroundColor("#ECECEC")
 ```
 
 if you need different active/in-active colors for different tabs. you can also set active and inactive color for the BottomNavigationItem.
