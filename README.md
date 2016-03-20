@@ -1,6 +1,6 @@
 # BottomNavigation
 
-<img src="https://raw.githubusercontent.com/Ashok-Varma/BottomNavigation/master/complete.gif" width="300" height="550" />
+<img src="https://raw.githubusercontent.com/Ashok-Varma/BottomNavigation/master/all.gif" width="300" height="550" />
 
 ## What is this component about?
 
