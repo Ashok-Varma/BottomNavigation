@@ -1,6 +1,5 @@
 package com.ashokvarma.bottomnavigation;
 
-import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
@@ -78,8 +77,8 @@ class ShiftingBottomNavigationTab extends BottomNavigationTab {
     }
 
     @Override
-    public void initialise() {
-
+    public void initialise(boolean setActiveColor) {
+        super.initialise(setActiveColor);
     }
 
     public class ResizeWidthAnimation extends Animation {

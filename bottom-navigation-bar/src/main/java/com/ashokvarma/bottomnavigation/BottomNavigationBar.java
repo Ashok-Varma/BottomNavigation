@@ -231,7 +231,7 @@ public class BottomNavigationBar extends FrameLayout {
 
         BottomNavigationUtils.bindTabWithData(currentItem, bottomNavigationTab, this);
 
-        bottomNavigationTab.initialise();
+        bottomNavigationTab.initialise(mBackgroundStyle == BACKGROUND_STYLE_STATIC);
 
         mTabContainer.addView(bottomNavigationTab);
     }

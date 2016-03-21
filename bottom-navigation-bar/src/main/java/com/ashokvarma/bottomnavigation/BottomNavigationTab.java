@@ -3,6 +3,7 @@ package com.ashokvarma.bottomnavigation;
 import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v4.graphics.drawable.DrawableCompat;
@@ -33,7 +34,6 @@ class BottomNavigationTab extends FrameLayout {
     protected int mBackgroundColor;
     protected int mActiveWidth;
     protected int mInActiveWidth;
-//    protected Drawable mIcon;
     protected Drawable mCompactIcon;
     protected String mLabel;
 
@@ -85,9 +85,7 @@ class BottomNavigationTab extends FrameLayout {
     }
 
     public void setIcon(Drawable icon) {
-//        mIcon = icon;
         mCompactIcon = DrawableCompat.wrap(icon);
-        iconView.setImageDrawable(icon);
     }
 
     public void setLabel(String label) {
@@ -106,8 +104,6 @@ class BottomNavigationTab extends FrameLayout {
     public void setInactiveColor(int inActiveColor) {
         mInActiveColor = inActiveColor;
         labelView.setTextColor(inActiveColor);
-        DrawableCompat.setTint(mCompactIcon, inActiveColor);
-        iconView.setImageDrawable(mCompactIcon);
     }
 
     public void setItemBackgroundColor(int backgroundColor) {
@@ -138,13 +134,10 @@ class BottomNavigationTab extends FrameLayout {
         animator.setDuration(animationDuration);
         animator.start();
 
+        iconView.setSelected(true);
         if (setActiveColor) {
-            DrawableCompat.setTint(mCompactIcon, mActiveColor);
-            iconView.setImageDrawable(mCompactIcon);
             labelView.setTextColor(mActiveColor);
         } else {
-            DrawableCompat.setTint(mCompactIcon, mBackgroundColor);
-            iconView.setImageDrawable(mCompactIcon);
             labelView.setTextColor(mBackgroundColor);
         }
     }
@@ -165,13 +158,40 @@ class BottomNavigationTab extends FrameLayout {
         animator.setDuration(animationDuration);
         animator.start();
 
-        DrawableCompat.setTint(mCompactIcon, mInActiveColor);
-        iconView.setImageDrawable(mCompactIcon);
         labelView.setTextColor(mInActiveColor);
+        iconView.setSelected(false);
     }
 
 
-    public void initialise() {
-
+    public void initialise(boolean setActiveColor) {
+        iconView.setSelected(false);
+        if (setActiveColor) {
+            DrawableCompat.setTintList(mCompactIcon, new ColorStateList(
+                    new int[][]{
+                            new int[]{android.R.attr.state_selected}, //1
+                            new int[]{-android.R.attr.state_selected}, //2
+                            new int[]{}
+                    },
+                    new int[]{
+                            mActiveColor, //1
+                            mInActiveColor, //2
+                            mInActiveColor //3
+                    }
+            ));
+        } else {
+            DrawableCompat.setTintList(mCompactIcon, new ColorStateList(
+                    new int[][]{
+                            new int[]{android.R.attr.state_selected}, //1
+                            new int[]{-android.R.attr.state_selected}, //2
+                            new int[]{}
+                    },
+                    new int[]{
+                            mBackgroundColor, //1
+                            mInActiveColor, //2
+                            mInActiveColor //3
+                    }
+            ));
+        }
+        iconView.setImageDrawable(mCompactIcon);
     }
 }

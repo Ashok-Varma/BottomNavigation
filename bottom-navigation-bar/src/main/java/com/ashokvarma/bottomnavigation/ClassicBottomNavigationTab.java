@@ -70,7 +70,7 @@ class ClassicBottomNavigationTab extends BottomNavigationTab {
     }
 
     @Override
-    public void initialise() {
-
+    public void initialise(boolean setActiveColor) {
+        super.initialise(setActiveColor);
     }
 }
