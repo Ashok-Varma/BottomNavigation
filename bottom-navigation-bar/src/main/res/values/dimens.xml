@@ -12,7 +12,7 @@
 
     <dimen name="classic_label_active">14sp</dimen>
     <dimen name="classic_label_inactive">12sp</dimen>
-    <item name="classic_label_active_to_inactive_ratio" format="float" type="dimen">0.857</item>
+    <!--<item name="classic_label_active_to_inactive_ratio" format="float" type="dimen">0.857</item>-->
 
     <dimen name="classic_icon_grid">24dp</dimen>
 
@@ -21,6 +21,7 @@
     <dimen name="shifting_max_width_active">168dp</dimen>
     <dimen name="shifting_min_width_inactive">64dp</dimen>
     <dimen name="shifting_max_width_inactive">96dp</dimen>
+    <dimen name="shifting_width_custom_padding">6dp</dimen>
 
     <dimen name="shifting_height">56dp</dimen>
     <dimen name="shifting_height_bottom_padding_inactive">16dp</dimen>

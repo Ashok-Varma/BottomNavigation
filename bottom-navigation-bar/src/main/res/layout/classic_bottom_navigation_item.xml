@@ -5,6 +5,8 @@
     android:layout_height="@dimen/bottom_navigation_height"
     android:background="?selectableItemBackgroundBorderless"
     android:paddingBottom="@dimen/classic_height_bottom_padding"
+    android:paddingLeft="@dimen/classic_width_padding"
+    android:paddingRight="@dimen/classic_width_padding"
     android:paddingTop="@dimen/classic_height_top_padding_inactive">
 
     <ImageView
@@ -21,8 +23,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom"
         android:gravity="center"
-        android:scaleY="@dimen/classic_label_active_to_inactive_ratio"
-        android:scaleX="@dimen/classic_label_active_to_inactive_ratio"
         android:includeFontPadding="false"
         android:lines="1"
         android:textSize="@dimen/classic_label_inactive" />

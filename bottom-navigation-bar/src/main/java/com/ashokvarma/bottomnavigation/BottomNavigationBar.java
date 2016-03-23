@@ -8,7 +8,6 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.IntDef;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -166,7 +165,7 @@ public class BottomNavigationBar extends FrameLayout {
                 }
             }
 
-            if(mBackgroundStyle == BACKGROUND_STYLE_STATIC){
+            if (mBackgroundStyle == BACKGROUND_STYLE_STATIC) {
                 mBackgroundOverlay.setBackgroundColor(mBackgroundColor);
                 mContainer.setBackgroundColor(mBackgroundColor);
             }
@@ -197,14 +196,14 @@ public class BottomNavigationBar extends FrameLayout {
             }
 
             if (bottomNavigationTabs.size() > mFirstSelectedPosition) {
-                selectTab(mFirstSelectedPosition, true);
-            } else if (bottomNavigationTabs.size() > 0){
-                selectTab(0, true);
+                selectTabInternal(mFirstSelectedPosition, true, true);
+            } else if (bottomNavigationTabs.size() > 0) {
+                selectTabInternal(0, true, true);
             }
         }
     }
 
-    public void clearAll(){
+    public void clearAll() {
         mTabContainer.removeAllViews();
         bottomNavigationTabs.clear();
         bottomNavigationItems.clear();
@@ -216,14 +215,13 @@ public class BottomNavigationBar extends FrameLayout {
     private void setUpTab(BottomNavigationTab bottomNavigationTab, BottomNavigationItem currentItem, int itemWidth, int itemActiveWidth) {
         bottomNavigationTab.setInactiveWidth(itemWidth);
         bottomNavigationTab.setActiveWidth(itemActiveWidth);
-        Log.e("widths", "inactive : " + itemWidth + ", active : " + itemActiveWidth);
         bottomNavigationTab.setPosition(bottomNavigationItems.indexOf(currentItem));
 
         bottomNavigationTab.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 BottomNavigationTab bottomNavigationTabView = (BottomNavigationTab) v;
-                selectTab(bottomNavigationTabView.getPosition(), false);
+                selectTabInternal(bottomNavigationTabView.getPosition(), false, true);
             }
         });
 
@@ -236,8 +234,16 @@ public class BottomNavigationBar extends FrameLayout {
         mTabContainer.addView(bottomNavigationTab);
     }
 
-    private void selectTab(int newPosition, boolean firstTab) {
-        sendListenerCall(mSelectedPosition, newPosition);
+    public void selectTab(int newPosition){
+        selectTab(newPosition, true);
+    }
+    public void selectTab(int newPosition, boolean callListener){
+        selectTabInternal(newPosition, false, callListener);
+    }
+
+    private void selectTabInternal(int newPosition, boolean firstTab, boolean callListener) {
+        if (callListener)
+            sendListenerCall(mSelectedPosition, newPosition);
         if (mSelectedPosition != newPosition) {
             if (mBackgroundStyle == BACKGROUND_STYLE_STATIC) {
                 if (mSelectedPosition != -1)
@@ -320,6 +326,10 @@ public class BottomNavigationBar extends FrameLayout {
 
     public int getBackgroundColor() {
         return mBackgroundColor;
+    }
+
+    public int getCurrentSelectedPosition(){
+        return mSelectedPosition;
     }
 
     /**

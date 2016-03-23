@@ -8,14 +8,14 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <CheckBox
                 android:id="@+id/mode_classic"
@@ -34,9 +34,9 @@
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <CheckBox
                 android:id="@+id/bg_static"
@@ -55,9 +55,9 @@
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <CheckBox
                 android:id="@+id/items_3"
@@ -84,24 +84,24 @@
 
         <Button
             android:id="@+id/refresh"
-            android:text="Refresh"
-            android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Refresh" />
 
         <TextView
             android:id="@+id/message"
-            android:padding="10dp"
-            android:textSize="20dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textSize="20dp" />
     </LinearLayout>
 
 
     <com.ashokvarma.bottomnavigation.BottomNavigationBar
-    android:id="@+id/bottom_navigation_bar"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="bottom" />
+        android:id="@+id/bottom_navigation_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom" />
 
 </FrameLayout>

@@ -5,7 +5,9 @@
     android:layout_height="@dimen/bottom_navigation_height"
     android:background="?selectableItemBackgroundBorderless"
     android:orientation="vertical"
-    android:paddingTop="@dimen/shifting_height_top_padding_inactive">
+    android:paddingTop="@dimen/shifting_height_top_padding_inactive"
+    android:paddingLeft="@dimen/shifting_width_custom_padding"
+    android:paddingRight="@dimen/shifting_width_custom_padding">
 
     <ImageView
         android:id="@+id/shifting_bottom_navigation_icon"
