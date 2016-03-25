@@ -15,7 +15,7 @@ import android.view.ViewAnimationUtils;
  * @version 1.0
  * @since 19 Mar 2016
  */
-class BottomNavigationUtils {
+class BottomNavigationHelper {
 
     public static int[] getClassicMeasurements(Context context, int screenWidth, int noOfTabs, boolean scrollable) {
 

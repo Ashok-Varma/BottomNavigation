@@ -27,6 +27,7 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
     Button refresh;
 
     TextView message;
+    TextView scrollableText;
 
     int lastSelectedPosition = 0;
 
@@ -48,6 +49,7 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
         refresh = (Button) findViewById(R.id.refresh);
 
         message = (TextView) findViewById(R.id.message);
+        scrollableText = (TextView) findViewById(R.id.scrollable_text);
 
         modeClassic.setOnCheckedChangeListener(this);
         modeShifting.setOnCheckedChangeListener(this);
@@ -69,6 +71,8 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
 
         if (v.getId() == R.id.refresh) {
             bottomNavigationBar.clearAll();
+
+            setScrollableText(lastSelectedPosition);
 
             if (modeClassic.isChecked()) {
                 bottomNavigationBar.setMode(BottomNavigationBar.MODE_CLASSIC);
@@ -152,6 +156,30 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
     public void onTabSelected(int position) {
         lastSelectedPosition = position;
         message.setText(position + " Tab Selected");
+        setScrollableText(position);
+    }
+
+    private void setScrollableText(int position) {
+        switch (position) {
+            case 0:
+                scrollableText.setText(R.string.para1);
+                break;
+            case 1:
+                scrollableText.setText(R.string.para2);
+                break;
+            case 2:
+                scrollableText.setText(R.string.para3);
+                break;
+            case 3:
+                scrollableText.setText(R.string.para4);
+                break;
+            case 4:
+                scrollableText.setText(R.string.para5);
+                break;
+            default:
+                scrollableText.setText(R.string.para6);
+                break;
+        }
     }
 
     @Override

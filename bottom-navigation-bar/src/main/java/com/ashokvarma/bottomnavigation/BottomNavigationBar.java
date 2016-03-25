@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.ColorRes;
 import android.support.annotation.IntDef;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -13,6 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+
+import com.ashokvarma.bottomnavigation.behaviour.BottomVerticalScrollBehavior;
+import com.ashokvarma.bottomnavigation.utils.Utils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -24,8 +28,10 @@ import java.util.ArrayList;
  * @author ashokvarma
  * @version 1.0
  * @see FrameLayout
+ * @see <a href="https://www.google.com/design/spec/components/bottom-navigation.html">Google Bottom Navigation Component</a>
  * @since 19 Mar 2016
  */
+@CoordinatorLayout.DefaultBehavior(BottomVerticalScrollBehavior.class)
 public class BottomNavigationBar extends FrameLayout {
 
     public static final int MODE_DEFAULT = 0;
@@ -139,148 +145,6 @@ public class BottomNavigationBar extends FrameLayout {
         return this;
     }
 
-    /**
-     * will be public once all bugs are ressolved.
-     */
-    private BottomNavigationBar setScrollable(boolean scrollable) {
-        mScrollable = scrollable;
-        return this;
-    }
-
-    public void initialise() {
-        if (bottomNavigationItems.size() > 0) {
-            mTabContainer.removeAllViews();
-            if (mMode == MODE_DEFAULT) {
-                if (bottomNavigationItems.size() <= MIN_SIZE) {
-                    mMode = MODE_CLASSIC;
-                } else {
-                    mMode = MODE_SHIFTING;
-                }
-            }
-            if (mBackgroundStyle == BACKGROUND_STYLE_DEFAULT) {
-                if (mMode == MODE_CLASSIC) {
-                    mBackgroundStyle = BACKGROUND_STYLE_STATIC;
-                } else {
-                    mBackgroundStyle = BACKGROUND_STYLE_RIPPLE;
-                }
-            }
-
-            if (mBackgroundStyle == BACKGROUND_STYLE_STATIC) {
-                mBackgroundOverlay.setBackgroundColor(mBackgroundColor);
-                mContainer.setBackgroundColor(mBackgroundColor);
-            }
-
-            int screenWidth = Utils.getScreenWidth(getContext());
-
-            if (mMode == MODE_CLASSIC) {
-
-                int widths[] = BottomNavigationUtils.getClassicMeasurements(getContext(), screenWidth, bottomNavigationItems.size(), mScrollable);
-                int itemWidth = widths[0];
-
-                for (BottomNavigationItem currentItem : bottomNavigationItems) {
-                    ClassicBottomNavigationTab bottomNavigationTab = new ClassicBottomNavigationTab(getContext());
-                    setUpTab(bottomNavigationTab, currentItem, itemWidth, itemWidth);
-                }
-
-            } else if (mMode == MODE_SHIFTING) {
-
-                int widths[] = BottomNavigationUtils.getShiftingMeasurements(getContext(), screenWidth, bottomNavigationItems.size(), mScrollable);
-
-                int itemWidth = widths[0];
-                int itemActiveWidth = widths[1];
-
-                for (BottomNavigationItem currentItem : bottomNavigationItems) {
-                    ShiftingBottomNavigationTab bottomNavigationTab = new ShiftingBottomNavigationTab(getContext());
-                    setUpTab(bottomNavigationTab, currentItem, itemWidth, itemActiveWidth);
-                }
-            }
-
-            if (bottomNavigationTabs.size() > mFirstSelectedPosition) {
-                selectTabInternal(mFirstSelectedPosition, true, true);
-            } else if (bottomNavigationTabs.size() > 0) {
-                selectTabInternal(0, true, true);
-            }
-        }
-    }
-
-    public void clearAll() {
-        mTabContainer.removeAllViews();
-        bottomNavigationTabs.clear();
-        bottomNavigationItems.clear();
-        mBackgroundOverlay.setBackgroundColor(Color.TRANSPARENT);
-        mContainer.setBackgroundColor(Color.TRANSPARENT);
-        mSelectedPosition = DEFAULT_SELECTED_POSITION;
-    }
-
-    private void setUpTab(BottomNavigationTab bottomNavigationTab, BottomNavigationItem currentItem, int itemWidth, int itemActiveWidth) {
-        bottomNavigationTab.setInactiveWidth(itemWidth);
-        bottomNavigationTab.setActiveWidth(itemActiveWidth);
-        bottomNavigationTab.setPosition(bottomNavigationItems.indexOf(currentItem));
-
-        bottomNavigationTab.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BottomNavigationTab bottomNavigationTabView = (BottomNavigationTab) v;
-                selectTabInternal(bottomNavigationTabView.getPosition(), false, true);
-            }
-        });
-
-        bottomNavigationTabs.add(bottomNavigationTab);
-
-        BottomNavigationUtils.bindTabWithData(currentItem, bottomNavigationTab, this);
-
-        bottomNavigationTab.initialise(mBackgroundStyle == BACKGROUND_STYLE_STATIC);
-
-        mTabContainer.addView(bottomNavigationTab);
-    }
-
-    public void selectTab(int newPosition){
-        selectTab(newPosition, true);
-    }
-    public void selectTab(int newPosition, boolean callListener){
-        selectTabInternal(newPosition, false, callListener);
-    }
-
-    private void selectTabInternal(int newPosition, boolean firstTab, boolean callListener) {
-        if (callListener)
-            sendListenerCall(mSelectedPosition, newPosition);
-        if (mSelectedPosition != newPosition) {
-            if (mBackgroundStyle == BACKGROUND_STYLE_STATIC) {
-                if (mSelectedPosition != -1)
-                    bottomNavigationTabs.get(mSelectedPosition).unSelect(true, mAnimationDuration);
-                bottomNavigationTabs.get(newPosition).select(true, mAnimationDuration);
-            } else if (mBackgroundStyle == BACKGROUND_STYLE_RIPPLE) {
-                if (mSelectedPosition != -1)
-                    bottomNavigationTabs.get(mSelectedPosition).unSelect(false, mAnimationDuration);
-                bottomNavigationTabs.get(newPosition).select(false, mAnimationDuration);
-
-                BottomNavigationTab clickedView = bottomNavigationTabs.get(newPosition);
-                if (firstTab) {
-                    mContainer.setBackgroundColor(clickedView.getActiveColor());
-                } else {
-                    BottomNavigationUtils.setBackgroundWithRipple(clickedView, mContainer, mBackgroundOverlay, clickedView.getActiveColor(), mRippleAnimationDuration);
-                }
-            }
-            mSelectedPosition = newPosition;
-        }
-    }
-
-    private void sendListenerCall(int oldPosition, int newPosition) {
-        if (mTabSelectedListener != null && oldPosition != -1) {
-            if (oldPosition == newPosition) {
-                mTabSelectedListener.onTabReselected(newPosition);
-            } else {
-                mTabSelectedListener.onTabSelected(newPosition);
-                mTabSelectedListener.onTabUnselected(newPosition);
-            }
-        }
-    }
-
-    public BottomNavigationBar setTabSelectedListener(OnTabSelectedListener tabSelectedListener) {
-        this.mTabSelectedListener = tabSelectedListener;
-        return this;
-    }
-
     public BottomNavigationBar setActiveColor(@ColorRes int activeColor) {
         this.mActiveColor = getContext().getResources().getColor(activeColor);
         return this;
@@ -316,6 +180,149 @@ public class BottomNavigationBar extends FrameLayout {
         return this;
     }
 
+    /**
+     * will be public once all bugs are ressolved.
+     */
+    private BottomNavigationBar setScrollable(boolean scrollable) {
+        mScrollable = scrollable;
+        return this;
+    }
+
+    public BottomNavigationBar setTabSelectedListener(OnTabSelectedListener tabSelectedListener) {
+        this.mTabSelectedListener = tabSelectedListener;
+        return this;
+    }
+
+    public void initialise() {
+        if (bottomNavigationItems.size() > 0) {
+            mTabContainer.removeAllViews();
+            if (mMode == MODE_DEFAULT) {
+                if (bottomNavigationItems.size() <= MIN_SIZE) {
+                    mMode = MODE_CLASSIC;
+                } else {
+                    mMode = MODE_SHIFTING;
+                }
+            }
+            if (mBackgroundStyle == BACKGROUND_STYLE_DEFAULT) {
+                if (mMode == MODE_CLASSIC) {
+                    mBackgroundStyle = BACKGROUND_STYLE_STATIC;
+                } else {
+                    mBackgroundStyle = BACKGROUND_STYLE_RIPPLE;
+                }
+            }
+
+            if (mBackgroundStyle == BACKGROUND_STYLE_STATIC) {
+                mBackgroundOverlay.setBackgroundColor(mBackgroundColor);
+                mContainer.setBackgroundColor(mBackgroundColor);
+            }
+
+            int screenWidth = Utils.getScreenWidth(getContext());
+
+            if (mMode == MODE_CLASSIC) {
+
+                int widths[] = BottomNavigationHelper.getClassicMeasurements(getContext(), screenWidth, bottomNavigationItems.size(), mScrollable);
+                int itemWidth = widths[0];
+
+                for (BottomNavigationItem currentItem : bottomNavigationItems) {
+                    ClassicBottomNavigationTab bottomNavigationTab = new ClassicBottomNavigationTab(getContext());
+                    setUpTab(bottomNavigationTab, currentItem, itemWidth, itemWidth);
+                }
+
+            } else if (mMode == MODE_SHIFTING) {
+
+                int widths[] = BottomNavigationHelper.getShiftingMeasurements(getContext(), screenWidth, bottomNavigationItems.size(), mScrollable);
+
+                int itemWidth = widths[0];
+                int itemActiveWidth = widths[1];
+
+                for (BottomNavigationItem currentItem : bottomNavigationItems) {
+                    ShiftingBottomNavigationTab bottomNavigationTab = new ShiftingBottomNavigationTab(getContext());
+                    setUpTab(bottomNavigationTab, currentItem, itemWidth, itemActiveWidth);
+                }
+            }
+
+            if (bottomNavigationTabs.size() > mFirstSelectedPosition) {
+                selectTabInternal(mFirstSelectedPosition, true, true);
+            } else if (bottomNavigationTabs.size() > 0) {
+                selectTabInternal(0, true, true);
+            }
+        }
+    }
+
+    private void setUpTab(BottomNavigationTab bottomNavigationTab, BottomNavigationItem currentItem, int itemWidth, int itemActiveWidth) {
+        bottomNavigationTab.setInactiveWidth(itemWidth);
+        bottomNavigationTab.setActiveWidth(itemActiveWidth);
+        bottomNavigationTab.setPosition(bottomNavigationItems.indexOf(currentItem));
+
+        bottomNavigationTab.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BottomNavigationTab bottomNavigationTabView = (BottomNavigationTab) v;
+                selectTabInternal(bottomNavigationTabView.getPosition(), false, true);
+            }
+        });
+
+        bottomNavigationTabs.add(bottomNavigationTab);
+
+        BottomNavigationHelper.bindTabWithData(currentItem, bottomNavigationTab, this);
+
+        bottomNavigationTab.initialise(mBackgroundStyle == BACKGROUND_STYLE_STATIC);
+
+        mTabContainer.addView(bottomNavigationTab);
+    }
+
+    public void clearAll() {
+        mTabContainer.removeAllViews();
+        bottomNavigationTabs.clear();
+        bottomNavigationItems.clear();
+        mBackgroundOverlay.setBackgroundColor(Color.TRANSPARENT);
+        mContainer.setBackgroundColor(Color.TRANSPARENT);
+        mSelectedPosition = DEFAULT_SELECTED_POSITION;
+    }
+
+    public void selectTab(int newPosition) {
+        selectTab(newPosition, true);
+    }
+
+    public void selectTab(int newPosition, boolean callListener) {
+        selectTabInternal(newPosition, false, callListener);
+    }
+
+    private void selectTabInternal(int newPosition, boolean firstTab, boolean callListener) {
+        if (callListener)
+            sendListenerCall(mSelectedPosition, newPosition);
+        if (mSelectedPosition != newPosition) {
+            if (mBackgroundStyle == BACKGROUND_STYLE_STATIC) {
+                if (mSelectedPosition != -1)
+                    bottomNavigationTabs.get(mSelectedPosition).unSelect(true, mAnimationDuration);
+                bottomNavigationTabs.get(newPosition).select(true, mAnimationDuration);
+            } else if (mBackgroundStyle == BACKGROUND_STYLE_RIPPLE) {
+                if (mSelectedPosition != -1)
+                    bottomNavigationTabs.get(mSelectedPosition).unSelect(false, mAnimationDuration);
+                bottomNavigationTabs.get(newPosition).select(false, mAnimationDuration);
+
+                BottomNavigationTab clickedView = bottomNavigationTabs.get(newPosition);
+                if (firstTab) {
+                    mContainer.setBackgroundColor(clickedView.getActiveColor());
+                } else {
+                    BottomNavigationHelper.setBackgroundWithRipple(clickedView, mContainer, mBackgroundOverlay, clickedView.getActiveColor(), mRippleAnimationDuration);
+                }
+            }
+            mSelectedPosition = newPosition;
+        }
+    }
+
+    private void sendListenerCall(int oldPosition, int newPosition) {
+        if (mTabSelectedListener != null && oldPosition != -1) {
+            if (oldPosition == newPosition) {
+                mTabSelectedListener.onTabReselected(newPosition);
+            } else {
+                mTabSelectedListener.onTabSelected(newPosition);
+                mTabSelectedListener.onTabUnselected(newPosition);
+            }
+        }
+    }
+
     public int getActiveColor() {
         return mActiveColor;
     }
@@ -328,7 +335,7 @@ public class BottomNavigationBar extends FrameLayout {
         return mBackgroundColor;
     }
 
-    public int getCurrentSelectedPosition(){
+    public int getCurrentSelectedPosition() {
         return mSelectedPosition;
     }
 

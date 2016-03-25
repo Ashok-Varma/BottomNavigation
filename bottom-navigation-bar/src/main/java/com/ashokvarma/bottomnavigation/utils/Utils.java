@@ -1,4 +1,4 @@
-package com.ashokvarma.bottomnavigation;
+package com.ashokvarma.bottomnavigation.utils;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -13,7 +13,7 @@ import android.view.WindowManager;
  * @version 1.0
  * @since 19 Mar 2016
  */
-class Utils {
+public class Utils {
 
     public static int getScreenWidth(Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -31,5 +31,10 @@ class Utils {
         a.recycle();
 
         return color;
+    }
+
+    public static int dp2px(Context self, float dp) {
+        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, self.getResources().getDisplayMetrics());
+        return Math.round(px);
     }
 }
