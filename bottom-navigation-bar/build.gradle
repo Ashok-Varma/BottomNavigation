@@ -13,7 +13,7 @@ ext {
     siteUrl = 'https://github.com/Ashok-Varma/bottomnavigation'
     gitUrl = 'https://github.com/Ashok-Varma/bottomnavigation.git'
 
-    libraryVersion = '0.9.7'
+    libraryVersion = '0.9.8'
 
     developerId = 'Ashok-Varma'
     developerName = 'Ashok Varma'
