@@ -19,23 +19,23 @@ This component that mimics the new [Material Design Bottom Navigation pattern][g
 
 Based on your IDE you can import library in one of the following ways
 
-Download [the latest JAR][mavenLatestJarDownload] or grab via Maven:
+Download [the latest JAR][mavenAarDownload] or grab via Maven:
 
 ```xml
 <dependency>
   <groupId>com.ashokvarma.android</groupId>
   <artifactId>bottom-navigation-bar</artifactId>
-  <version>0.9.7</version>
+  <version>0.9.8</version>
   <type>pom</type>
 </dependency>
 ```
 or Gradle:
 ```groovy
-compile 'com.ashokvarma.android:bottom-navigation-bar:0.9.7'
+compile 'com.ashokvarma.android:bottom-navigation-bar:0.9.8'
 ```
 or Ivy:
 ```xml
-<dependency org='com.ashokvarma.android' name='bottom-navigation-bar' rev='0.9.7'>
+<dependency org='com.ashokvarma.android' name='bottom-navigation-bar' rev='0.9.8'>
   <artifact name='$AID' ext='pom'></artifact>
 </dependency>
 ```
@@ -163,4 +163,5 @@ limitations under the License.
 ```
 
  [googlePage]: https://www.google.com/design/spec/components/bottom-navigation.html
+ [mavenAarDownload]:  https://repo1.maven.org/maven2/com/ashokvarma/android/bottom-navigation-bar/0.9.8/bottom-navigation-bar-0.9.8.aar
  [mavenLatestJarDownload]: https://search.maven.org/remote_content?g=com.ashokvarma.android&a=bottom-navigation-bar&v=LATEST
