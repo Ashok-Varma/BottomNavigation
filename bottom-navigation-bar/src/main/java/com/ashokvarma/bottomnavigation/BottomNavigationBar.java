@@ -180,6 +180,12 @@ public class BottomNavigationBar extends FrameLayout {
         return this;
     }
 
+    public BottomNavigationBar setAnimationDuration(int animationDuration) {
+        this.mAnimationDuration = animationDuration;
+        this.mRippleAnimationDuration = (int) (animationDuration * 2.5);
+        return this;
+    }
+
     /**
      * will be public once all bugs are ressolved.
      */
@@ -337,6 +343,10 @@ public class BottomNavigationBar extends FrameLayout {
 
     public int getCurrentSelectedPosition() {
         return mSelectedPosition;
+    }
+
+    public int getAnimationDuration() {
+        return mAnimationDuration;
     }
 
     /**
