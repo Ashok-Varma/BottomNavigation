@@ -24,12 +24,14 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
     CheckBox items4;
     CheckBox items5;
 
-    Button refresh;
+    Button toggleHide;
 
     TextView message;
     TextView scrollableText;
 
     int lastSelectedPosition = 0;
+
+    boolean hidden = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,7 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
         items4 = (CheckBox) findViewById(R.id.items_4);
         items5 = (CheckBox) findViewById(R.id.items_5);
 
-        refresh = (Button) findViewById(R.id.refresh);
+        toggleHide = (Button) findViewById(R.id.toggle_hide);
 
         message = (TextView) findViewById(R.id.message);
         scrollableText = (TextView) findViewById(R.id.scrollable_text);
@@ -59,60 +61,24 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
         items4.setOnCheckedChangeListener(this);
         items5.setOnCheckedChangeListener(this);
 
-        refresh.setOnClickListener(this);
+        toggleHide.setOnClickListener(this);
 
         bottomNavigationBar.setTabSelectedListener(this);
 
-        onClick(refresh);
+        refresh();
     }
 
     @Override
     public void onClick(View v) {
-
-        if (v.getId() == R.id.refresh) {
-            bottomNavigationBar.clearAll();
-
-            setScrollableText(lastSelectedPosition);
-
-            if (modeClassic.isChecked()) {
-                bottomNavigationBar.setMode(BottomNavigationBar.MODE_CLASSIC);
-            } else if (modeShifting.isChecked()) {
-                bottomNavigationBar.setMode(BottomNavigationBar.MODE_SHIFTING);
+        if (v.getId() == R.id.toggle_hide) {
+            if (bottomNavigationBar != null) {
+                if (hidden) {
+                    bottomNavigationBar.unHide();
+                } else {
+                    bottomNavigationBar.hide();
+                }
+                hidden = !hidden;
             }
-
-            if (bgStatic.isChecked()) {
-                bottomNavigationBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC);
-            } else if (bgRipple.isChecked()) {
-                bottomNavigationBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_RIPPLE);
-            }
-
-            if (items3.isChecked()) {
-                bottomNavigationBar
-                        .addItem(new BottomNavigationItem(R.drawable.ic_location_on_white_24dp, "Location").setActiveColor(R.color.orange))
-                        .addItem(new BottomNavigationItem(R.drawable.ic_find_replace_white_24dp, "Find").setActiveColor(R.color.teal))
-                        .addItem(new BottomNavigationItem(R.drawable.ic_favorite_white_24dp, "Favorites").setActiveColor(R.color.blue))
-                        .setFirstSelectedPosition(lastSelectedPosition > 2 ? 2 : lastSelectedPosition)
-                        .initialise();
-            } else if (items4.isChecked()) {
-                bottomNavigationBar
-                        .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColor(R.color.orange))
-                        .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp, "Books").setActiveColor(R.color.teal))
-                        .addItem(new BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "Music").setActiveColor(R.color.blue))
-                        .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV").setActiveColor(R.color.brown))
-                        .setFirstSelectedPosition(lastSelectedPosition > 3 ? 3 : lastSelectedPosition)
-                        .initialise();
-            } else {
-                items5.setChecked(true);
-                bottomNavigationBar
-                        .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColor(R.color.orange))
-                        .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp, "Books").setActiveColor(R.color.teal))
-                        .addItem(new BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "Music").setActiveColor(R.color.blue))
-                        .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV").setActiveColor(R.color.brown))
-                        .addItem(new BottomNavigationItem(R.drawable.ic_videogame_asset_white_24dp, "Games").setActiveColor(R.color.grey))
-                        .setFirstSelectedPosition(lastSelectedPosition)
-                        .initialise();
-            }
-
         }
     }
 
@@ -149,6 +115,53 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
                     items3.setChecked(false);
                 }
                 break;
+        }
+        refresh();
+    }
+
+    private void refresh() {
+
+        bottomNavigationBar.clearAll();
+
+        setScrollableText(lastSelectedPosition);
+
+        if (modeClassic.isChecked()) {
+            bottomNavigationBar.setMode(BottomNavigationBar.MODE_CLASSIC);
+        } else if (modeShifting.isChecked()) {
+            bottomNavigationBar.setMode(BottomNavigationBar.MODE_SHIFTING);
+        }
+
+        if (bgStatic.isChecked()) {
+            bottomNavigationBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC);
+        } else if (bgRipple.isChecked()) {
+            bottomNavigationBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_RIPPLE);
+        }
+
+        if (items3.isChecked()) {
+            bottomNavigationBar
+                    .addItem(new BottomNavigationItem(R.drawable.ic_location_on_white_24dp, "Location").setActiveColor(R.color.orange))
+                    .addItem(new BottomNavigationItem(R.drawable.ic_find_replace_white_24dp, "Find").setActiveColor(R.color.teal))
+                    .addItem(new BottomNavigationItem(R.drawable.ic_favorite_white_24dp, "Favorites").setActiveColor(R.color.blue))
+                    .setFirstSelectedPosition(lastSelectedPosition > 2 ? 2 : lastSelectedPosition)
+                    .initialise();
+        } else if (items4.isChecked()) {
+            bottomNavigationBar
+                    .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColor(R.color.orange))
+                    .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp, "Books").setActiveColor(R.color.teal))
+                    .addItem(new BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "Music").setActiveColor(R.color.blue))
+                    .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV").setActiveColor(R.color.brown))
+                    .setFirstSelectedPosition(lastSelectedPosition > 3 ? 3 : lastSelectedPosition)
+                    .initialise();
+        } else {
+            items5.setChecked(true);
+            bottomNavigationBar
+                    .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColor(R.color.orange))
+                    .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp, "Books").setActiveColor(R.color.teal))
+                    .addItem(new BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "Music").setActiveColor(R.color.blue))
+                    .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV").setActiveColor(R.color.brown))
+                    .addItem(new BottomNavigationItem(R.drawable.ic_videogame_asset_white_24dp, "Games").setActiveColor(R.color.grey))
+                    .setFirstSelectedPosition(lastSelectedPosition)
+                    .initialise();
         }
     }
 

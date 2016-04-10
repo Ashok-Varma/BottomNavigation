@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 
 /**
- * Class description
+ * Class description : This is utils class specific for this library, most the common code goes here.
  *
  * @author ashokvarma
  * @version 1.0
@@ -17,6 +17,15 @@ import android.view.ViewAnimationUtils;
  */
 class BottomNavigationHelper {
 
+    /**
+     * Used to get Measurements for MODE_CLASSIC
+     *
+     * @param context     to fetch measurements
+     * @param screenWidth total screen width
+     * @param noOfTabs    no of bottom bar tabs
+     * @param scrollable  is bottom bar scrollable
+     * @return width of each tab
+     */
     public static int[] getClassicMeasurements(Context context, int screenWidth, int noOfTabs, boolean scrollable) {
 
         int result[] = new int[2];
@@ -37,6 +46,15 @@ class BottomNavigationHelper {
         return result;
     }
 
+    /**
+     * Used to get Measurements for MODE_SHIFTING
+     *
+     * @param context to fetch measurements
+     * @param screenWidth total screen width
+     * @param noOfTabs no of bottom bar tabs
+     * @param scrollable is bottom bar scrollable
+     * @return min and max width of each tab
+     */
     public static int[] getShiftingMeasurements(Context context, int screenWidth, int noOfTabs, boolean scrollable) {
 
         int result[] = new int[2];
@@ -81,6 +99,13 @@ class BottomNavigationHelper {
         return result;
     }
 
+    /**
+     * Used to get set data to the Tab views from navigation items
+     *
+     * @param bottomNavigationItem holds all the data
+     * @param bottomNavigationTab view to which data need to be set
+     * @param bottomNavigationBar view which holds all the tabs
+     */
     public static void bindTabWithData(BottomNavigationItem bottomNavigationItem, BottomNavigationTab bottomNavigationTab, BottomNavigationBar bottomNavigationBar) {
 
         Context context = bottomNavigationBar.getContext();
@@ -106,8 +131,17 @@ class BottomNavigationHelper {
         bottomNavigationTab.setItemBackgroundColor(bottomNavigationBar.getBackgroundColor());
     }
 
+    /**
+     * Used to set the ripple animation when a tab is selected
+     *
+     * @param clickedView the view that is clicked (to get dimens where ripple starts)
+     * @param backgroundView temporary view to which final background color is set
+     * @param bgOverlay temporary view which is animated to get ripple effect
+     * @param newColor the new color i.e ripple color
+     * @param animationDuration duration for which animation runs
+     */
     public static void setBackgroundWithRipple(View clickedView, final View backgroundView,
-                                               final View bgOverlay, final int newColor, int animationTime) {
+                                               final View bgOverlay, final int newColor, int animationDuration) {
         int centerX = (int) (clickedView.getX() + (clickedView.getMeasuredWidth() / 2));
         int centerY = clickedView.getMeasuredHeight() / 2;
         int finalRadius = backgroundView.getWidth();
@@ -125,7 +159,7 @@ class BottomNavigationHelper {
             circularReveal = ObjectAnimator.ofFloat(bgOverlay, "alpha", 0, 1);
         }
 
-        circularReveal.setDuration(animationTime);
+        circularReveal.setDuration(animationDuration);
         circularReveal.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {

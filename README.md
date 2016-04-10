@@ -25,17 +25,17 @@ Download [the latest JAR][mavenAarDownload] or grab via Maven:
 <dependency>
   <groupId>com.ashokvarma.android</groupId>
   <artifactId>bottom-navigation-bar</artifactId>
-  <version>0.9.8</version>
+  <version>1.0.0</version>
   <type>pom</type>
 </dependency>
 ```
 or Gradle:
 ```groovy
-compile 'com.ashokvarma.android:bottom-navigation-bar:0.9.8'
+compile 'com.ashokvarma.android:bottom-navigation-bar:1.0.0'
 ```
 or Ivy:
 ```xml
-<dependency org='com.ashokvarma.android' name='bottom-navigation-bar' rev='0.9.8'>
+<dependency org='com.ashokvarma.android' name='bottom-navigation-bar' rev='1.0.0'>
   <artifact name='$AID' ext='pom'></artifact>
 </dependency>
 ```
@@ -163,5 +163,5 @@ limitations under the License.
 ```
 
  [googlePage]: https://www.google.com/design/spec/components/bottom-navigation.html
- [mavenAarDownload]:  https://repo1.maven.org/maven2/com/ashokvarma/android/bottom-navigation-bar/0.9.8/bottom-navigation-bar-0.9.8.aar
+ [mavenAarDownload]:  https://repo1.maven.org/maven2/com/ashokvarma/android/bottom-navigation-bar/1.0.0/bottom-navigation-bar-1.0.0.aar
  [mavenLatestJarDownload]: https://search.maven.org/remote_content?g=com.ashokvarma.android&a=bottom-navigation-bar&v=LATEST

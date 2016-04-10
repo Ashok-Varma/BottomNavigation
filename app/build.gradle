@@ -20,7 +20,7 @@ android {
 }
 
 ext {
-    supportLibraryVersion = '23.2.1'
+    supportLibraryVersion = '23.3.0'
 }
 
 dependencies {
