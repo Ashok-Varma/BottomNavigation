@@ -37,5 +37,8 @@
     <dimen name="bottom_navigation_elevation">8dp</dimen>
     <dimen name="bottom_navigation_height">56dp</dimen>
 
+    <dimen name="badge_size">16dp</dimen>
+    <dimen name="badge_font_size">10sp</dimen>
+    <dimen name="badge_margin">-8dp</dimen>
 
 </resources>

@@ -1,32 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/shifting_bottom_navigation_container"
     android:layout_width="match_parent"
     android:layout_height="@dimen/bottom_navigation_height"
     android:background="?selectableItemBackgroundBorderless"
-    android:orientation="vertical"
-    android:paddingTop="@dimen/shifting_height_top_padding_inactive"
     android:paddingLeft="@dimen/shifting_width_custom_padding"
-    android:paddingRight="@dimen/shifting_width_custom_padding">
+    android:paddingRight="@dimen/shifting_width_custom_padding"
+    android:paddingTop="@dimen/shifting_height_top_padding_inactive">
 
     <ImageView
         android:id="@+id/shifting_bottom_navigation_icon"
         android:layout_width="@dimen/shifting_icon_grid"
         android:layout_height="@dimen/shifting_icon_grid"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"
-        android:scaleType="fitXY" />
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal|top"
+        android:scaleType="fitXY"
+        tools:src="#00ff00"/>
+
+    <RelativeLayout
+        android:id="@+id/shifting_bottom_navigation_badge_container"
+        android:layout_width="@dimen/badge_size"
+        android:layout_height="@dimen/badge_size"
+        android:layout_marginLeft="@dimen/badge_margin"
+        android:layout_marginStart="@dimen/badge_margin"
+        android:layout_toEndOf="@id/shifting_bottom_navigation_icon"
+        android:layout_toRightOf="@id/shifting_bottom_navigation_icon"
+        android:background="@drawable/badge_background"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/shifting_bottom_navigation_badge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/default_badge_text"
+            android:textSize="@dimen/badge_font_size"
+            tools:text="22"
+            />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/shifting_bottom_navigation_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/shifting_bottom_navigation_icon"
         android:layout_gravity="center_horizontal"
         android:gravity="center"
         android:includeFontPadding="false"
         android:lines="1"
         android:scaleX="0"
         android:scaleY="0"
-        android:textSize="@dimen/shifting_label" />
+        android:textSize="@dimen/shifting_label"
+        />
 
-</LinearLayout>
+</RelativeLayout>

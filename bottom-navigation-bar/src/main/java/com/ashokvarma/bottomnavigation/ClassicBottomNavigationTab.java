@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 /**
@@ -48,6 +49,8 @@ class ClassicBottomNavigationTab extends BottomNavigationTab {
         containerView = view.findViewById(R.id.classic_bottom_navigation_container);
         labelView = (TextView) view.findViewById(R.id.classic_bottom_navigation_title);
         iconView = (ImageView) view.findViewById(R.id.classic_bottom_navigation_icon);
+        badgeContainer = (RelativeLayout) view.findViewById(R.id.classic_bottom_navigation_badge_container);
+        badgeView = (TextView) view.findViewById(R.id.classic_bottom_navigation_badge);
 
         labelScale = getResources().getDimension(R.dimen.classic_label_active) / getResources().getDimension(R.dimen.classic_label_inactive);
 

@@ -15,6 +15,8 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
 
 
     BottomNavigationBar bottomNavigationBar;
+    BottomNavigationItem biHome;
+    BottomNavigationItem biMusic;
 
     CheckBox modeClassic;
     CheckBox modeShifting;
@@ -25,6 +27,7 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
     CheckBox items5;
 
     Button toggleHide;
+    Button toggleBadge;
 
     TextView message;
     TextView scrollableText;
@@ -49,6 +52,7 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
         items5 = (CheckBox) findViewById(R.id.items_5);
 
         toggleHide = (Button) findViewById(R.id.toggle_hide);
+        toggleBadge = (Button) findViewById(R.id.toggle_badge);
 
         message = (TextView) findViewById(R.id.message);
         scrollableText = (TextView) findViewById(R.id.scrollable_text);
@@ -62,6 +66,7 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
         items5.setOnCheckedChangeListener(this);
 
         toggleHide.setOnClickListener(this);
+        toggleBadge.setOnClickListener(this);
 
         bottomNavigationBar.setTabSelectedListener(this);
 
@@ -78,6 +83,15 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
                     bottomNavigationBar.hide();
                 }
                 hidden = !hidden;
+            }
+        }
+        if (v.getId() == R.id.toggle_badge) {
+            if (bottomNavigationBar != null) {
+                if (bottomNavigationBar.getBadgeCountFromTab(0) == null || bottomNavigationBar.getBadgeCountFromTab(0).equalsIgnoreCase("0")) {
+                    bottomNavigationBar.setBadgeCountOnTab(0, "2");
+                } else {
+                    bottomNavigationBar.setBadgeCountOnTab(0, "0");
+                }
             }
         }
     }
@@ -139,7 +153,7 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
 
         if (items3.isChecked()) {
             bottomNavigationBar
-                    .addItem(new BottomNavigationItem(R.drawable.ic_location_on_white_24dp, "Location").setActiveColor(R.color.orange))
+                    .addItem(new BottomNavigationItem(R.drawable.ic_location_on_white_24dp, "Location").setActiveColor(R.color.orange).setBadgeCount(2))
                     .addItem(new BottomNavigationItem(R.drawable.ic_find_replace_white_24dp, "Find").setActiveColor(R.color.teal))
                     .addItem(new BottomNavigationItem(R.drawable.ic_favorite_white_24dp, "Favorites").setActiveColor(R.color.blue))
                     .setFirstSelectedPosition(lastSelectedPosition > 2 ? 2 : lastSelectedPosition)
@@ -154,8 +168,11 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
                     .initialise();
         } else {
             items5.setChecked(true);
+
             bottomNavigationBar
-                    .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColor(R.color.orange))
+                    .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColor(R.color.orange)
+                            .setBadgeCount(2)
+                            .setBadgeDrawable(R.drawable.new_badge_background))
                     .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp, "Books").setActiveColor(R.color.teal))
                     .addItem(new BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "Music").setActiveColor(R.color.blue))
                     .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV").setActiveColor(R.color.brown))

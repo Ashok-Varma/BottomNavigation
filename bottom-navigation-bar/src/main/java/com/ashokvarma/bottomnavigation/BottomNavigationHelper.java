@@ -49,10 +49,10 @@ class BottomNavigationHelper {
     /**
      * Used to get Measurements for MODE_SHIFTING
      *
-     * @param context to fetch measurements
+     * @param context     to fetch measurements
      * @param screenWidth total screen width
-     * @param noOfTabs no of bottom bar tabs
-     * @param scrollable is bottom bar scrollable
+     * @param noOfTabs    no of bottom bar tabs
+     * @param scrollable  is bottom bar scrollable
      * @return min and max width of each tab
      */
     public static int[] getShiftingMeasurements(Context context, int screenWidth, int noOfTabs, boolean scrollable) {
@@ -103,8 +103,8 @@ class BottomNavigationHelper {
      * Used to get set data to the Tab views from navigation items
      *
      * @param bottomNavigationItem holds all the data
-     * @param bottomNavigationTab view to which data need to be set
-     * @param bottomNavigationBar view which holds all the tabs
+     * @param bottomNavigationTab  view to which data need to be set
+     * @param bottomNavigationBar  view which holds all the tabs
      */
     public static void bindTabWithData(BottomNavigationItem bottomNavigationItem, BottomNavigationTab bottomNavigationTab, BottomNavigationBar bottomNavigationBar) {
 
@@ -112,9 +112,13 @@ class BottomNavigationHelper {
 
         bottomNavigationTab.setLabel(bottomNavigationItem.getTitle(context));
         bottomNavigationTab.setIcon(bottomNavigationItem.getIcon(context));
+        bottomNavigationTab.setBadge(bottomNavigationItem.getBadgeCount());
 
         int activeColor = bottomNavigationItem.getActiveColor(context);
         int inActiveColor = bottomNavigationItem.getInActiveColor(context);
+        int badgeBackground = bottomNavigationItem.getBadgeBackgroundColor(context);
+        int badgeTextColor = bottomNavigationItem.getBadgeTextColor(context);
+        int badgeDrawable = bottomNavigationItem.getBadgeDrawable();
 
         if (activeColor != -1) {
             bottomNavigationTab.setActiveColor(activeColor);
@@ -128,16 +132,33 @@ class BottomNavigationHelper {
             bottomNavigationTab.setInactiveColor(bottomNavigationBar.getInActiveColor());
         }
 
+        //drawable takes precedence over color
+        if (badgeDrawable != -1) {
+            bottomNavigationTab.setBadgeDrawable(badgeDrawable);
+        } else {
+            if (badgeBackground != -1) {
+                bottomNavigationTab.setBadgeBackground(badgeBackground);
+            } else {
+                bottomNavigationTab.setBadgeBackground(bottomNavigationBar.getBadgeBackgroundColor());
+            }
+        }
+
+        if (badgeTextColor != -1) {
+            bottomNavigationTab.setBadgeTextColor(badgeTextColor);
+        } else {
+            bottomNavigationTab.setBadgeTextColor(bottomNavigationBar.getBadgeTextColor());
+        }
+
         bottomNavigationTab.setItemBackgroundColor(bottomNavigationBar.getBackgroundColor());
     }
 
     /**
      * Used to set the ripple animation when a tab is selected
      *
-     * @param clickedView the view that is clicked (to get dimens where ripple starts)
-     * @param backgroundView temporary view to which final background color is set
-     * @param bgOverlay temporary view which is animated to get ripple effect
-     * @param newColor the new color i.e ripple color
+     * @param clickedView       the view that is clicked (to get dimens where ripple starts)
+     * @param backgroundView    temporary view to which final background color is set
+     * @param bgOverlay         temporary view which is animated to get ripple effect
+     * @param newColor          the new color i.e ripple color
      * @param animationDuration duration for which animation runs
      */
     public static void setBackgroundWithRipple(View clickedView, final View backgroundView,

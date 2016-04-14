@@ -25,6 +25,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:checked="true"
                     android:text="MODE_CLASSIC" />
 
                 <CheckBox
@@ -32,7 +33,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:checked="true"
                     android:text="MODE_SHIFTING" />
             </LinearLayout>
 
@@ -91,6 +91,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="Toggle Hide" />
+
+            <Button
+                android:id="@+id/toggle_badge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Toggle Badge" />
 
             <TextView
                 android:id="@+id/message"
