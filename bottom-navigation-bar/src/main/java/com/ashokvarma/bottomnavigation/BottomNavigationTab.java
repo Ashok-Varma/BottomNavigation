@@ -1,10 +1,14 @@
 package com.ashokvarma.bottomnavigation;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.AttributeSet;
@@ -12,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 /**
@@ -23,7 +28,7 @@ import android.widget.TextView;
  * @since 19 Mar 2016
  */
 class BottomNavigationTab extends FrameLayout {
-
+    private static final int ANIMATION_DURATION = 400;
 
     protected int paddingTopActive;
     protected int paddingTopInActive;
@@ -41,6 +46,8 @@ class BottomNavigationTab extends FrameLayout {
 
     View containerView;
     TextView labelView;
+    RelativeLayout badgeContainer;
+    TextView badgeView;
     ImageView iconView;
 
     public BottomNavigationTab(Context context) {
@@ -93,6 +100,66 @@ class BottomNavigationTab extends FrameLayout {
         labelView.setText(label);
     }
 
+    public void setBadge(String count) {
+
+        if (count != null) {
+
+            if (count.equalsIgnoreCase("0")) {
+                //hide the badge
+                ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(badgeContainer, "scaleX", 1f, 1.1f, 0f);
+                ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(badgeContainer, "scaleY", 1f, 1.1f, 0f);
+                scaleDownX.setDuration(ANIMATION_DURATION);
+                scaleDownY.setDuration(ANIMATION_DURATION);
+
+                AnimatorSet scaleDown = new AnimatorSet();
+                scaleDown.play(scaleDownX).with(scaleDownY);
+
+                scaleDown.addListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        badgeContainer.setVisibility(GONE);
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+
+                    }
+                });
+
+                scaleDown.start();
+            } else {
+                //show the badge
+                badgeContainer.setVisibility(VISIBLE);
+                badgeContainer.setScaleY(0f);
+                badgeContainer.setScaleX(0f);
+
+                badgeView.setText(count);
+
+                //bouncy effect, over scale to 1.1 then down scale to 0.9 and stabilize at 1f
+                ObjectAnimator scaleUpX = ObjectAnimator.ofFloat(badgeContainer, "scaleX", 0f, 1.1f, 0.9f, 1f);
+                ObjectAnimator scaleUpY = ObjectAnimator.ofFloat(badgeContainer, "scaleY", 0f, 1.1f, 0.9f, 1f);
+                scaleUpX.setDuration(ANIMATION_DURATION);
+                scaleUpY.setDuration(ANIMATION_DURATION);
+
+                AnimatorSet scaleUp = new AnimatorSet();
+                scaleUp.play(scaleUpX).with(scaleUpY);
+                scaleUp.start();
+
+                badgeView.setText(count);
+            }
+        }
+    }
+
     public void setActiveColor(int activeColor) {
         mActiveColor = activeColor;
     }
@@ -116,6 +183,18 @@ class BottomNavigationTab extends FrameLayout {
 
     public int getPosition() {
         return mPosition;
+    }
+
+    public void setBadgeBackground(int color) {
+        ((GradientDrawable) badgeContainer.getBackground()).setColor(color);
+    }
+
+    public void setBadgeDrawable(int drawable) {
+        badgeContainer.setBackgroundResource(drawable);
+    }
+
+    public void setBadgeTextColor(int color) {
+        badgeView.setTextColor(color);
     }
 
     public void select(boolean setActiveColor, int animationDuration) {

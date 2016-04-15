@@ -21,12 +21,23 @@ public class BottomNavigationItem {
 
     protected int mIconResource;
     protected Drawable mIcon;
+
     protected int mTitleResource;
     protected String mTitle;
+
     protected int mActiveColorResource;
     protected String mActiveColorCode;
+
     protected int mInActiveColorResource;
     protected String mInActiveColorCode;
+
+    protected String mBadgeCount;
+    protected String mBadgeTextColorCode;
+    protected int mBadgeTextResource;
+
+    protected String mBadgeBackgroundColorCode;
+    protected int mBadgeBackgroundResource;
+    private int mBadgeDrawable;
 
     /**
      * @param mIconResource resource for the Tab icon.
@@ -101,6 +112,61 @@ public class BottomNavigationItem {
     }
 
     /**
+     * @param badgeDrawable color code in string format for the default badge text color
+     * @return this, to allow builder pattern
+     */
+    public BottomNavigationItem setBadgeDrawable(int badgeDrawable) {
+        this.mBadgeDrawable = badgeDrawable;
+        return this;
+    }
+
+    /**
+     * @param colorResource resource for the badge background
+     * @return this, to allow builder pattern
+     */
+    public BottomNavigationItem setBadgeBackgroundColor(@ColorRes int colorResource) {
+        this.mBadgeBackgroundResource = colorResource;
+        return this;
+    }
+
+    /**
+     * @param colorCode color code for badge background
+     * @return this, to allow builder pattern
+     */
+    public BottomNavigationItem setBadgeBackgroundColor(String colorCode) {
+        this.mBadgeBackgroundColorCode = colorCode;
+        return this;
+    }
+
+    /**
+     * @param colorResource resource for the badge text
+     * @return this, to allow builder pattern
+     */
+    public BottomNavigationItem setBadgeTextColor(@ColorRes int colorResource) {
+        this.mBadgeTextResource = colorResource;
+        return this;
+    }
+
+    /**
+     * @param colorCode color code for badge text
+     * @return this, to allow builder pattern
+     */
+    public BottomNavigationItem setBadgeTextColor(String colorCode) {
+        this.mBadgeTextColorCode = colorCode;
+        return this;
+    }
+
+    public BottomNavigationItem setBadgeCount(String mBadgeCount) {
+        this.mBadgeCount = mBadgeCount;
+        return this;
+    }
+
+    public BottomNavigationItem setBadgeCount(int badgeCount) {
+        this.mBadgeCount = String.valueOf(badgeCount);
+        return this;
+    }
+
+    /**
      * @param context to fetch drawable
      * @return icon drawable
      */
@@ -122,6 +188,46 @@ public class BottomNavigationItem {
         } else {
             return this.mTitle;
         }
+    }
+
+    /**
+     * @return The current number of the count set on the badge
+     */
+    public String getBadgeCount() {
+        return this.mBadgeCount;
+    }
+
+    public int getBadgeDrawable() {
+        if (mBadgeDrawable != 0) {
+            return mBadgeDrawable;
+        }
+        return -1;
+    }
+
+    /**
+     * @param context to fetch color
+     * @return Badge background color (or) default red color #f00
+     */
+    protected int getBadgeBackgroundColor(Context context) {
+        if (this.mBadgeBackgroundResource != 0) {
+            return context.getResources().getColor(mBadgeBackgroundResource);
+        } else if (this.mBadgeBackgroundColorCode != null && !TextUtils.isEmpty(mBadgeBackgroundColorCode)) {
+            return Color.parseColor(mBadgeBackgroundColorCode);
+        }
+        return -1;
+    }
+
+    /**
+     * @param context to fetch color
+     * @return Badge background color (or) default red color #f00
+     */
+    protected int getBadgeTextColor(Context context) {
+        if (this.mBadgeTextResource != 0) {
+            return context.getResources().getColor(mBadgeTextResource);
+        } else if (this.mBadgeTextColorCode != null && !TextUtils.isEmpty(mBadgeTextColorCode)) {
+            return Color.parseColor(mBadgeTextColorCode);
+        }
+        return -1;
     }
 
     /**

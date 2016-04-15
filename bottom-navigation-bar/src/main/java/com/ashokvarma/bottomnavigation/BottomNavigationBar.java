@@ -80,6 +80,8 @@ public class BottomNavigationBar extends FrameLayout {
     private int mActiveColor;
     private int mInActiveColor;
     private int mBackgroundColor;
+    private int mBadgeBackgroundColor;
+    private int mBadgeTextColor;
 
     private FrameLayout mBackgroundOverlay;
     private FrameLayout mContainer;
@@ -125,6 +127,8 @@ public class BottomNavigationBar extends FrameLayout {
         mActiveColor = Utils.fetchContextColor(getContext(), R.attr.colorAccent);
         mBackgroundColor = Color.WHITE;
         mInActiveColor = Color.LTGRAY;
+        mBadgeBackgroundColor = Color.RED;
+        mBadgeTextColor = Color.WHITE;
 
         ViewCompat.setElevation(this, getContext().getResources().getDimension(R.dimen.bottom_navigation_elevation));
         setClipToPadding(false);
@@ -209,6 +213,42 @@ public class BottomNavigationBar extends FrameLayout {
      */
     public BottomNavigationBar setInActiveColor(String inActiveColorCode) {
         this.mInActiveColor = Color.parseColor(inActiveColorCode);
+        return this;
+    }
+
+    /**
+     * @param badgeBackground res code for the default badge background color
+     * @return this, to allow builder pattern
+     */
+    public BottomNavigationBar setBadgeBackgroundColor(@ColorRes int badgeBackground) {
+        this.mBadgeBackgroundColor = getContext().getResources().getColor(badgeBackground);
+        return this;
+    }
+
+    /**
+     * @param badgeBackground color code in string format for the default badge background color
+     * @return this, to allow builder pattern
+     */
+    public BottomNavigationBar setBadgeBackgroundColor(String badgeBackground) {
+        this.mBadgeBackgroundColor = Color.parseColor(badgeBackground);
+        return this;
+    }
+
+    /**
+     * @param badgeTextColor res code for the default badge text color
+     * @return this, to allow builder pattern
+     */
+    public BottomNavigationBar setBadgeTextColor(@ColorRes int badgeTextColor) {
+        this.mBadgeTextColor = getContext().getResources().getColor(badgeTextColor);
+        return this;
+    }
+
+    /**
+     * @param badgeTextColor color code in string format for the default badge text color
+     * @return this, to allow builder pattern
+     */
+    public BottomNavigationBar setBadgeTextColor(String badgeTextColor) {
+        this.mBadgeTextColor = Color.parseColor(badgeTextColor);
         return this;
     }
 
@@ -510,6 +550,14 @@ public class BottomNavigationBar extends FrameLayout {
         return mInActiveColor;
     }
 
+    public int getBadgeBackgroundColor() {
+        return mBadgeBackgroundColor;
+    }
+
+    public int getBadgeTextColor() {
+        return mBadgeTextColor;
+    }
+
     /**
      * @return background color
      */
@@ -522,6 +570,34 @@ public class BottomNavigationBar extends FrameLayout {
      */
     public int getCurrentSelectedPosition() {
         return mSelectedPosition;
+    }
+
+    /**
+     * Set the badge number for tab
+     * @param tabPosition tab's position
+     * @param badgeCount badge count
+     */
+    public void setBadgeCountOnTab(int tabPosition, String badgeCount) {
+        mBottomNavigationItems.get(tabPosition).setBadgeCount(badgeCount);
+        mBottomNavigationTabs.get(tabPosition).setBadge(badgeCount);
+    }
+
+    /**
+     * Set the badge number for tab
+     * @param tabPosition tab's position
+     * @param badgeCount badge count
+     */
+    public void setBadgeCountOnTab(int tabPosition, int badgeCount) {
+        setBadgeCountOnTab(tabPosition, String.valueOf(badgeCount));
+    }
+
+    /**
+     * Return the badge number for tab
+     * @param tabPosition Tab's position
+     * @return {@link String} current badge count
+     */
+    public String getBadgeCountFromTab(int tabPosition) {
+        return mBottomNavigationItems.get(tabPosition).getBadgeCount();
     }
 
     /**

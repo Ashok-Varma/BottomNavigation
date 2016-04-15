@@ -14,6 +14,7 @@ This component that mimics the new [Material Design Bottom Navigation pattern][g
 * Follows google [bottom navigation bar guidelines][googlePage]
 * Choose your background style and tab mode.
 * each tab has it's own colors
+* badge for unread messages, notifications, etc...
 
 ## Download
 
@@ -142,6 +143,51 @@ bottomNavigationBar
 1. primary color will be active color
 2. Color.WHITE will be background color
 3. Color.LTGRAY will be in-active color.
+4. Color.RED badge background
+5. Color.WHITE badge text
+
+### 4. Badges
+<img src="https://cloud.githubusercontent.com/assets/6456218/14548723/bca14450-0287-11e6-837b-5e9a4ecfd45a.png" width="300" height="550" />
+<img src="https://cloud.githubusercontent.com/assets/6456218/14548725/be871aec-0287-11e6-9eb8-3633f22f393a.png" width="300" height="550" />
+
+Initialize BottomNavigationItem with badge count
+```java
+bottomNavigationBar
+                .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setBadgeCount(2))
+                .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV")).setBadgeCount("5"))
+```
+
+Set badge background and text color
+```java
+new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home")
+                .setBadgeBackgroundColor("#ff00ff")
+                .setBadgeTextColor("00ff00")
+                .setBadgeCount(2)
+```
+
+Or set your own custom drawable as a background. 
+drawable takes precedence over background color
+```java
+new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home")
+                .setBadgeDrawable(R.drawable.my_awesome_badge_drawable)
+                .setBadgeCount(2)                
+```
+
+Set badge count after initialization to BottomNavigationBar on arbitrary BottomNavigationTab
+```java
+int homeTabPosition = 0;
+int unreadMessages = 5;
+//this will show the badge
+bottomNavigationBar.setBadgeCountOnTab(homeTabPosition, unreadMessages);
+```
+
+Setting the count to 0 hides the badge
+```java
+int homeTabPosition = 0;
+int unreadMessages = 0;
+//this will hide the badge since the count is 0
+bottomNavigationBar.setBadgeCountOnTab(homeTabPosition, unreadMessages);
+```
 
 ## License
 
