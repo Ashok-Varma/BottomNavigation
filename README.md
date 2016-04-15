@@ -147,6 +147,9 @@ bottomNavigationBar
 5. Color.WHITE badge text
 
 ### 4. Badges
+<img src="https://cloud.githubusercontent.com/assets/6456218/14548723/bca14450-0287-11e6-837b-5e9a4ecfd45a.png" width="300" height="550" />
+<img src="https://cloud.githubusercontent.com/assets/6456218/14548725/be871aec-0287-11e6-9eb8-3633f22f393a.png" width="300" height="550" />
+
 Initialize BottomNavigationItem with badge count
 ```java
 bottomNavigationBar
