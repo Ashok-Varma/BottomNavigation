@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -25,7 +27,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="MODE_CLASSIC" />
+                    android:text="MODE_CLASSIC"/>
 
                 <CheckBox
                     android:id="@+id/mode_shifting"
@@ -33,7 +35,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:checked="true"
-                    android:text="MODE_SHIFTING" />
+                    android:text="MODE_SHIFTING"/>
             </LinearLayout>
 
             <LinearLayout
@@ -46,7 +48,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="BS_STATIC" />
+                    android:text="BS_STATIC"/>
 
                 <CheckBox
                     android:id="@+id/bg_ripple"
@@ -54,7 +56,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:checked="true"
-                    android:text="BS_RIPPLE" />
+                    android:text="BS_RIPPLE"/>
             </LinearLayout>
 
             <LinearLayout
@@ -67,14 +69,14 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="3 items" />
+                    android:text="3 items"/>
 
                 <CheckBox
                     android:id="@+id/items_4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="4 items" />
+                    android:text="4 items"/>
 
                 <CheckBox
                     android:id="@+id/items_5"
@@ -82,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:checked="true"
-                    android:text="5 items" />
+                    android:text="5 items"/>
             </LinearLayout>
 
             <Button
@@ -90,28 +92,40 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Toggle Hide" />
+                android:text="Toggle Hide"/>
 
             <TextView
                 android:id="@+id/message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:textSize="20dp" />
+                android:textSize="20dp"/>
 
             <TextView
                 android:id="@+id/scrollable_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:textSize="16dp" />
+                android:textSize="16dp"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="72dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:src="@drawable/ic_favorite_white_24dp"
+        app:layout_behavior="com.ashokvarma.bottomnavigation.behaviour.fab.VisibilityFABBehavior"
+        />
 
     <com.ashokvarma.bottomnavigation.BottomNavigationBar
         android:id="@+id/bottom_navigation_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom" />
+        android:layout_gravity="bottom"/>
 
 </android.support.design.widget.CoordinatorLayout>
