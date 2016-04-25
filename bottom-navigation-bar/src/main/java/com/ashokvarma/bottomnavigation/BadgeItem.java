@@ -15,11 +15,11 @@ import android.widget.TextView;
 import java.lang.ref.WeakReference;
 
 /**
- * Class description
+ * Class description : Holds and manages data for badges
+ * (i.e data structure which holds all data to paint a badge and updates badges when changes are made)
  *
  * @author ashokvarma
  * @version 1.0
- * @see
  * @since 21 Apr 2016
  */
 public class BadgeItem {
