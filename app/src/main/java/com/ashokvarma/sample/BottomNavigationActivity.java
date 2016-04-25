@@ -1,7 +1,12 @@
 package com.ashokvarma.sample;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -24,6 +29,7 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
     CheckBox items3;
     CheckBox items4;
     CheckBox items5;
+    CheckBox autoHide;
 
     Button toggleHide;
     Button toggleBadge;
@@ -51,6 +57,7 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
         items3 = (CheckBox) findViewById(R.id.items_3);
         items4 = (CheckBox) findViewById(R.id.items_4);
         items5 = (CheckBox) findViewById(R.id.items_5);
+        autoHide = (CheckBox) findViewById(R.id.auto_hide);
 
         toggleHide = (Button) findViewById(R.id.toggle_hide);
         toggleBadge = (Button) findViewById(R.id.toggle_badge);
@@ -65,6 +72,7 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
         items3.setOnCheckedChangeListener(this);
         items4.setOnCheckedChangeListener(this);
         items5.setOnCheckedChangeListener(this);
+        autoHide.setOnCheckedChangeListener(this);
 
         toggleHide.setOnClickListener(this);
         toggleBadge.setOnClickListener(this);
@@ -72,6 +80,26 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
         bottomNavigationBar.setTabSelectedListener(this);
 
         refresh();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.home_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_github:
+                String url = "https://github.com/Ashok-Varma/BottomNavigation";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -137,7 +165,7 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
 
 //        BadgeItem badgeItem = new BadgeItem().setText("new !");
 //        BadgeItem badgeItem1 = new BadgeItem().setText("damn big");
-        numberBadgeItem = new BadgeItem().setBorderWidth(4).setBackgroundColorResource(R.color.blue).setText("0").setHideOnSelect(true);
+        numberBadgeItem = new BadgeItem().setBorderWidth(4).setBackgroundColorResource(R.color.blue).setText("" + lastSelectedPosition).setHideOnSelect(autoHide.isChecked());
 //        BadgeItem numberBadgeItem1 = new BadgeItem().setBorderWidth(4).setBackgroundColorResource(R.color.blue).setText("12");
 //        BadgeItem numberBadgeItem2 = new BadgeItem().setBorderWidth(6).setText("123");
 //        BadgeItem badgeItem = null;

@@ -85,6 +85,14 @@
                     android:text="5 items" />
             </LinearLayout>
 
+            <CheckBox
+                android:id="@+id/auto_hide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:checked="true"
+                android:text="Auto hide badge" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
