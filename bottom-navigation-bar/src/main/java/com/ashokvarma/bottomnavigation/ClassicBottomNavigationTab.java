@@ -48,6 +48,7 @@ class ClassicBottomNavigationTab extends BottomNavigationTab {
         containerView = view.findViewById(R.id.classic_bottom_navigation_container);
         labelView = (TextView) view.findViewById(R.id.classic_bottom_navigation_title);
         iconView = (ImageView) view.findViewById(R.id.classic_bottom_navigation_icon);
+        badgeView = (TextView) view.findViewById(R.id.classic_bottom_navigation_badge);
 
         labelScale = getResources().getDimension(R.dimen.classic_label_active) / getResources().getDimension(R.dimen.classic_label_inactive);
 

@@ -8,6 +8,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import com.ashokvarma.bottomnavigation.BadgeItem;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 
@@ -25,6 +26,7 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
     CheckBox items5;
 
     Button toggleHide;
+    Button toggleBadge;
 
     TextView message;
     TextView scrollableText;
@@ -32,6 +34,8 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
     int lastSelectedPosition = 0;
 
     boolean hidden = false;
+
+    BadgeItem numberBadgeItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,7 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
         items5 = (CheckBox) findViewById(R.id.items_5);
 
         toggleHide = (Button) findViewById(R.id.toggle_hide);
+        toggleBadge = (Button) findViewById(R.id.toggle_badge);
 
         message = (TextView) findViewById(R.id.message);
         scrollableText = (TextView) findViewById(R.id.scrollable_text);
@@ -62,6 +67,7 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
         items5.setOnCheckedChangeListener(this);
 
         toggleHide.setOnClickListener(this);
+        toggleBadge.setOnClickListener(this);
 
         bottomNavigationBar.setTabSelectedListener(this);
 
@@ -78,6 +84,10 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
                     bottomNavigationBar.hide();
                 }
                 hidden = !hidden;
+            }
+        } else if (v.getId() == R.id.toggle_badge) {
+            if (numberBadgeItem != null) {
+                numberBadgeItem.toggle();
             }
         }
     }
@@ -125,6 +135,17 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
 
         setScrollableText(lastSelectedPosition);
 
+//        BadgeItem badgeItem = new BadgeItem().setText("new !");
+//        BadgeItem badgeItem1 = new BadgeItem().setText("damn big");
+        numberBadgeItem = new BadgeItem().setBorderWidth(4).setBackgroundColorResource(R.color.blue).setText("0").setHideOnSelect(true);
+//        BadgeItem numberBadgeItem1 = new BadgeItem().setBorderWidth(4).setBackgroundColorResource(R.color.blue).setText("12");
+//        BadgeItem numberBadgeItem2 = new BadgeItem().setBorderWidth(6).setText("123");
+//        BadgeItem badgeItem = null;
+//        BadgeItem badgeItem1 = null;
+//        numberBadgeItem = null;
+//        BadgeItem numberBadgeItem1 = null;
+//        BadgeItem numberBadgeItem2 = null;
+
         if (modeClassic.isChecked()) {
             bottomNavigationBar.setMode(BottomNavigationBar.MODE_CLASSIC);
         } else if (modeShifting.isChecked()) {
@@ -139,27 +160,27 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
 
         if (items3.isChecked()) {
             bottomNavigationBar
-                    .addItem(new BottomNavigationItem(R.drawable.ic_location_on_white_24dp, "Location").setActiveColor(R.color.orange))
-                    .addItem(new BottomNavigationItem(R.drawable.ic_find_replace_white_24dp, "Find").setActiveColor(R.color.teal))
-                    .addItem(new BottomNavigationItem(R.drawable.ic_favorite_white_24dp, "Favorites").setActiveColor(R.color.blue))
+                    .addItem(new BottomNavigationItem(R.drawable.ic_location_on_white_24dp, "Location").setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
+                    .addItem(new BottomNavigationItem(R.drawable.ic_find_replace_white_24dp, "Find").setActiveColorResource(R.color.teal))
+                    .addItem(new BottomNavigationItem(R.drawable.ic_favorite_white_24dp, "Favorites").setActiveColorResource(R.color.blue))
                     .setFirstSelectedPosition(lastSelectedPosition > 2 ? 2 : lastSelectedPosition)
                     .initialise();
         } else if (items4.isChecked()) {
             bottomNavigationBar
-                    .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColor(R.color.orange))
-                    .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp, "Books").setActiveColor(R.color.teal))
-                    .addItem(new BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "Music").setActiveColor(R.color.blue))
-                    .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV").setActiveColor(R.color.brown))
+                    .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
+                    .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp, "Books").setActiveColorResource(R.color.teal))
+                    .addItem(new BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "Music").setActiveColorResource(R.color.blue))
+                    .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV").setActiveColorResource(R.color.brown))
                     .setFirstSelectedPosition(lastSelectedPosition > 3 ? 3 : lastSelectedPosition)
                     .initialise();
         } else {
             items5.setChecked(true);
             bottomNavigationBar
-                    .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColor(R.color.orange))
-                    .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp, "Books").setActiveColor(R.color.teal))
-                    .addItem(new BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "Music").setActiveColor(R.color.blue))
-                    .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV").setActiveColor(R.color.brown))
-                    .addItem(new BottomNavigationItem(R.drawable.ic_videogame_asset_white_24dp, "Games").setActiveColor(R.color.grey))
+                    .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
+                    .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp, "Books").setActiveColorResource(R.color.teal))
+                    .addItem(new BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "Music").setActiveColorResource(R.color.blue))
+                    .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV").setActiveColorResource(R.color.brown))
+                    .addItem(new BottomNavigationItem(R.drawable.ic_videogame_asset_white_24dp, "Games").setActiveColorResource(R.color.grey))
                     .setFirstSelectedPosition(lastSelectedPosition)
                     .initialise();
         }
@@ -169,6 +190,9 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
     public void onTabSelected(int position) {
         lastSelectedPosition = position;
         message.setText(position + " Tab Selected");
+        if (numberBadgeItem != null) {
+            numberBadgeItem.setText(position + "");
+        }
         setScrollableText(position);
     }
 

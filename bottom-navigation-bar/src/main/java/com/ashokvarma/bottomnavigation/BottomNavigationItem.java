@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
@@ -23,10 +24,16 @@ public class BottomNavigationItem {
     protected Drawable mIcon;
     protected int mTitleResource;
     protected String mTitle;
+
     protected int mActiveColorResource;
     protected String mActiveColorCode;
+    protected int mActiveColor;
+
     protected int mInActiveColorResource;
     protected String mInActiveColorCode;
+    protected int mInActiveColor;
+
+    protected BadgeItem mBadgeItem;
 
     /**
      * @param mIconResource resource for the Tab icon.
@@ -68,7 +75,7 @@ public class BottomNavigationItem {
      * @param colorResource resource for active color
      * @return this, to allow builder pattern
      */
-    public BottomNavigationItem setActiveColor(@ColorRes int colorResource) {
+    public BottomNavigationItem setActiveColorResource(@ColorRes int colorResource) {
         this.mActiveColorResource = colorResource;
         return this;
     }
@@ -77,8 +84,17 @@ public class BottomNavigationItem {
      * @param colorCode color code for active color
      * @return this, to allow builder pattern
      */
-    public BottomNavigationItem setActiveColor(String colorCode) {
+    public BottomNavigationItem setActiveColor(@Nullable String colorCode) {
         this.mActiveColorCode = colorCode;
+        return this;
+    }
+
+    /**
+     * @param color active color
+     * @return this, to allow builder pattern
+     */
+    public BottomNavigationItem setActiveColor(int color) {
+        this.mActiveColor = color;
         return this;
     }
 
@@ -86,7 +102,7 @@ public class BottomNavigationItem {
      * @param colorResource resource for in-active color
      * @return this, to allow builder pattern
      */
-    public BottomNavigationItem setInActiveColor(@ColorRes int colorResource) {
+    public BottomNavigationItem setInActiveColorResource(@ColorRes int colorResource) {
         this.mInActiveColorResource = colorResource;
         return this;
     }
@@ -95,8 +111,26 @@ public class BottomNavigationItem {
      * @param colorCode color code for in-active color
      * @return this, to allow builder pattern
      */
-    public BottomNavigationItem setInActiveColor(String colorCode) {
+    public BottomNavigationItem setInActiveColor(@Nullable String colorCode) {
         this.mInActiveColorCode = colorCode;
+        return this;
+    }
+
+    /**
+     * @param color in-active color
+     * @return this, to allow builder pattern
+     */
+    public BottomNavigationItem setInActiveColor(int color) {
+        this.mInActiveColor = color;
+        return this;
+    }
+
+    /**
+     * @param badgeItem badge that needs to be displayed for this tab
+     * @return this, to allow builder pattern
+     */
+    public BottomNavigationItem setBadgeItem(@Nullable BadgeItem badgeItem) {
+        this.mBadgeItem = badgeItem;
         return this;
     }
 
@@ -131,8 +165,10 @@ public class BottomNavigationItem {
     protected int getActiveColor(Context context) {
         if (this.mActiveColorResource != 0) {
             return context.getResources().getColor(mActiveColorResource);
-        } else if (this.mActiveColorCode != null && !TextUtils.isEmpty(mActiveColorCode)) {
+        } else if (!TextUtils.isEmpty(mActiveColorCode)) {
             return Color.parseColor(mActiveColorCode);
+        } else if (this.mActiveColor != 0) {
+            return mActiveColor;
         } else {
             return -1;
         }
@@ -145,11 +181,20 @@ public class BottomNavigationItem {
     protected int getInActiveColor(Context context) {
         if (this.mInActiveColorResource != 0) {
             return context.getResources().getColor(mInActiveColorResource);
-        } else if (this.mInActiveColorCode != null && !TextUtils.isEmpty(mInActiveColorCode)) {
+        } else if (!TextUtils.isEmpty(mInActiveColorCode)) {
             return Color.parseColor(mInActiveColorCode);
+        } else if (this.mInActiveColor != 0) {
+            return mInActiveColor;
         } else {
             return -1;
         }
+    }
+
+    /**
+     * @return badge item that needs to set to respective view
+     */
+    protected BadgeItem getBadgeItem() {
+        return mBadgeItem;
     }
 
 }

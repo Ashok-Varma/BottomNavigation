@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -49,10 +50,10 @@ class BottomNavigationHelper {
     /**
      * Used to get Measurements for MODE_SHIFTING
      *
-     * @param context to fetch measurements
+     * @param context     to fetch measurements
      * @param screenWidth total screen width
-     * @param noOfTabs no of bottom bar tabs
-     * @param scrollable is bottom bar scrollable
+     * @param noOfTabs    no of bottom bar tabs
+     * @param scrollable  is bottom bar scrollable
      * @return min and max width of each tab
      */
     public static int[] getShiftingMeasurements(Context context, int screenWidth, int noOfTabs, boolean scrollable) {
@@ -103,8 +104,8 @@ class BottomNavigationHelper {
      * Used to get set data to the Tab views from navigation items
      *
      * @param bottomNavigationItem holds all the data
-     * @param bottomNavigationTab view to which data need to be set
-     * @param bottomNavigationBar view which holds all the tabs
+     * @param bottomNavigationTab  view to which data need to be set
+     * @param bottomNavigationBar  view which holds all the tabs
      */
     public static void bindTabWithData(BottomNavigationItem bottomNavigationItem, BottomNavigationTab bottomNavigationTab, BottomNavigationBar bottomNavigationBar) {
 
@@ -129,15 +130,47 @@ class BottomNavigationHelper {
         }
 
         bottomNavigationTab.setItemBackgroundColor(bottomNavigationBar.getBackgroundColor());
+
+        setBadgeForTab(bottomNavigationItem.getBadgeItem(), bottomNavigationTab);
+    }
+
+    /**
+     * Used to set badge for given tab
+     *
+     * @param badgeItem           holds badge data
+     * @param bottomNavigationTab bottom navigation tab to which badge needs to be attached
+     */
+    private static void setBadgeForTab(BadgeItem badgeItem, BottomNavigationTab bottomNavigationTab) {
+        if (badgeItem != null) {
+
+            Context context = bottomNavigationTab.getContext();
+
+            GradientDrawable shape = new GradientDrawable();
+            shape.setShape(GradientDrawable.RECTANGLE);
+            shape.setCornerRadius(context.getResources().getDimensionPixelSize(R.dimen.badge_corner_radius));
+//            shape.setCornerRadii(new float[]{8, 8, 8, 8, 0, 0, 0, 0});
+            shape.setColor(badgeItem.getBackgroundColor(context));
+            shape.setStroke(badgeItem.getBorderWidth(), badgeItem.getBorderColor(context));
+
+            bottomNavigationTab.badgeView.setBackgroundDrawable(shape);
+
+            bottomNavigationTab.setBadgeItem(badgeItem);
+            badgeItem.setTextView(bottomNavigationTab.badgeView);
+            bottomNavigationTab.badgeView.setVisibility(View.VISIBLE);
+
+            bottomNavigationTab.badgeView.setTextColor(badgeItem.getTextColor(context));
+            bottomNavigationTab.badgeView.setText(badgeItem.getText());
+
+        }
     }
 
     /**
      * Used to set the ripple animation when a tab is selected
      *
-     * @param clickedView the view that is clicked (to get dimens where ripple starts)
-     * @param backgroundView temporary view to which final background color is set
-     * @param bgOverlay temporary view which is animated to get ripple effect
-     * @param newColor the new color i.e ripple color
+     * @param clickedView       the view that is clicked (to get dimens where ripple starts)
+     * @param backgroundView    temporary view to which final background color is set
+     * @param bgOverlay         temporary view which is animated to get ripple effect
+     * @param newColor          the new color i.e ripple color
      * @param animationDuration duration for which animation runs
      */
     public static void setBackgroundWithRipple(View clickedView, final View backgroundView,

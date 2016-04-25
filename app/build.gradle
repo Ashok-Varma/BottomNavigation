@@ -1,15 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    compileSdkVersion Integer.parseInt(ANDROID_BUILD_SDK_VERSION)
+    buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
 
     defaultConfig {
         applicationId "com.ashokvarma.sample"
-        minSdkVersion 14
-        targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion Integer.parseInt(ANDROID_BUILD_MIN_SDK_VERSION)
+        targetSdkVersion Integer.parseInt(ANDROID_BUILD_TARGET_SDK_VERSION)
+        versionCode Integer.parseInt(APP_VERSION_CODE)
+        versionName project.APP_VERSION_NAME
     }
     buildTypes {
         release {
@@ -20,7 +20,7 @@ android {
 }
 
 ext {
-    supportLibraryVersion = '23.3.0'
+    supportLibraryVersion = project.ANDROID_SUPPORT_LIBRARY_VERSION
 }
 
 dependencies {

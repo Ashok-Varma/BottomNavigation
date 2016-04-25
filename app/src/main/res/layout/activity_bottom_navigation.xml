@@ -85,12 +85,27 @@
                     android:text="5 items" />
             </LinearLayout>
 
-            <Button
-                android:id="@+id/toggle_hide"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Toggle Hide" />
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/toggle_hide"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Toggle Hide" />
+
+                <Button
+                    android:id="@+id/toggle_badge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Toggle Badge" />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/message"

@@ -6,8 +6,10 @@
     <dimen name="classic_width_padding">12dp</dimen>
 
     <dimen name="classic_height">56dp</dimen>
-    <dimen name="classic_height_top_padding_inactive">8dp</dimen>
-    <dimen name="classic_height_top_padding_active">6dp</dimen>
+    <dimen name="classic_height_top_padding_inactive">2dp
+    </dimen><!-- 8(Top Padding) - 12/2(extra padding due to badges) = 2 -->
+    <dimen name="classic_height_top_padding_active">0dp
+    </dimen><!-- 6(Top Padding) - 12/2(extra padding due to badges) = 0 -->
     <dimen name="classic_height_bottom_padding">10dp</dimen>
 
     <dimen name="classic_label_active">14sp</dimen>
@@ -15,6 +17,10 @@
     <!--<item name="classic_label_active_to_inactive_ratio" format="float" type="dimen">0.857</item>-->
 
     <dimen name="classic_icon_grid">24dp</dimen>
+    <dimen name="classic_icon_badge_grid_height">36dp
+    </dimen><!-- this adds 6 dp extra to top and bottom icon -->
+    <dimen name="classic_icon_badge_grid_width">48dp
+    </dimen><!-- this adds 6 dp extra to top and bottom icon -->
 
 
     <dimen name="shifting_min_width_active">96dp</dimen>
@@ -24,18 +30,29 @@
     <dimen name="shifting_width_custom_padding">6dp</dimen>
 
     <dimen name="shifting_height">56dp</dimen>
-    <dimen name="shifting_height_bottom_padding_inactive">16dp</dimen>
+    <dimen name="shifting_height_bottom_padding_inactive">16dp
+    </dimen><!-- not used because in inactive state text-view will be hidden and for icon top padding would be enough -->
     <dimen name="shifting_height_bottom_padding_active">10dp</dimen>
-    <dimen name="shifting_height_top_padding_active">6dp</dimen>
-    <dimen name="shifting_height_top_padding_inactive">16dp</dimen><!-- 56 - 24 - 16 = 16 -->
+    <dimen name="shifting_height_top_padding_active">0dp
+    </dimen><!-- 6(Top padding) - 12/2(extra padding due to badges) = 0 -->
+    <dimen name="shifting_height_top_padding_inactive">10dp
+    </dimen><!-- 56(total) - 24(icon) - 16(bottom padding inactive) = 16 ||| 16 - 12/2(extra padding due to badges)  = 10-->
 
     <dimen name="shifting_label">14sp</dimen>
 
 
     <dimen name="shifting_icon_grid">24dp</dimen>
+    <dimen name="shifting_icon_badge_grid_height">36dp</dimen>
+    <dimen name="shifting_icon_badge_grid_width">48dp</dimen>
 
     <dimen name="bottom_navigation_elevation">8dp</dimen>
     <dimen name="bottom_navigation_height">56dp</dimen>
+
+    <dimen name="badge_text_size">12sp</dimen><!-- 10 -->
+    <dimen name="badge_corner_radius">13dp</dimen><!-- 15 -->
+    <dimen name="badge_width_padding">4dp</dimen><!-- 4 -->
+    <dimen name="badge_height_padding">1dp</dimen><!-- 1 -->
+    <dimen name="badge_top_margin">2dp</dimen><!-- 2 -->
 
 
 </resources>
