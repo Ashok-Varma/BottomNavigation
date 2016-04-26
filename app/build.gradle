@@ -5,7 +5,7 @@ android {
     buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
 
     defaultConfig {
-        applicationId "com.ashokvarma.sample"
+        applicationId "com.ashokvarma.bottomnavigation.sample"
         minSdkVersion Integer.parseInt(ANDROID_BUILD_MIN_SDK_VERSION)
         targetSdkVersion Integer.parseInt(ANDROID_BUILD_TARGET_SDK_VERSION)
         versionCode Integer.parseInt(APP_VERSION_CODE)

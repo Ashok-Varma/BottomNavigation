@@ -1,4 +1,4 @@
-package com.ashokvarma.sample;
+package com.ashokvarma.bottomnavigation.sample;
 
 import android.content.Intent;
 import android.net.Uri;

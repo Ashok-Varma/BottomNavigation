@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ececec"
-    tools:context="com.ashokvarma.sample.BottomNavigationActivity">
+    tools:context=".BottomNavigationActivity">
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -90,7 +90,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:checked="true"
                 android:text="Auto hide badge" />
 
             <LinearLayout
