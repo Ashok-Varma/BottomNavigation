@@ -19,7 +19,7 @@ import android.view.ViewAnimationUtils;
 class BottomNavigationHelper {
 
     /**
-     * Used to get Measurements for MODE_CLASSIC
+     * Used to get Measurements for MODE_FIXED
      *
      * @param context     to fetch measurements
      * @param screenWidth total screen width
@@ -27,17 +27,17 @@ class BottomNavigationHelper {
      * @param scrollable  is bottom bar scrollable
      * @return width of each tab
      */
-    public static int[] getClassicMeasurements(Context context, int screenWidth, int noOfTabs, boolean scrollable) {
+    public static int[] getMeasurementsForFixedMode(Context context, int screenWidth, int noOfTabs, boolean scrollable) {
 
         int result[] = new int[2];
 
-        int minWidth = (int) context.getResources().getDimension(R.dimen.classic_min_width_small_views);
-        int maxWidth = (int) context.getResources().getDimension(R.dimen.classic_min_width);
+        int minWidth = (int) context.getResources().getDimension(R.dimen.fixed_min_width_small_views);
+        int maxWidth = (int) context.getResources().getDimension(R.dimen.fixed_min_width);
 
         int itemWidth = screenWidth / noOfTabs;
 
         if (itemWidth < minWidth && scrollable) {
-            itemWidth = (int) context.getResources().getDimension(R.dimen.classic_min_width);
+            itemWidth = (int) context.getResources().getDimension(R.dimen.fixed_min_width);
         } else if (itemWidth > maxWidth) {
             itemWidth = maxWidth;
         }
@@ -56,7 +56,7 @@ class BottomNavigationHelper {
      * @param scrollable  is bottom bar scrollable
      * @return min and max width of each tab
      */
-    public static int[] getShiftingMeasurements(Context context, int screenWidth, int noOfTabs, boolean scrollable) {
+    public static int[] getMeasurementsForShiftingMode(Context context, int screenWidth, int noOfTabs, boolean scrollable) {
 
         int result[] = new int[2];
 

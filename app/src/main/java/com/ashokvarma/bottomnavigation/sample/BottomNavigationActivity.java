@@ -22,7 +22,7 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
 
     BottomNavigationBar bottomNavigationBar;
 
-    CheckBox modeClassic;
+    CheckBox modeFixed;
     CheckBox modeShifting;
     CheckBox bgStatic;
     CheckBox bgRipple;
@@ -50,7 +50,7 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
 
         bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
 
-        modeClassic = (CheckBox) findViewById(R.id.mode_classic);
+        modeFixed = (CheckBox) findViewById(R.id.mode_fixed);
         modeShifting = (CheckBox) findViewById(R.id.mode_shifting);
         bgStatic = (CheckBox) findViewById(R.id.bg_static);
         bgRipple = (CheckBox) findViewById(R.id.bg_ripple);
@@ -65,7 +65,7 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
         message = (TextView) findViewById(R.id.message);
         scrollableText = (TextView) findViewById(R.id.scrollable_text);
 
-        modeClassic.setOnCheckedChangeListener(this);
+        modeFixed.setOnCheckedChangeListener(this);
         modeShifting.setOnCheckedChangeListener(this);
         bgRipple.setOnCheckedChangeListener(this);
         bgStatic.setOnCheckedChangeListener(this);
@@ -129,11 +129,11 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
             case R.id.bg_static:
                 bgRipple.setChecked(!isChecked);
                 break;
-            case R.id.mode_classic:
+            case R.id.mode_fixed:
                 modeShifting.setChecked(!isChecked);
                 break;
             case R.id.mode_shifting:
-                modeClassic.setChecked(!isChecked);
+                modeFixed.setChecked(!isChecked);
                 break;
             case R.id.items_3:
                 if (isChecked) {
@@ -174,8 +174,8 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
 //        BadgeItem numberBadgeItem1 = null;
 //        BadgeItem numberBadgeItem2 = null;
 
-        if (modeClassic.isChecked()) {
-            bottomNavigationBar.setMode(BottomNavigationBar.MODE_CLASSIC);
+        if (modeFixed.isChecked()) {
+            bottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);
         } else if (modeShifting.isChecked()) {
             bottomNavigationBar.setMode(BottomNavigationBar.MODE_SHIFTING);
         }

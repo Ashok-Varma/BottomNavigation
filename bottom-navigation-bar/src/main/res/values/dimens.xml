@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="classic_min_width">120dp</dimen>
-    <dimen name="classic_min_width_small_views">104dp</dimen>
-    <dimen name="classic_max_width">168dp</dimen>
-    <dimen name="classic_width_padding">12dp</dimen>
+    <dimen name="fixed_min_width">120dp</dimen>
+    <dimen name="fixed_min_width_small_views">104dp</dimen>
+    <dimen name="fixed_max_width">168dp</dimen>
+    <dimen name="fixed_width_padding">12dp</dimen>
 
-    <dimen name="classic_height">56dp</dimen>
-    <dimen name="classic_height_top_padding_inactive">2dp
+    <dimen name="fixed_height">56dp</dimen>
+    <dimen name="fixed_height_top_padding_inactive">2dp
     </dimen><!-- 8(Top Padding) - 12/2(extra padding due to badges) = 2 -->
-    <dimen name="classic_height_top_padding_active">0dp
+    <dimen name="fixed_height_top_padding_active">0dp
     </dimen><!-- 6(Top Padding) - 12/2(extra padding due to badges) = 0 -->
-    <dimen name="classic_height_bottom_padding">10dp</dimen>
+    <dimen name="fixed_height_bottom_padding">10dp</dimen>
 
-    <dimen name="classic_label_active">14sp</dimen>
-    <dimen name="classic_label_inactive">12sp</dimen>
-    <!--<item name="classic_label_active_to_inactive_ratio" format="float" type="dimen">0.857</item>-->
+    <dimen name="fixed_label_active">14sp</dimen>
+    <dimen name="fixed_label_inactive">12sp</dimen>
+    <!--<item name="fixed_label_active_to_inactive_ratio" format="float" type="dimen">0.857</item>-->
 
-    <dimen name="classic_icon_grid">24dp</dimen>
-    <dimen name="classic_icon_badge_grid_height">36dp
+    <dimen name="fixed_icon_grid">24dp</dimen>
+    <dimen name="fixed_icon_badge_grid_height">36dp
     </dimen><!-- this adds 6 dp extra to top and bottom icon -->
-    <dimen name="classic_icon_badge_grid_width">48dp
+    <dimen name="fixed_icon_badge_grid_width">48dp
     </dimen><!-- this adds 6 dp extra to top and bottom icon -->
 
 

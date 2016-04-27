@@ -21,11 +21,11 @@
                 android:orientation="horizontal">
 
                 <CheckBox
-                    android:id="@+id/mode_classic"
+                    android:id="@+id/mode_fixed"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="MODE_CLASSIC" />
+                    android:text="MODE_FIXED" />
 
                 <CheckBox
                     android:id="@+id/mode_shifting"

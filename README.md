@@ -1,5 +1,7 @@
 # BottomNavigation
 
+get sample apk from [Google Play Store][googlePlayStoreLink]
+
 <img src="https://raw.githubusercontent.com/Ashok-Varma/BottomNavigation/master/all.gif" width="300" height="550" />
 
 ## What is this component about?
@@ -85,21 +87,21 @@ bottomNavigationBar
 
 ### BottomNavigationBar Cutomisations
 
- | MODE_CLASSIC | MODE_SHIFTING
+ | MODE_FIXED | MODE_SHIFTING
 ------------ | ------------ | -------------
-BACKGROUND_STYLE_STATIC | <img src="https://raw.githubusercontent.com/Ashok-Varma/BottomNavigation/master/classic_static.gif" width="320" height="50" /> | <img src="https://raw.githubusercontent.com/Ashok-Varma/BottomNavigation/master/shift_static.gif" width="320" height="50" />
-BACKGROUND_STYLE_RIPPLE | <img src="https://raw.githubusercontent.com/Ashok-Varma/BottomNavigation/master/classic_ripple.gif" width="320" height="50" /> | <img src="https://raw.githubusercontent.com/Ashok-Varma/BottomNavigation/master/shift_ripple.gif" width="320" height="50" />
+BACKGROUND_STYLE_STATIC | <img src="https://raw.githubusercontent.com/Ashok-Varma/BottomNavigation/master/fixed_static.gif" width="320" height="50" /> | <img src="https://raw.githubusercontent.com/Ashok-Varma/BottomNavigation/master/shift_static.gif" width="320" height="50" />
+BACKGROUND_STYLE_RIPPLE | <img src="https://raw.githubusercontent.com/Ashok-Varma/BottomNavigation/master/fixed_ripple.gif" width="320" height="50" /> | <img src="https://raw.githubusercontent.com/Ashok-Varma/BottomNavigation/master/shift_ripple.gif" width="320" height="50" />
 
 #### 1. Modes
-library provides two modes MODE_CLASSIC and MODE_SHIFTING
+library provides two modes MODE_FIXED and MODE_SHIFTING
 
 **to set mode :**
 ```java
 bottomNavigationBar
-                .setMode(BottomNavigationBar.MODE_CLASSIC)
+                .setMode(BottomNavigationBar.MODE_FIXED)
 ```
 ##### default behaviour
-**MODE_DEFAULT:** if number of tabs are less than or equal to three then MODE_CLASSIC will be used other cases MODE_SHIFTING will be used.
+**MODE_DEFAULT:** if number of tabs are less than or equal to three then MODE_FIXED will be used other cases MODE_SHIFTING will be used.
 
 #### 2. Background Styles
 library provides two background styles BACKGROUND_STYLE_STATIC and BACKGROUND_STYLE_RIPPLE
@@ -110,7 +112,7 @@ bottomNavigationBar
                 .setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_RIPPLE)
 ```
 ##### default behaviour
-**BACKGROUND_STYLE_DEFAULT:** if mode is MODE_CLASSIC then BACKGROUND_STYLE_STATIC will be used if mode is MODE_SHIFTING then BACKGROUND_STYLE_RIPPLE will be used.
+**BACKGROUND_STYLE_DEFAULT:** if mode is MODE_FIXED then BACKGROUND_STYLE_STATIC will be used if mode is MODE_SHIFTING then BACKGROUND_STYLE_RIPPLE will be used.
 
 #### 3. Colors
 user can play with three colors : background color, active color and in-active color
@@ -163,6 +165,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ```
 
+ [googlePlayStoreLink]: https://play.google.com/store/apps/details?id=com.ashokvarma.bottomnavigation.sample
  [googlePage]: https://www.google.com/design/spec/components/bottom-navigation.html
  [mavenAarDownload]:  https://repo1.maven.org/maven2/com/ashokvarma/android/bottom-navigation-bar/1.1.0/bottom-navigation-bar-1.1.0.aar
  [mavenLatestJarDownload]: https://search.maven.org/remote_content?g=com.ashokvarma.android&a=bottom-navigation-bar&v=LATEST
