@@ -88,6 +88,10 @@ public class BottomNavigationBar extends FrameLayout {
     private int mAnimationDuration = 200;
     private int mRippleAnimationDuration = 500;
 
+    ///////////////////////////////////////////////////////////////////////////
+    // View Default Constructors and Methods
+    ///////////////////////////////////////////////////////////////////////////
+
     public BottomNavigationBar(Context context) {
         super(context);
         init();
@@ -134,6 +138,10 @@ public class BottomNavigationBar extends FrameLayout {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // View Data Setter methods, Called before Initialize method
+    ///////////////////////////////////////////////////////////////////////////
 
     /**
      * Used to add a new tab.
@@ -240,18 +248,6 @@ public class BottomNavigationBar extends FrameLayout {
     }
 
     /**
-     * ripple animation will be 2.5 times this animation duration.
-     *
-     * @param animationDuration animation duration for tab animations
-     * @return this, to allow builder pattern
-     */
-    public BottomNavigationBar setAnimationDuration(int animationDuration) {
-        this.mAnimationDuration = animationDuration;
-        this.mRippleAnimationDuration = (int) (animationDuration * 2.5);
-        return this;
-    }
-
-    /**
      * will be public once all bugs are ressolved.
      */
     private BottomNavigationBar setScrollable(boolean scrollable) {
@@ -259,14 +255,9 @@ public class BottomNavigationBar extends FrameLayout {
         return this;
     }
 
-    /**
-     * @param tabSelectedListener callback listener for tabs
-     * @return this, to allow builder pattern
-     */
-    public BottomNavigationBar setTabSelectedListener(OnTabSelectedListener tabSelectedListener) {
-        this.mTabSelectedListener = tabSelectedListener;
-        return this;
-    }
+    ///////////////////////////////////////////////////////////////////////////
+    // Initialise Method
+    ///////////////////////////////////////////////////////////////////////////
 
     /**
      * This method should be called at the end of all customisation method.
@@ -321,12 +312,76 @@ public class BottomNavigationBar extends FrameLayout {
             }
 
             if (mBottomNavigationTabs.size() > mFirstSelectedPosition) {
-                selectTabInternal(mFirstSelectedPosition, true, true);
+                selectTabInternal(mFirstSelectedPosition, true, false);
             } else if (mBottomNavigationTabs.size() > 0) {
-                selectTabInternal(0, true, true);
+                selectTabInternal(0, true, false);
             }
         }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // Anytime Setter methods that can be called irrespective of whether we call initialise or not
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * @param tabSelectedListener callback listener for tabs
+     * @return this, to allow builder pattern
+     */
+    public BottomNavigationBar setTabSelectedListener(OnTabSelectedListener tabSelectedListener) {
+        this.mTabSelectedListener = tabSelectedListener;
+        return this;
+    }
+
+    /**
+     * ripple animation will be 2.5 times this animation duration.
+     *
+     * @param animationDuration animation duration for tab animations
+     * @return this, to allow builder pattern
+     */
+    public BottomNavigationBar setAnimationDuration(int animationDuration) {
+        this.mAnimationDuration = animationDuration;
+        this.mRippleAnimationDuration = (int) (animationDuration * 2.5);
+        return this;
+    }
+
+    /**
+     * Clears all stored data and this helps to re-initialise tabs from scratch
+     */
+    public void clearAll() {
+        mTabContainer.removeAllViews();
+        mBottomNavigationTabs.clear();
+        mBottomNavigationItems.clear();
+        mBackgroundOverlay.setBackgroundColor(Color.TRANSPARENT);
+        mContainer.setBackgroundColor(Color.TRANSPARENT);
+        mSelectedPosition = DEFAULT_SELECTED_POSITION;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Setter methods that should called only after initialise is called
+    ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Should be called only after initialization of BottomBar(i.e after calling initialize method)
+     *
+     * @param newPosition to select a tab after bottom navigation bar is initialised
+     */
+    public void selectTab(int newPosition) {
+        selectTab(newPosition, true);
+    }
+
+    /**
+     * Should be called only after initialization of BottomBar(i.e after calling initialize method)
+     *
+     * @param newPosition  to select a tab after bottom navigation bar is initialised
+     * @param callListener should this change call listener callbacks
+     */
+    public void selectTab(int newPosition, boolean callListener) {
+        selectTabInternal(newPosition, false, callListener);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Internal Methods of the class
+    ///////////////////////////////////////////////////////////////////////////
 
     /**
      * Internal method to setup tabs
@@ -359,33 +414,6 @@ public class BottomNavigationBar extends FrameLayout {
     }
 
     /**
-     * Clears all stored data and this helps to re-initialise tabs from scratch
-     */
-    public void clearAll() {
-        mTabContainer.removeAllViews();
-        mBottomNavigationTabs.clear();
-        mBottomNavigationItems.clear();
-        mBackgroundOverlay.setBackgroundColor(Color.TRANSPARENT);
-        mContainer.setBackgroundColor(Color.TRANSPARENT);
-        mSelectedPosition = DEFAULT_SELECTED_POSITION;
-    }
-
-    /**
-     * @param newPosition to select a tab after bottom navigation bar is initialised
-     */
-    public void selectTab(int newPosition) {
-        selectTab(newPosition, true);
-    }
-
-    /**
-     * @param newPosition  to select a tab after bottom navigation bar is initialised
-     * @param callListener should this change call listener callbacks
-     */
-    public void selectTab(int newPosition, boolean callListener) {
-        selectTabInternal(newPosition, false, callListener);
-    }
-
-    /**
      * Internal Method to select a tab
      *
      * @param newPosition  to select a tab after bottom navigation bar is initialised
@@ -405,11 +433,23 @@ public class BottomNavigationBar extends FrameLayout {
                     mBottomNavigationTabs.get(mSelectedPosition).unSelect(false, mAnimationDuration);
                 mBottomNavigationTabs.get(newPosition).select(false, mAnimationDuration);
 
-                BottomNavigationTab clickedView = mBottomNavigationTabs.get(newPosition);
+                final BottomNavigationTab clickedView = mBottomNavigationTabs.get(newPosition);
                 if (firstTab) {
+                    // Running a ripple on the opening app won't be good so on firstTab this won't run.
                     mContainer.setBackgroundColor(clickedView.getActiveColor());
+                    mBackgroundOverlay.setVisibility(View.GONE);
                 } else {
-                    BottomNavigationHelper.setBackgroundWithRipple(clickedView, mContainer, mBackgroundOverlay, clickedView.getActiveColor(), mRippleAnimationDuration);
+                    mBackgroundOverlay.post(new Runnable() {
+                        @Override
+                        public void run() {
+//                            try {
+                            BottomNavigationHelper.setBackgroundWithRipple(clickedView, mContainer, mBackgroundOverlay, clickedView.getActiveColor(), mRippleAnimationDuration);
+//                            } catch (Exception e) {
+//                                mContainer.setBackgroundColor(clickedView.getActiveColor());
+//                                mBackgroundOverlay.setVisibility(View.GONE);
+//                            }
+                        }
+                    });
                 }
             }
             mSelectedPosition = newPosition;
@@ -419,46 +459,21 @@ public class BottomNavigationBar extends FrameLayout {
     /**
      * Internal method used to send callbacks to listener
      *
-     * @param oldPosition old selected tab position
+     * @param oldPosition old selected tab position, -1 if this is first call
      * @param newPosition newly selected tab position
      */
     private void sendListenerCall(int oldPosition, int newPosition) {
-        if (mTabSelectedListener != null && oldPosition != -1) {
+        if (mTabSelectedListener != null) {
+//                && oldPosition != -1) {
             if (oldPosition == newPosition) {
                 mTabSelectedListener.onTabReselected(newPosition);
             } else {
                 mTabSelectedListener.onTabSelected(newPosition);
-                mTabSelectedListener.onTabUnselected(newPosition);
+                if (oldPosition != -1) {
+                    mTabSelectedListener.onTabUnselected(oldPosition);
+                }
             }
         }
-    }
-
-    /**
-     * hide with animation
-     */
-    public void hide() {
-        hide(true);
-    }
-
-    /**
-     * @param animate is animation enabled for hide
-     */
-    public void hide(boolean animate) {
-        setTranslationY(this.getHeight(), animate);
-    }
-
-    /**
-     * unHide with animation
-     */
-    public void unHide() {
-        unHide(true);
-    }
-
-    /**
-     * @param animate is animation enabled for unHide
-     */
-    public void unHide(boolean animate) {
-        setTranslationY(0, animate);
     }
 
     /**
@@ -496,6 +511,43 @@ public class BottomNavigationBar extends FrameLayout {
         mTranslationAnimator.translationY(offset).start();
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    // Animating methods
+    ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * hide with animation
+     */
+    public void hide() {
+        hide(true);
+    }
+
+    /**
+     * @param animate is animation enabled for hide
+     */
+    public void hide(boolean animate) {
+        setTranslationY(this.getHeight(), animate);
+    }
+
+    /**
+     * unHide with animation
+     */
+    public void unHide() {
+        unHide(true);
+    }
+
+    /**
+     * @param animate is animation enabled for unHide
+     */
+    public void unHide(boolean animate) {
+        setTranslationY(0, animate);
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Getters
+    ///////////////////////////////////////////////////////////////////////////
+
     /**
      * @return activeColor
      */
@@ -530,6 +582,10 @@ public class BottomNavigationBar extends FrameLayout {
     public int getAnimationDuration() {
         return mAnimationDuration;
     }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Listener interfaces
+    ///////////////////////////////////////////////////////////////////////////
 
     /**
      * Callback interface invoked when a tab's selection state changes.

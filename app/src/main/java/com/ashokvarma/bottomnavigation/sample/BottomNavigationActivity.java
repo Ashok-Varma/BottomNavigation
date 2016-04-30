@@ -16,6 +16,9 @@ import android.widget.TextView;
 import com.ashokvarma.bottomnavigation.BadgeItem;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
+import com.crashlytics.android.Crashlytics;
+
+import io.fabric.sdk.android.Fabric;
 
 public class BottomNavigationActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener, BottomNavigationBar.OnTabSelectedListener {
 
@@ -46,6 +49,7 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_bottom_navigation);
 
         bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
@@ -154,6 +158,9 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
                 }
                 break;
         }
+        if (!items5.isChecked() && !items3.isChecked() && !items4.isChecked()) {
+            buttonView.setChecked(true);
+        }
         refresh();
     }
 
@@ -163,27 +170,27 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
 
         setScrollableText(lastSelectedPosition);
 
-//        BadgeItem badgeItem = new BadgeItem().setText("new !");
-//        BadgeItem badgeItem1 = new BadgeItem().setText("damn big");
-        numberBadgeItem = new BadgeItem().setBorderWidth(4).setBackgroundColorResource(R.color.blue).setText("" + lastSelectedPosition).setHideOnSelect(autoHide.isChecked());
-//        BadgeItem numberBadgeItem1 = new BadgeItem().setBorderWidth(4).setBackgroundColorResource(R.color.blue).setText("12");
-//        BadgeItem numberBadgeItem2 = new BadgeItem().setBorderWidth(6).setText("123");
-//        BadgeItem badgeItem = null;
-//        BadgeItem badgeItem1 = null;
-//        numberBadgeItem = null;
-//        BadgeItem numberBadgeItem1 = null;
-//        BadgeItem numberBadgeItem2 = null;
+        numberBadgeItem = new BadgeItem()
+                .setBorderWidth(4)
+                .setBackgroundColorResource(R.color.blue)
+                .setText("" + lastSelectedPosition)
+                .setHideOnSelect(autoHide.isChecked());
+
 
         if (modeFixed.isChecked()) {
-            bottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);
+            bottomNavigationBar
+                    .setMode(BottomNavigationBar.MODE_FIXED);
         } else if (modeShifting.isChecked()) {
-            bottomNavigationBar.setMode(BottomNavigationBar.MODE_SHIFTING);
+            bottomNavigationBar
+                    .setMode(BottomNavigationBar.MODE_SHIFTING);
         }
 
         if (bgStatic.isChecked()) {
-            bottomNavigationBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC);
+            bottomNavigationBar
+                    .setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC);
         } else if (bgRipple.isChecked()) {
-            bottomNavigationBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_RIPPLE);
+            bottomNavigationBar
+                    .setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_RIPPLE);
         }
 
         if (items3.isChecked()) {
@@ -201,8 +208,7 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
                     .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV").setActiveColorResource(R.color.brown))
                     .setFirstSelectedPosition(lastSelectedPosition > 3 ? 3 : lastSelectedPosition)
                     .initialise();
-        } else {
-            items5.setChecked(true);
+        } else if (items5.isChecked()) {
             bottomNavigationBar
                     .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
                     .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp, "Books").setActiveColorResource(R.color.teal))
@@ -222,6 +228,16 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
             numberBadgeItem.setText(position + "");
         }
         setScrollableText(position);
+    }
+
+    @Override
+    public void onTabUnselected(int position) {
+
+    }
+
+    @Override
+    public void onTabReselected(int position) {
+        message.setText(position + " Tab Reselected");
     }
 
     private void setScrollableText(int position) {
@@ -245,15 +261,5 @@ public class BottomNavigationActivity extends AppCompatActivity implements View.
                 scrollableText.setText(R.string.para6);
                 break;
         }
-    }
-
-    @Override
-    public void onTabUnselected(int position) {
-
-    }
-
-    @Override
-    public void onTabReselected(int position) {
-        message.setText(position + " Tab Reselected");
     }
 }

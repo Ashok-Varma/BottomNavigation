@@ -8,6 +8,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+import android.widget.FrameLayout;
 
 /**
  * Class description : This is utils class specific for this library, most the common code goes here.
@@ -145,13 +146,7 @@ class BottomNavigationHelper {
 
             Context context = bottomNavigationTab.getContext();
 
-            GradientDrawable shape = new GradientDrawable();
-            shape.setShape(GradientDrawable.RECTANGLE);
-            shape.setCornerRadius(context.getResources().getDimensionPixelSize(R.dimen.badge_corner_radius));
-//            shape.setCornerRadii(new float[]{8, 8, 8, 8, 0, 0, 0, 0});
-            shape.setColor(badgeItem.getBackgroundColor(context));
-            shape.setStroke(badgeItem.getBorderWidth(), badgeItem.getBorderColor(context));
-
+            GradientDrawable shape = getBadgeDrawable(badgeItem, context);
             bottomNavigationTab.badgeView.setBackgroundDrawable(shape);
 
             bottomNavigationTab.setBadgeItem(badgeItem);
@@ -161,7 +156,21 @@ class BottomNavigationHelper {
             bottomNavigationTab.badgeView.setTextColor(badgeItem.getTextColor(context));
             bottomNavigationTab.badgeView.setText(badgeItem.getText());
 
+
+            FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) bottomNavigationTab.badgeView.getLayoutParams();
+            layoutParams.gravity = badgeItem.getGravity();
+            bottomNavigationTab.badgeView.setLayoutParams(layoutParams);
         }
+    }
+
+    static GradientDrawable getBadgeDrawable(BadgeItem badgeItem, Context context) {
+        GradientDrawable shape = new GradientDrawable();
+        shape.setShape(GradientDrawable.RECTANGLE);
+        shape.setCornerRadius(context.getResources().getDimensionPixelSize(R.dimen.badge_corner_radius));
+//            shape.setCornerRadii(new float[]{8, 8, 8, 8, 0, 0, 0, 0});
+        shape.setColor(badgeItem.getBackgroundColor(context));
+        shape.setStroke(badgeItem.getBorderWidth(), badgeItem.getBorderColor(context));
+        return shape;
     }
 
     /**

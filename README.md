@@ -1,6 +1,6 @@
 # BottomNavigation
 
-get sample apk from [Google Play Store][googlePlayStoreLink]
+**get sample apk from [Google Play Store][googlePlayStoreLink]**
 
 <img src="https://raw.githubusercontent.com/Ashok-Varma/BottomNavigation/master/all.gif" width="300" height="550" />
 
@@ -76,7 +76,7 @@ bottomNavigationBar
             public void onTabSelected(int position) {
             }
             @Override
-            public void onTabUnselected(int position) {]
+            public void onTabUnselected(int position) {
             }
             @Override
             public void onTabReselected(int position) {

@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPropertyAnimatorListener;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
@@ -40,15 +41,19 @@ public class BadgeItem {
 
     private int mBorderWidth = 0;
 
-    private Gravity mGravity;
+    private int mGravity = Gravity.TOP | Gravity.END;
     private boolean mHideOnSelect;
 
-    private WeakReference<TextView> mTextView;
+    private WeakReference<TextView> mTextViewRef;
 
     private boolean mIsHidden = false;
 
     private int mAnimationDuration = 200;
 
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Public setter methods
+    ///////////////////////////////////////////////////////////////////////////
 
     /**
      * @param colorResource resource for background color
@@ -56,6 +61,7 @@ public class BadgeItem {
      */
     public BadgeItem setBackgroundColorResource(@ColorRes int colorResource) {
         this.mBackgroundColorResource = colorResource;
+        refreshDrawable();
         return this;
     }
 
@@ -65,6 +71,7 @@ public class BadgeItem {
      */
     public BadgeItem setBackgroundColor(@Nullable String colorCode) {
         this.mBackgroundColorCode = colorCode;
+        refreshDrawable();
         return this;
     }
 
@@ -74,6 +81,7 @@ public class BadgeItem {
      */
     public BadgeItem setBackgroundColor(int color) {
         this.mBackgroundColor = color;
+        refreshDrawable();
         return this;
     }
 
@@ -83,6 +91,7 @@ public class BadgeItem {
      */
     public BadgeItem setTextColorResource(@ColorRes int colorResource) {
         this.mTextColorResource = colorResource;
+        setTextColor();
         return this;
     }
 
@@ -92,6 +101,7 @@ public class BadgeItem {
      */
     public BadgeItem setTextColor(@Nullable String colorCode) {
         this.mTextColorCode = colorCode;
+        setTextColor();
         return this;
     }
 
@@ -101,17 +111,18 @@ public class BadgeItem {
      */
     public BadgeItem setTextColor(int color) {
         this.mTextColor = color;
+        setTextColor();
         return this;
     }
 
     /**
-     * @param mText text to be set in badge (this shouldn't be empty text)
+     * @param text text to be set in badge (this shouldn't be empty text)
      * @return this, to allow builder pattern
      */
-    public BadgeItem setText(@Nullable CharSequence mText) {
-        this.mText = mText;
-        if (mTextView != null && mTextView.get() != null) {
-//            if (TextUtils.isEmpty(mText)) {
+    public BadgeItem setText(@Nullable CharSequence text) {
+        this.mText = text;
+        if (isWeakReferenceValid()) {
+//            if (TextUtils.isEmpty(text)) {
 //                if (!mIsHidden) {
 //                    hide();
 //                }
@@ -119,10 +130,11 @@ public class BadgeItem {
 //                if (mIsHidden) {
 //                    show();
 //                }
-//                mTextView.get().setText(mText);
+//                mTextViewRef.get().setText(text);
 //            }
-            if (!TextUtils.isEmpty(mText)) {
-                mTextView.get().setText(mText);
+            TextView textView = mTextViewRef.get();
+            if (!TextUtils.isEmpty(text)) {
+                textView.setText(text);
             }
         }
         return this;
@@ -134,6 +146,7 @@ public class BadgeItem {
      */
     public BadgeItem setBorderColorResource(@ColorRes int colorResource) {
         this.mBorderColorResource = colorResource;
+        refreshDrawable();
         return this;
     }
 
@@ -143,6 +156,7 @@ public class BadgeItem {
      */
     public BadgeItem setBorderColor(@Nullable String colorCode) {
         this.mBorderColorCode = colorCode;
+        refreshDrawable();
         return this;
     }
 
@@ -152,24 +166,32 @@ public class BadgeItem {
      */
     public BadgeItem setBorderColor(int color) {
         this.mBorderColor = color;
+        refreshDrawable();
         return this;
     }
 
     /**
-     * @param mBorderWidth border width in pixels
+     * @param borderWidth border width in pixels
      * @return this, to allow builder pattern
      */
-    public BadgeItem setBorderWidth(int mBorderWidth) {
-        this.mBorderWidth = mBorderWidth;
+    public BadgeItem setBorderWidth(int borderWidth) {
+        this.mBorderWidth = borderWidth;
+        refreshDrawable();
         return this;
     }
 
     /**
-     * @param mGravity gravity of badge (TOP||LEFT ..etc)
+     * @param gravity gravity of badge (TOP|LEFT ..etc)
      * @return this, to allow builder pattern
      */
-    public BadgeItem setGravity(Gravity mGravity) {
-        this.mGravity = mGravity;
+    public BadgeItem setGravity(int gravity) {
+        this.mGravity = gravity;
+        if (isWeakReferenceValid()) {
+            TextView textView = mTextViewRef.get();
+            FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) textView.getLayoutParams();
+            layoutParams.gravity = gravity;
+            textView.setLayoutParams(layoutParams);
+        }
         return this;
     }
 
@@ -183,13 +205,26 @@ public class BadgeItem {
     }
 
     /**
+     * @param animationDuration hide and show animation time
+     * @return this, to allow builder pattern
+     */
+    public BadgeItem setAnimationDuration(int animationDuration) {
+        this.mAnimationDuration = animationDuration;
+        return this;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Library only access method
+    ///////////////////////////////////////////////////////////////////////////
+
+    /**
      * Internal method used to update view when ever changes are made
      *
      * @param mTextView badge textView
      * @return this, to allow builder pattern
      */
     protected BadgeItem setTextView(TextView mTextView) {
-        this.mTextView = new WeakReference<>(mTextView);
+        this.mTextViewRef = new WeakReference<>(mTextView);
         return this;
     }
 
@@ -252,7 +287,7 @@ public class BadgeItem {
     /**
      * @return gravity of badge
      */
-    protected Gravity getGravity() {
+    protected int getGravity() {
         return mGravity;
     }
 
@@ -267,8 +302,57 @@ public class BadgeItem {
      * @return reference to text-view
      */
     protected WeakReference<TextView> getTextView() {
-        return mTextView;
+        return mTextViewRef;
     }
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Internal Methods
+    ///////////////////////////////////////////////////////////////////////////
+
+    private void refreshDrawable() {
+        if (isWeakReferenceValid()) {
+            TextView textView = mTextViewRef.get();
+            textView.setBackgroundDrawable(BottomNavigationHelper.getBadgeDrawable(this, textView.getContext()));
+        }
+    }
+
+    private void setTextColor() {
+        if (isWeakReferenceValid()) {
+            TextView textView = mTextViewRef.get();
+            textView.setTextColor(getTextColor(textView.getContext()));
+        }
+    }
+
+    private boolean isWeakReferenceValid() {
+        return mTextViewRef != null && mTextViewRef.get() != null;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Internal call back methods
+    ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * callback from bottom navigation tab when it is selected
+     */
+    void select() {
+        if (mHideOnSelect) {
+            hide(true);
+        }
+    }
+
+    /**
+     * callback from bottom navigation tab when it is un-selected
+     */
+    void unSelect() {
+        if (mHideOnSelect) {
+            show(true);
+        }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Public functionality methods
+    ///////////////////////////////////////////////////////////////////////////
 
     /**
      * @return this, to allow builder pattern
@@ -302,8 +386,8 @@ public class BadgeItem {
      */
     public BadgeItem show(boolean animate) {
         mIsHidden = false;
-        if (mTextView != null && mTextView.get() != null) {
-            TextView textView = mTextView.get();
+        if (isWeakReferenceValid()) {
+            TextView textView = mTextViewRef.get();
             if (animate) {
                 textView.setScaleX(0);
                 textView.setScaleY(0);
@@ -336,8 +420,8 @@ public class BadgeItem {
      */
     public BadgeItem hide(boolean animate) {
         mIsHidden = true;
-        if (mTextView != null && mTextView.get() != null) {
-            TextView textView = mTextView.get();
+        if (isWeakReferenceValid()) {
+            TextView textView = mTextViewRef.get();
             if (animate) {
                 ViewPropertyAnimatorCompat animatorCompat = ViewCompat.animate(textView);
                 animatorCompat.cancel();
@@ -372,23 +456,5 @@ public class BadgeItem {
      */
     public boolean isHidden() {
         return mIsHidden;
-    }
-
-    /**
-     * callback from bottom navigation tab when it is selected
-     */
-    void select() {
-        if (mHideOnSelect) {
-            hide(true);
-        }
-    }
-
-    /**
-     * callback from bottom navigation tab when it is un-selected
-     */
-    void unSelect() {
-        if (mHideOnSelect) {
-            show(true);
-        }
     }
 }
