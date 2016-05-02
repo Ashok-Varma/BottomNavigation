@@ -20,7 +20,6 @@ public class BottomVerticalScrollBehavior<V extends View> extends VerticalScroll
     private static final Interpolator INTERPOLATOR = new LinearOutSlowInInterpolator();
     private int mBottomNavHeight;
     private int mDefaultOffset;
-//    private WeakReference<V> mViewRef;
 
     private ViewPropertyAnimatorCompat mTranslationAnimator;
     private boolean hidden = false;
@@ -30,7 +29,6 @@ public class BottomVerticalScrollBehavior<V extends View> extends VerticalScroll
         // First let the parent lay it out
         parent.onLayoutChild(child, layoutDirection);
 
-//        mViewRef = new WeakReference<>(child);
 
         child.post(new Runnable() {
             @Override
@@ -46,6 +44,7 @@ public class BottomVerticalScrollBehavior<V extends View> extends VerticalScroll
 
     @Override
     public void onNestedVerticalOverScroll(CoordinatorLayout coordinatorLayout, V child, @ScrollDirection int scrollDirection, int currentOverScroll, int totalOverScroll) {
+        // Empty body
     }
 
     @Override

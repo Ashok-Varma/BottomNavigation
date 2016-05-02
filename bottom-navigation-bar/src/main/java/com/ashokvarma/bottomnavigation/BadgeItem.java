@@ -122,16 +122,6 @@ public class BadgeItem {
     public BadgeItem setText(@Nullable CharSequence text) {
         this.mText = text;
         if (isWeakReferenceValid()) {
-//            if (TextUtils.isEmpty(text)) {
-//                if (!mIsHidden) {
-//                    hide();
-//                }
-//            } else {
-//                if (mIsHidden) {
-//                    show();
-//                }
-//                mTextViewRef.get().setText(text);
-//            }
             TextView textView = mTextViewRef.get();
             if (!TextUtils.isEmpty(text)) {
                 textView.setText(text);
@@ -430,7 +420,7 @@ public class BadgeItem {
                 animatorCompat.setListener(new ViewPropertyAnimatorListener() {
                     @Override
                     public void onAnimationStart(View view) {
-
+                        // Empty body
                     }
 
                     @Override

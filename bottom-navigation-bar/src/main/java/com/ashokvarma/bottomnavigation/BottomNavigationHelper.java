@@ -19,6 +19,8 @@ import android.widget.FrameLayout;
  */
 class BottomNavigationHelper {
 
+    private BottomNavigationHelper() {}
+
     /**
      * Used to get Measurements for MODE_FIXED
      *
@@ -30,7 +32,7 @@ class BottomNavigationHelper {
      */
     public static int[] getMeasurementsForFixedMode(Context context, int screenWidth, int noOfTabs, boolean scrollable) {
 
-        int result[] = new int[2];
+        int[] result = new int[2];
 
         int minWidth = (int) context.getResources().getDimension(R.dimen.fixed_min_width_small_views);
         int maxWidth = (int) context.getResources().getDimension(R.dimen.fixed_min_width);
@@ -59,7 +61,7 @@ class BottomNavigationHelper {
      */
     public static int[] getMeasurementsForShiftingMode(Context context, int screenWidth, int noOfTabs, boolean scrollable) {
 
-        int result[] = new int[2];
+        int[] result = new int[2];
 
         int minWidth = (int) context.getResources().getDimension(R.dimen.shifting_min_width_inactive);
         int maxWidth = (int) context.getResources().getDimension(R.dimen.shifting_max_width_inactive);
@@ -167,7 +169,6 @@ class BottomNavigationHelper {
         GradientDrawable shape = new GradientDrawable();
         shape.setShape(GradientDrawable.RECTANGLE);
         shape.setCornerRadius(context.getResources().getDimensionPixelSize(R.dimen.badge_corner_radius));
-//            shape.setCornerRadii(new float[]{8, 8, 8, 8, 0, 0, 0, 0});
         shape.setColor(badgeItem.getBackgroundColor(context));
         shape.setStroke(badgeItem.getBorderWidth(), badgeItem.getBorderColor(context));
         return shape;

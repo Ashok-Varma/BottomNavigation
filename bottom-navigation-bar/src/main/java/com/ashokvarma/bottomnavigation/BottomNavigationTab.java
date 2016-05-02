@@ -71,11 +71,6 @@ class BottomNavigationTab extends FrameLayout {
         setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
     }
 
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-    }
-
     public void setActiveWidth(int activeWidth) {
         mActiveWidth = activeWidth;
     }
