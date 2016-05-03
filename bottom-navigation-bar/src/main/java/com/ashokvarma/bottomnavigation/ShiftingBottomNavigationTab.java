@@ -72,14 +72,8 @@ class ShiftingBottomNavigationTab extends BottomNavigationTab {
         anim.setDuration(animationDuration);
         this.startAnimation(anim);
 
-//        labelView.animate().scaleY(0).scaleX(0).setDuration(animationDuration).start();
         labelView.setScaleY(0);
         labelView.setScaleX(0);
-    }
-
-    @Override
-    public void initialise(boolean setActiveColor) {
-        super.initialise(setActiveColor);
     }
 
     public class ResizeWidthAnimation extends Animation {
@@ -97,11 +91,6 @@ class ShiftingBottomNavigationTab extends BottomNavigationTab {
         protected void applyTransformation(float interpolatedTime, Transformation t) {
             mView.getLayoutParams().width = mStartWidth + (int) ((mWidth - mStartWidth) * interpolatedTime);
             mView.requestLayout();
-        }
-
-        @Override
-        public void initialize(int width, int height, int parentWidth, int parentHeight) {
-            super.initialize(width, height, parentWidth, parentHeight);
         }
 
         @Override

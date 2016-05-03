@@ -67,7 +67,6 @@ public class BottomNavigationBar extends FrameLayout {
     private boolean mScrollable = false;
 
     private static final int MIN_SIZE = 3;
-    private static final int MAX_SIZE = 5;
 
     ArrayList<BottomNavigationItem> mBottomNavigationItems = new ArrayList<>();
     ArrayList<BottomNavigationTab> mBottomNavigationTabs = new ArrayList<>();
@@ -132,11 +131,6 @@ public class BottomNavigationBar extends FrameLayout {
 
         ViewCompat.setElevation(this, getContext().getResources().getDimension(R.dimen.bottom_navigation_elevation));
         setClipToPadding(false);
-    }
-
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -264,33 +258,17 @@ public class BottomNavigationBar extends FrameLayout {
      * This method will take all changes in to consideration and redraws tabs.
      */
     public void initialise() {
-        if (mBottomNavigationItems.size() > 0) {
+        if (!mBottomNavigationItems.isEmpty()) {
             mTabContainer.removeAllViews();
-            if (mMode == MODE_DEFAULT) {
-                if (mBottomNavigationItems.size() <= MIN_SIZE) {
-                    mMode = MODE_FIXED;
-                } else {
-                    mMode = MODE_SHIFTING;
-                }
-            }
-            if (mBackgroundStyle == BACKGROUND_STYLE_DEFAULT) {
-                if (mMode == MODE_FIXED) {
-                    mBackgroundStyle = BACKGROUND_STYLE_STATIC;
-                } else {
-                    mBackgroundStyle = BACKGROUND_STYLE_RIPPLE;
-                }
-            }
-
-            if (mBackgroundStyle == BACKGROUND_STYLE_STATIC) {
-                mBackgroundOverlay.setBackgroundColor(mBackgroundColor);
-                mContainer.setBackgroundColor(mBackgroundColor);
-            }
+            modeDefault();
+            backgroundStyleDefault();
+            backgroundStyleStatic();
 
             int screenWidth = Utils.getScreenWidth(getContext());
 
             if (mMode == MODE_FIXED) {
 
-                int widths[] = BottomNavigationHelper.getMeasurementsForFixedMode(getContext(), screenWidth, mBottomNavigationItems.size(), mScrollable);
+                int[] widths = BottomNavigationHelper.getMeasurementsForFixedMode(getContext(), screenWidth, mBottomNavigationItems.size(), mScrollable);
                 int itemWidth = widths[0];
 
                 for (BottomNavigationItem currentItem : mBottomNavigationItems) {
@@ -300,7 +278,7 @@ public class BottomNavigationBar extends FrameLayout {
 
             } else if (mMode == MODE_SHIFTING) {
 
-                int widths[] = BottomNavigationHelper.getMeasurementsForShiftingMode(getContext(), screenWidth, mBottomNavigationItems.size(), mScrollable);
+                int[] widths = BottomNavigationHelper.getMeasurementsForShiftingMode(getContext(), screenWidth, mBottomNavigationItems.size(), mScrollable);
 
                 int itemWidth = widths[0];
                 int itemActiveWidth = widths[1];
@@ -313,8 +291,35 @@ public class BottomNavigationBar extends FrameLayout {
 
             if (mBottomNavigationTabs.size() > mFirstSelectedPosition) {
                 selectTabInternal(mFirstSelectedPosition, true, false);
-            } else if (mBottomNavigationTabs.size() > 0) {
+            } else if (!mBottomNavigationTabs.isEmpty()) {
                 selectTabInternal(0, true, false);
+            }
+        }
+    }
+
+    private void backgroundStyleStatic() {
+        if (mBackgroundStyle == BACKGROUND_STYLE_STATIC) {
+            mBackgroundOverlay.setBackgroundColor(mBackgroundColor);
+            mContainer.setBackgroundColor(mBackgroundColor);
+        }
+    }
+
+    private void backgroundStyleDefault() {
+        if (mBackgroundStyle == BACKGROUND_STYLE_DEFAULT) {
+            if (mMode == MODE_FIXED) {
+                mBackgroundStyle = BACKGROUND_STYLE_STATIC;
+            } else {
+                mBackgroundStyle = BACKGROUND_STYLE_RIPPLE;
+            }
+        }
+    }
+
+    private void modeDefault() {
+        if (mMode == MODE_DEFAULT) {
+            if (mBottomNavigationItems.size() <= MIN_SIZE) {
+                mMode = MODE_FIXED;
+            } else {
+                mMode = MODE_SHIFTING;
             }
         }
     }
@@ -442,12 +447,7 @@ public class BottomNavigationBar extends FrameLayout {
                     mBackgroundOverlay.post(new Runnable() {
                         @Override
                         public void run() {
-//                            try {
                             BottomNavigationHelper.setBackgroundWithRipple(clickedView, mContainer, mBackgroundOverlay, clickedView.getActiveColor(), mRippleAnimationDuration);
-//                            } catch (Exception e) {
-//                                mContainer.setBackgroundColor(clickedView.getActiveColor());
-//                                mBackgroundOverlay.setVisibility(View.GONE);
-//                            }
                         }
                     });
                 }
@@ -464,7 +464,6 @@ public class BottomNavigationBar extends FrameLayout {
      */
     private void sendListenerCall(int oldPosition, int newPosition) {
         if (mTabSelectedListener != null) {
-//                && oldPosition != -1) {
             if (oldPosition == newPosition) {
                 mTabSelectedListener.onTabReselected(newPosition);
             } else {

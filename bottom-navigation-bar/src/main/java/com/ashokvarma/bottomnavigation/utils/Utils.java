@@ -15,6 +15,8 @@ import android.view.WindowManager;
  */
 public class Utils {
 
+    private Utils() {}
+
     /**
      * @param context used to get system services
      * @return screenWidth in pixels
