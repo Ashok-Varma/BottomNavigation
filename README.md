@@ -34,11 +34,11 @@ Download [the latest JAR][mavenAarDownload] or grab via Maven:
 ```
 or Gradle:
 ```groovy
-compile 'com.ashokvarma.android:bottom-navigation-bar:1.1.0'
+compile 'com.ashokvarma.android:bottom-navigation-bar:1.1.1'
 ```
 or Ivy:
 ```xml
-<dependency org='com.ashokvarma.android' name='bottom-navigation-bar' rev='1.1.0'>
+<dependency org='com.ashokvarma.android' name='bottom-navigation-bar' rev='1.1.1'>
   <artifact name='$AID' ext='pom'></artifact>
 </dependency>
 ```
