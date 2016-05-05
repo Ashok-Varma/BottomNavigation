@@ -426,8 +426,7 @@ public class BottomNavigationBar extends FrameLayout {
      * @param callListener is listener callbacks enabled for this change
      */
     private void selectTabInternal(int newPosition, boolean firstTab, boolean callListener) {
-        if (callListener)
-            sendListenerCall(mSelectedPosition, newPosition);
+        int oldPosition = mSelectedPosition;
         if (mSelectedPosition != newPosition) {
             if (mBackgroundStyle == BACKGROUND_STYLE_STATIC) {
                 if (mSelectedPosition != -1)
@@ -454,6 +453,9 @@ public class BottomNavigationBar extends FrameLayout {
             }
             mSelectedPosition = newPosition;
         }
+
+        if (callListener)
+            sendListenerCall(oldPosition, newPosition);
     }
 
     /**
@@ -596,14 +598,14 @@ public class BottomNavigationBar extends FrameLayout {
          *
          * @param position The position of the tab that was selected
          */
-        public void onTabSelected(int position);
+        void onTabSelected(int position);
 
         /**
          * Called when a tab exits the selected state.
          *
          * @param position The position of the tab that was unselected
          */
-        public void onTabUnselected(int position);
+        void onTabUnselected(int position);
 
         /**
          * Called when a tab that is already selected is chosen again by the user. Some applications
@@ -611,6 +613,21 @@ public class BottomNavigationBar extends FrameLayout {
          *
          * @param position The position of the tab that was reselected.
          */
-        public void onTabReselected(int position);
+        void onTabReselected(int position);
+    }
+
+	/**
+     * Simple implementation of the OnTabSelectedListener interface with stub implementations of each method.
+     * Extend this if you do not intend to override every method of OnTabSelectedListener.
+     */
+    public class SimpleOnTabSelectedListener implements OnTabSelectedListener {
+        @Override
+        public void onTabSelected(int position) {}
+
+        @Override
+        public void onTabUnselected(int position) {}
+
+        @Override
+        public void onTabReselected(int position) {}
     }
 }
