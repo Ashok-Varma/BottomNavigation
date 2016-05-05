@@ -2,10 +2,8 @@ package com.ashokvarma.bottomnavigation.behaviour;
 
 
 import android.content.Context;
-import android.os.Parcelable;
 import android.support.annotation.IntDef;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.v4.view.WindowInsetsCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -94,6 +92,16 @@ public abstract class VerticalScrollingBehavior<V extends View> extends Coordina
         return (nestedScrollAxes & View.SCROLL_AXIS_VERTICAL) != 0;
     }
 
+//    @Override
+//    public void onNestedScrollAccepted(CoordinatorLayout coordinatorLayout, V child, View directTargetChild, View target, int nestedScrollAxes) {
+//        super.onNestedScrollAccepted(coordinatorLayout, child, directTargetChild, target, nestedScrollAxes);
+//    }
+//
+//    @Override
+//    public void onStopNestedScroll(CoordinatorLayout coordinatorLayout, V child, View target) {
+//        super.onStopNestedScroll(coordinatorLayout, child, target);
+//    }
+
     @Override
     public void onNestedScroll(CoordinatorLayout coordinatorLayout, V child, View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed) {
         super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed);
@@ -141,5 +149,21 @@ public abstract class VerticalScrollingBehavior<V extends View> extends Coordina
      * @return
      */
     protected abstract boolean onNestedDirectionFling(CoordinatorLayout coordinatorLayout, V child, View target, float velocityX, float velocityY, @ScrollDirection int scrollDirection);
+
+//    @Override
+//    public boolean onNestedPreFling(CoordinatorLayout coordinatorLayout, V child, View target, float velocityX, float velocityY) {
+//        return super.onNestedPreFling(coordinatorLayout, child, target, velocityX, velocityY);
+//    }
+//
+//    @Override
+//    public WindowInsetsCompat onApplyWindowInsets(CoordinatorLayout coordinatorLayout, V child, WindowInsetsCompat insets) {
+//
+//        return super.onApplyWindowInsets(coordinatorLayout, child, insets);
+//    }
+//
+//    @Override
+//    public Parcelable onSaveInstanceState(CoordinatorLayout parent, V child) {
+//        return super.onSaveInstanceState(parent, child);
+//    }
 
 }

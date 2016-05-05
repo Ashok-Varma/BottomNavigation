@@ -47,6 +47,8 @@
 
     <dimen name="bottom_navigation_elevation">8dp</dimen>
     <dimen name="bottom_navigation_height">56dp</dimen>
+    <dimen name="bottom_navigation_padded_height">64dp</dimen>
+    <dimen name="bottom_navigation_top_margin_correction">-8dp</dimen><!-- 64 - 56 = 8 -->
 
     <dimen name="badge_text_size">12sp</dimen><!-- 10 -->
     <dimen name="badge_corner_radius">13dp</dimen><!-- 15 -->
