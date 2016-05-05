@@ -616,7 +616,7 @@ public class BottomNavigationBar extends FrameLayout {
         void onTabReselected(int position);
     }
 
-	/**
+    /**
      * Simple implementation of the OnTabSelectedListener interface with stub implementations of each method.
      * Extend this if you do not intend to override every method of OnTabSelectedListener.
      */
