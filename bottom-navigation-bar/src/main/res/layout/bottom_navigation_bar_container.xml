@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/bottom_navigation_bar_container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/bottom_navigation_padded_height">-->
 
-    <FrameLayout
-        android:id="@+id/bottom_navigation_bar_overLay"
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/bottom_navigation_bar_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="@dimen/bottom_navigation_height"
+        android:layout_gravity="bottom">
 
-    <LinearLayout
-        android:id="@+id/bottom_navigation_bar_item_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="horizontal">
-    </LinearLayout>
+        <FrameLayout
+            android:id="@+id/bottom_navigation_bar_overLay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-</FrameLayout>
+        <LinearLayout
+            android:id="@+id/bottom_navigation_bar_item_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal" />
+
+    </FrameLayout>
+<!--</FrameLayout>-->

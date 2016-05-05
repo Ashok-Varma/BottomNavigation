@@ -22,6 +22,11 @@ public class BottomNavigationItem {
 
     protected int mIconResource;
     protected Drawable mIcon;
+
+    protected int mInactiveIconResource;
+    protected Drawable mInactiveIcon;
+    protected boolean inActiveIconAvailable = false;
+
     protected int mTitleResource;
     protected String mTitle;
 
@@ -70,6 +75,35 @@ public class BottomNavigationItem {
         this.mIconResource = mIconResource;
         this.mTitleResource = mTitleResource;
     }
+
+    /**
+     * By default library will switch the color of icon provided (in between active and in-active icons)
+     * This method is used, if people need to set different icons for active and in-active modes.
+     *
+     * @param mInactiveIcon in-active drawable icon
+     * @return this, to allow builder pattern
+     */
+    public BottomNavigationItem setInactiveIcon(Drawable mInactiveIcon) {
+        if (mInactiveIcon != null) {
+            this.mInactiveIcon = mInactiveIcon;
+            inActiveIconAvailable = true;
+        }
+        return this;
+    }
+
+    /**
+     * By default library will switch the color of icon provided (in between active and in-active icons)
+     * This method is used, if people need to set different icons for active and in-active modes.
+     *
+     * @param mInactiveIconResource resource for the in-active icon.
+     * @return this, to allow builder pattern
+     */
+    public BottomNavigationItem setInactiveIconResource(@DrawableRes int mInactiveIconResource) {
+        this.mInactiveIconResource = mInactiveIconResource;
+        inActiveIconAvailable = true;
+        return this;
+    }
+
 
     /**
      * @param colorResource resource for active color
@@ -156,6 +190,25 @@ public class BottomNavigationItem {
         } else {
             return this.mTitle;
         }
+    }
+
+    /**
+     * @param context to fetch resources
+     * @return in-active icon drawable
+     */
+    protected Drawable getInactiveIcon(Context context) {
+        if (this.mInactiveIconResource != 0) {
+            return ContextCompat.getDrawable(context, this.mInactiveIconResource);
+        } else {
+            return this.mInactiveIcon;
+        }
+    }
+
+    /**
+     * @return if in-active icon is set
+     */
+    protected boolean isInActiveIconAvailable() {
+        return inActiveIconAvailable;
     }
 
     /**

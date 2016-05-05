@@ -5,6 +5,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.AttributeSet;
@@ -34,7 +35,10 @@ class BottomNavigationTab extends FrameLayout {
     protected int mBackgroundColor;
     protected int mActiveWidth;
     protected int mInActiveWidth;
+
     protected Drawable mCompactIcon;
+    protected Drawable mCompactInActiveIcon;
+    protected boolean isInActiveIconSet = false;
     protected String mLabel;
 
     protected BadgeItem badgeItem;
@@ -84,6 +88,11 @@ class BottomNavigationTab extends FrameLayout {
 
     public void setIcon(Drawable icon) {
         mCompactIcon = DrawableCompat.wrap(icon);
+    }
+
+    public void setInactiveIcon(Drawable icon) {
+        mCompactInActiveIcon = DrawableCompat.wrap(icon);
+        isInActiveIconSet = true;
     }
 
     public void setLabel(String label) {
@@ -172,36 +181,46 @@ class BottomNavigationTab extends FrameLayout {
         }
     }
 
-
     public void initialise(boolean setActiveColor) {
         iconView.setSelected(false);
-        if (setActiveColor) {
-            DrawableCompat.setTintList(mCompactIcon, new ColorStateList(
-                    new int[][]{
-                            new int[]{android.R.attr.state_selected}, //1
-                            new int[]{-android.R.attr.state_selected}, //2
-                            new int[]{}
-                    },
-                    new int[]{
-                            mActiveColor, //1
-                            mInActiveColor, //2
-                            mInActiveColor //3
-                    }
-            ));
+        if (isInActiveIconSet) {
+            StateListDrawable states = new StateListDrawable();
+            states.addState(new int[]{android.R.attr.state_selected},
+                    mCompactIcon);
+            states.addState(new int[]{-android.R.attr.state_selected},
+                    mCompactInActiveIcon);
+            states.addState(new int[]{},
+                    mCompactInActiveIcon);
+            iconView.setImageDrawable(states);
         } else {
-            DrawableCompat.setTintList(mCompactIcon, new ColorStateList(
-                    new int[][]{
-                            new int[]{android.R.attr.state_selected}, //1
-                            new int[]{-android.R.attr.state_selected}, //2
-                            new int[]{}
-                    },
-                    new int[]{
-                            mBackgroundColor, //1
-                            mInActiveColor, //2
-                            mInActiveColor //3
-                    }
-            ));
+            if (setActiveColor) {
+                DrawableCompat.setTintList(mCompactIcon, new ColorStateList(
+                        new int[][]{
+                                new int[]{android.R.attr.state_selected}, //1
+                                new int[]{-android.R.attr.state_selected}, //2
+                                new int[]{}
+                        },
+                        new int[]{
+                                mActiveColor, //1
+                                mInActiveColor, //2
+                                mInActiveColor //3
+                        }
+                ));
+            } else {
+                DrawableCompat.setTintList(mCompactIcon, new ColorStateList(
+                        new int[][]{
+                                new int[]{android.R.attr.state_selected}, //1
+                                new int[]{-android.R.attr.state_selected}, //2
+                                new int[]{}
+                        },
+                        new int[]{
+                                mBackgroundColor, //1
+                                mInActiveColor, //2
+                                mInActiveColor //3
+                        }
+                ));
+            }
+            iconView.setImageDrawable(mCompactIcon);
         }
-        iconView.setImageDrawable(mCompactIcon);
     }
 }
