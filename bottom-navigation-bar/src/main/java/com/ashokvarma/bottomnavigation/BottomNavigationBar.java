@@ -87,8 +87,9 @@ public class BottomNavigationBar extends FrameLayout {
     private FrameLayout mContainer;
     private LinearLayout mTabContainer;
 
-    private int mAnimationDuration = 200;
-    private int mRippleAnimationDuration = 500;
+    private static final int DEFAULT_ANIMATION_DURATION = 200;
+    private int mAnimationDuration = DEFAULT_ANIMATION_DURATION;
+    private int mRippleAnimationDuration = (int)(DEFAULT_ANIMATION_DURATION * 2.5);
 
     ///////////////////////////////////////////////////////////////////////////
     // View Default Constructors and Methods
@@ -125,8 +126,9 @@ public class BottomNavigationBar extends FrameLayout {
             mInActiveColor = typedArray.getColor(R.styleable.BottomNavigationBar_inactiveColor, Color.LTGRAY);
             mBackgroundColor = typedArray.getColor(R.styleable.BottomNavigationBar_barBackgroundColor, Color.WHITE);
 
-            int mode = typedArray.getInt(R.styleable.BottomNavigationBar_mode, MODE_DEFAULT);
-            switch (mode)
+            setAnimationDuration(typedArray.getInt(R.styleable.BottomNavigationBar_animationDuration, DEFAULT_ANIMATION_DURATION));
+
+            switch (typedArray.getInt(R.styleable.BottomNavigationBar_mode, MODE_DEFAULT))
             {
                 case MODE_FIXED:
                     mMode = MODE_FIXED;
@@ -142,8 +144,7 @@ public class BottomNavigationBar extends FrameLayout {
                     break;
             }
 
-            int backgroundStyle = typedArray.getInt(R.styleable.BottomNavigationBar_backgroundStyle, BACKGROUND_STYLE_DEFAULT);
-            switch (backgroundStyle)
+            switch (typedArray.getInt(R.styleable.BottomNavigationBar_backgroundStyle, BACKGROUND_STYLE_DEFAULT))
             {
                 case BACKGROUND_STYLE_STATIC:
                     mBackgroundStyle = BACKGROUND_STYLE_STATIC;
