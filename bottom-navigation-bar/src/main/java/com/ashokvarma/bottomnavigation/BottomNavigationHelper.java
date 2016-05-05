@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.view.View;
@@ -19,7 +20,8 @@ import android.widget.FrameLayout;
  */
 class BottomNavigationHelper {
 
-    private BottomNavigationHelper() {}
+    private BottomNavigationHelper() {
+    }
 
     /**
      * Used to get Measurements for MODE_FIXED
@@ -130,6 +132,13 @@ class BottomNavigationHelper {
             bottomNavigationTab.setInactiveColor(inActiveColor);
         } else {
             bottomNavigationTab.setInactiveColor(bottomNavigationBar.getInActiveColor());
+        }
+
+        if (bottomNavigationItem.isInActiveIconAvailable()) {
+            Drawable inactiveDrawable = bottomNavigationItem.getInactiveIcon(context);
+            if (inactiveDrawable != null) {
+                bottomNavigationTab.setInactiveIcon(inactiveDrawable);
+            }
         }
 
         bottomNavigationTab.setItemBackgroundColor(bottomNavigationBar.getBackgroundColor());

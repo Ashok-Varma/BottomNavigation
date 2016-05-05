@@ -14,6 +14,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewOutlineProvider;
 import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -67,6 +68,7 @@ public class BottomNavigationBar extends FrameLayout {
     private boolean mScrollable = false;
 
     private static final int MIN_SIZE = 3;
+    private static final int MAX_SIZE = 5;
 
     ArrayList<BottomNavigationItem> mBottomNavigationItems = new ArrayList<>();
     ArrayList<BottomNavigationTab> mBottomNavigationTabs = new ArrayList<>();
@@ -117,7 +119,10 @@ public class BottomNavigationBar extends FrameLayout {
      */
     private void init() {
 
-        setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) getContext().getResources().getDimension(R.dimen.bottom_navigation_height)));
+//        MarginLayoutParams marginParams = new ViewGroup.MarginLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) getContext().getResources().getDimension(R.dimen.bottom_navigation_padded_height)));
+//        marginParams.setMargins(0, (int) getContext().getResources().getDimension(R.dimen.bottom_navigation_top_margin_correction), 0, 0);
+
+        setLayoutParams(new ViewGroup.LayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)));
 
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View parentView = inflater.inflate(R.layout.bottom_navigation_bar_container, this, true);
@@ -129,9 +134,21 @@ public class BottomNavigationBar extends FrameLayout {
         mBackgroundColor = Color.WHITE;
         mInActiveColor = Color.LTGRAY;
 
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+            this.setOutlineProvider(ViewOutlineProvider.BOUNDS);
+        } else {
+            //to do
+        }
+
         ViewCompat.setElevation(this, getContext().getResources().getDimension(R.dimen.bottom_navigation_elevation));
+
         setClipToPadding(false);
     }
+
+//    @Override
+//    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+//        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+//    }
 
     ///////////////////////////////////////////////////////////////////////////
     // View Data Setter methods, Called before Initialize method
@@ -260,9 +277,25 @@ public class BottomNavigationBar extends FrameLayout {
     public void initialise() {
         if (!mBottomNavigationItems.isEmpty()) {
             mTabContainer.removeAllViews();
-            modeDefault();
-            backgroundStyleDefault();
-            backgroundStyleStatic();
+            if (mMode == MODE_DEFAULT) {
+                if (mBottomNavigationItems.size() <= MIN_SIZE) {
+                    mMode = MODE_FIXED;
+                } else {
+                    mMode = MODE_SHIFTING;
+                }
+            }
+            if (mBackgroundStyle == BACKGROUND_STYLE_DEFAULT) {
+                if (mMode == MODE_FIXED) {
+                    mBackgroundStyle = BACKGROUND_STYLE_STATIC;
+                } else {
+                    mBackgroundStyle = BACKGROUND_STYLE_RIPPLE;
+                }
+            }
+
+            if (mBackgroundStyle == BACKGROUND_STYLE_STATIC) {
+                mBackgroundOverlay.setBackgroundColor(mBackgroundColor);
+                mContainer.setBackgroundColor(mBackgroundColor);
+            }
 
             int screenWidth = Utils.getScreenWidth(getContext());
 
@@ -293,33 +326,6 @@ public class BottomNavigationBar extends FrameLayout {
                 selectTabInternal(mFirstSelectedPosition, true, false);
             } else if (!mBottomNavigationTabs.isEmpty()) {
                 selectTabInternal(0, true, false);
-            }
-        }
-    }
-
-    private void backgroundStyleStatic() {
-        if (mBackgroundStyle == BACKGROUND_STYLE_STATIC) {
-            mBackgroundOverlay.setBackgroundColor(mBackgroundColor);
-            mContainer.setBackgroundColor(mBackgroundColor);
-        }
-    }
-
-    private void backgroundStyleDefault() {
-        if (mBackgroundStyle == BACKGROUND_STYLE_DEFAULT) {
-            if (mMode == MODE_FIXED) {
-                mBackgroundStyle = BACKGROUND_STYLE_STATIC;
-            } else {
-                mBackgroundStyle = BACKGROUND_STYLE_RIPPLE;
-            }
-        }
-    }
-
-    private void modeDefault() {
-        if (mMode == MODE_DEFAULT) {
-            if (mBottomNavigationItems.size() <= MIN_SIZE) {
-                mMode = MODE_FIXED;
-            } else {
-                mMode = MODE_SHIFTING;
             }
         }
     }
@@ -447,7 +453,12 @@ public class BottomNavigationBar extends FrameLayout {
                     mBackgroundOverlay.post(new Runnable() {
                         @Override
                         public void run() {
+//                            try {
                             BottomNavigationHelper.setBackgroundWithRipple(clickedView, mContainer, mBackgroundOverlay, clickedView.getActiveColor(), mRippleAnimationDuration);
+//                            } catch (Exception e) {
+//                                mContainer.setBackgroundColor(clickedView.getActiveColor());
+//                                mBackgroundOverlay.setVisibility(View.GONE);
+//                            }
                         }
                     });
                 }
@@ -464,6 +475,7 @@ public class BottomNavigationBar extends FrameLayout {
      */
     private void sendListenerCall(int oldPosition, int newPosition) {
         if (mTabSelectedListener != null) {
+//                && oldPosition != -1) {
             if (oldPosition == newPosition) {
                 mTabSelectedListener.onTabReselected(newPosition);
             } else {
