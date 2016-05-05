@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BottomNavigationBar">
+        <attr name="activeColor" format="color"/>
+        <attr name="inactiveColor" format="color"/>
+        <attr name="barBackgroundColor" format="color"/>
+        <attr name="mode" format="enum">
+            <enum name="default" value="0" />
+            <enum name="fixed" value="1" />
+            <enum name="shifting" value="2" />
+        </attr>
+        <attr name="backgroundStyle" format="enum">
+            <enum name="default" value="0" />
+            <enum name="static" value="1" />
+            <enum name="ripple" value="2" />
+        </attr>
+    </declare-styleable>
+</resources>
