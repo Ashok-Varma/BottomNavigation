@@ -12,13 +12,14 @@
     <FrameLayout
         android:layout_width="@dimen/fixed_icon_badge_grid_width"
         android:layout_height="@dimen/fixed_icon_badge_grid_height"
+        android:paddingTop="@dimen/fixed_height_top_padding_common"
         android:layout_gravity="center_horizontal|top">
 
         <ImageView
             android:id="@+id/fixed_bottom_navigation_icon"
             android:layout_width="@dimen/fixed_icon_grid"
             android:layout_height="@dimen/fixed_icon_grid"
-            android:layout_gravity="center"
+            android:layout_gravity="top|center_horizontal"
             android:gravity="center"
             android:scaleType="fitXY" />
 
