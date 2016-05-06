@@ -2,6 +2,7 @@ package com.ashokvarma.bottomnavigation;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.ColorRes;
@@ -86,32 +87,87 @@ public class BottomNavigationBar extends FrameLayout {
     private FrameLayout mContainer;
     private LinearLayout mTabContainer;
 
-    private int mAnimationDuration = 200;
-    private int mRippleAnimationDuration = 500;
+    private static final int DEFAULT_ANIMATION_DURATION = 200;
+    private int mAnimationDuration = DEFAULT_ANIMATION_DURATION;
+    private int mRippleAnimationDuration = (int)(DEFAULT_ANIMATION_DURATION * 2.5);
 
     ///////////////////////////////////////////////////////////////////////////
     // View Default Constructors and Methods
     ///////////////////////////////////////////////////////////////////////////
 
     public BottomNavigationBar(Context context) {
-        super(context);
-        init();
+        this(context, null);
     }
 
     public BottomNavigationBar(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init();
+        this(context, attrs, 0);
     }
 
     public BottomNavigationBar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        parseAttrs(context, attrs);
         init();
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public BottomNavigationBar(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+        parseAttrs(context, attrs);
         init();
+    }
+
+    private void parseAttrs(Context context, AttributeSet attrs)
+    {
+        if (attrs != null)
+        {
+            TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.BottomNavigationBar);
+
+            mActiveColor = typedArray.getColor(R.styleable.BottomNavigationBar_activeColor, Utils.fetchContextColor(context, R.attr.colorAccent));
+            mInActiveColor = typedArray.getColor(R.styleable.BottomNavigationBar_inactiveColor, Color.LTGRAY);
+            mBackgroundColor = typedArray.getColor(R.styleable.BottomNavigationBar_barBackgroundColor, Color.WHITE);
+
+            setAnimationDuration(typedArray.getInt(R.styleable.BottomNavigationBar_animationDuration, DEFAULT_ANIMATION_DURATION));
+
+            switch (typedArray.getInt(R.styleable.BottomNavigationBar_mode, MODE_DEFAULT))
+            {
+                case MODE_FIXED:
+                    mMode = MODE_FIXED;
+                    break;
+
+                case MODE_SHIFTING:
+                    mMode = MODE_SHIFTING;
+                    break;
+
+                case MODE_DEFAULT:
+                default:
+                    mMode = MODE_DEFAULT;
+                    break;
+            }
+
+            switch (typedArray.getInt(R.styleable.BottomNavigationBar_backgroundStyle, BACKGROUND_STYLE_DEFAULT))
+            {
+                case BACKGROUND_STYLE_STATIC:
+                    mBackgroundStyle = BACKGROUND_STYLE_STATIC;
+                    break;
+
+                case BACKGROUND_STYLE_RIPPLE:
+                    mBackgroundStyle = BACKGROUND_STYLE_RIPPLE;
+                    break;
+
+                case BACKGROUND_STYLE_DEFAULT:
+                default:
+                    mBackgroundStyle = BACKGROUND_STYLE_DEFAULT;
+                    break;
+            }
+
+            typedArray.recycle();
+        }
+        else
+        {
+            mActiveColor = Utils.fetchContextColor(context, R.attr.colorAccent);
+            mInActiveColor = Color.LTGRAY;
+            mBackgroundColor = Color.WHITE;
+        }
     }
 
     /**
@@ -129,10 +185,6 @@ public class BottomNavigationBar extends FrameLayout {
         mBackgroundOverlay = (FrameLayout) parentView.findViewById(R.id.bottom_navigation_bar_overLay);
         mContainer = (FrameLayout) parentView.findViewById(R.id.bottom_navigation_bar_container);
         mTabContainer = (LinearLayout) parentView.findViewById(R.id.bottom_navigation_bar_item_container);
-
-        mActiveColor = Utils.fetchContextColor(getContext(), R.attr.colorAccent);
-        mBackgroundColor = Color.WHITE;
-        mInActiveColor = Color.LTGRAY;
 
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
             this.setOutlineProvider(ViewOutlineProvider.BOUNDS);
