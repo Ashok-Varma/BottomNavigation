@@ -91,6 +91,8 @@ public class BottomNavigationBar extends FrameLayout {
     private int mAnimationDuration = DEFAULT_ANIMATION_DURATION;
     private int mRippleAnimationDuration = (int)(DEFAULT_ANIMATION_DURATION * 2.5);
 
+    private float mElevation;
+
     ///////////////////////////////////////////////////////////////////////////
     // View Default Constructors and Methods
     ///////////////////////////////////////////////////////////////////////////
@@ -125,6 +127,7 @@ public class BottomNavigationBar extends FrameLayout {
             mActiveColor = typedArray.getColor(R.styleable.BottomNavigationBar_activeColor, Utils.fetchContextColor(context, R.attr.colorAccent));
             mInActiveColor = typedArray.getColor(R.styleable.BottomNavigationBar_inactiveColor, Color.LTGRAY);
             mBackgroundColor = typedArray.getColor(R.styleable.BottomNavigationBar_barBackgroundColor, Color.WHITE);
+            mElevation = typedArray.getDimension(R.styleable.BottomNavigationBar_elevation, getResources().getDimension(R.dimen.bottom_navigation_elevation));
 
             setAnimationDuration(typedArray.getInt(R.styleable.BottomNavigationBar_animationDuration, DEFAULT_ANIMATION_DURATION));
 
@@ -167,6 +170,7 @@ public class BottomNavigationBar extends FrameLayout {
             mActiveColor = Utils.fetchContextColor(context, R.attr.colorAccent);
             mInActiveColor = Color.LTGRAY;
             mBackgroundColor = Color.WHITE;
+            mElevation = getResources().getDimension(R.dimen.bottom_navigation_elevation);
         }
     }
 
@@ -186,14 +190,13 @@ public class BottomNavigationBar extends FrameLayout {
         mContainer = (FrameLayout) parentView.findViewById(R.id.bottom_navigation_bar_container);
         mTabContainer = (LinearLayout) parentView.findViewById(R.id.bottom_navigation_bar_item_container);
 
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             this.setOutlineProvider(ViewOutlineProvider.BOUNDS);
         } else {
             //to do
         }
 
-        ViewCompat.setElevation(this, getContext().getResources().getDimension(R.dimen.bottom_navigation_elevation));
-
+        ViewCompat.setElevation(this, mElevation);
         setClipToPadding(false);
     }
 

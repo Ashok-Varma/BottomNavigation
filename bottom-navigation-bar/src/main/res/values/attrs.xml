@@ -5,6 +5,7 @@
 		<attr name="inactiveColor" format="color"/>
 		<attr name="barBackgroundColor" format="color"/>
 		<attr name="animationDuration" format="integer"/>
+		<attr name="elevation" />
 		<attr name="mode" format="enum">
 			<enum name="default_mode" value="0"/>
 			<enum name="fixed" value="1"/>
