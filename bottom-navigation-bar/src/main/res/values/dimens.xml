@@ -10,6 +10,7 @@
     </dimen><!-- 8(Top Padding) - 12/2(extra padding due to badges) = 2 -->
     <dimen name="fixed_height_top_padding_active">0dp
     </dimen><!-- 6(Top Padding) - 12/2(extra padding due to badges) = 0 -->
+    <dimen name="fixed_height_top_padding_common">6dp</dimen>
     <dimen name="fixed_height_bottom_padding">10dp</dimen>
 
     <dimen name="fixed_label_active">14sp</dimen>
@@ -17,8 +18,8 @@
     <!--<item name="fixed_label_active_to_inactive_ratio" format="float" type="dimen">0.857</item>-->
 
     <dimen name="fixed_icon_grid">24dp</dimen>
-    <dimen name="fixed_icon_badge_grid_height">36dp
-    </dimen><!-- this adds 6 dp extra to top and bottom icon -->
+    <dimen name="fixed_icon_badge_grid_height">30dp
+    </dimen><!-- this adds 6 dp extra to top of icon -->
     <dimen name="fixed_icon_badge_grid_width">48dp
     </dimen><!-- this adds 6 dp extra to top and bottom icon -->
 
