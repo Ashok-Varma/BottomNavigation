@@ -89,7 +89,9 @@ public class BottomNavigationBar extends FrameLayout {
 
     private static final int DEFAULT_ANIMATION_DURATION = 200;
     private int mAnimationDuration = DEFAULT_ANIMATION_DURATION;
-    private int mRippleAnimationDuration = (int)(DEFAULT_ANIMATION_DURATION * 2.5);
+    private int mRippleAnimationDuration = (int) (DEFAULT_ANIMATION_DURATION * 2.5);
+
+    private float mElevation;
 
     ///////////////////////////////////////////////////////////////////////////
     // View Default Constructors and Methods
@@ -116,20 +118,25 @@ public class BottomNavigationBar extends FrameLayout {
         init();
     }
 
-    private void parseAttrs(Context context, AttributeSet attrs)
-    {
-        if (attrs != null)
-        {
-            TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.BottomNavigationBar);
+    /**
+     * This method initiates the bottomNavigationBar properties,
+     * Tries to get them form XML if not preset sets them to their default values.
+     *
+     * @param context context of the bottomNavigationBar
+     * @param attrs   attributes mentioned in the layout XML by user
+     */
+    private void parseAttrs(Context context, AttributeSet attrs) {
+        if (attrs != null) {
+            TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.BottomNavigationBar, 0, 0);
 
             mActiveColor = typedArray.getColor(R.styleable.BottomNavigationBar_activeColor, Utils.fetchContextColor(context, R.attr.colorAccent));
             mInActiveColor = typedArray.getColor(R.styleable.BottomNavigationBar_inactiveColor, Color.LTGRAY);
             mBackgroundColor = typedArray.getColor(R.styleable.BottomNavigationBar_barBackgroundColor, Color.WHITE);
+            mElevation = typedArray.getDimension(R.styleable.BottomNavigationBar_elevation, getResources().getDimension(R.dimen.bottom_navigation_elevation));
 
             setAnimationDuration(typedArray.getInt(R.styleable.BottomNavigationBar_animationDuration, DEFAULT_ANIMATION_DURATION));
 
-            switch (typedArray.getInt(R.styleable.BottomNavigationBar_mode, MODE_DEFAULT))
-            {
+            switch (typedArray.getInt(R.styleable.BottomNavigationBar_mode, MODE_DEFAULT)) {
                 case MODE_FIXED:
                     mMode = MODE_FIXED;
                     break;
@@ -144,8 +151,7 @@ public class BottomNavigationBar extends FrameLayout {
                     break;
             }
 
-            switch (typedArray.getInt(R.styleable.BottomNavigationBar_backgroundStyle, BACKGROUND_STYLE_DEFAULT))
-            {
+            switch (typedArray.getInt(R.styleable.BottomNavigationBar_backgroundStyle, BACKGROUND_STYLE_DEFAULT)) {
                 case BACKGROUND_STYLE_STATIC:
                     mBackgroundStyle = BACKGROUND_STYLE_STATIC;
                     break;
@@ -161,17 +167,16 @@ public class BottomNavigationBar extends FrameLayout {
             }
 
             typedArray.recycle();
-        }
-        else
-        {
+        } else {
             mActiveColor = Utils.fetchContextColor(context, R.attr.colorAccent);
             mInActiveColor = Color.LTGRAY;
             mBackgroundColor = Color.WHITE;
+            mElevation = getResources().getDimension(R.dimen.bottom_navigation_elevation);
         }
     }
 
     /**
-     * This method initiates the bottom Navigation bar and assigns default values
+     * This method initiates the bottomNavigationBar and handles layout related values
      */
     private void init() {
 
@@ -186,14 +191,13 @@ public class BottomNavigationBar extends FrameLayout {
         mContainer = (FrameLayout) parentView.findViewById(R.id.bottom_navigation_bar_container);
         mTabContainer = (LinearLayout) parentView.findViewById(R.id.bottom_navigation_bar_item_container);
 
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             this.setOutlineProvider(ViewOutlineProvider.BOUNDS);
         } else {
             //to do
         }
 
-        ViewCompat.setElevation(this, getContext().getResources().getDimension(R.dimen.bottom_navigation_elevation));
-
+        ViewCompat.setElevation(this, mElevation);
         setClipToPadding(false);
     }
 
@@ -484,8 +488,7 @@ public class BottomNavigationBar extends FrameLayout {
      * @param callListener is listener callbacks enabled for this change
      */
     private void selectTabInternal(int newPosition, boolean firstTab, boolean callListener) {
-        if (callListener)
-            sendListenerCall(mSelectedPosition, newPosition);
+        int oldPosition = mSelectedPosition;
         if (mSelectedPosition != newPosition) {
             if (mBackgroundStyle == BACKGROUND_STYLE_STATIC) {
                 if (mSelectedPosition != -1)
@@ -517,6 +520,10 @@ public class BottomNavigationBar extends FrameLayout {
             }
             mSelectedPosition = newPosition;
         }
+
+        if (callListener) {
+            sendListenerCall(oldPosition, newPosition);
+        }
     }
 
     /**
@@ -537,6 +544,38 @@ public class BottomNavigationBar extends FrameLayout {
                 }
             }
         }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Animating methods
+    ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * hide with animation
+     */
+    public void hide() {
+        hide(true);
+    }
+
+    /**
+     * @param animate is animation enabled for hide
+     */
+    public void hide(boolean animate) {
+        setTranslationY(this.getHeight(), animate);
+    }
+
+    /**
+     * unHide with animation
+     */
+    public void unHide() {
+        unHide(true);
+    }
+
+    /**
+     * @param animate is animation enabled for unHide
+     */
+    public void unHide(boolean animate) {
+        setTranslationY(0, animate);
     }
 
     /**
@@ -572,38 +611,6 @@ public class BottomNavigationBar extends FrameLayout {
             mTranslationAnimator.cancel();
         }
         mTranslationAnimator.translationY(offset).start();
-    }
-
-    ///////////////////////////////////////////////////////////////////////////
-    // Animating methods
-    ///////////////////////////////////////////////////////////////////////////
-
-    /**
-     * hide with animation
-     */
-    public void hide() {
-        hide(true);
-    }
-
-    /**
-     * @param animate is animation enabled for hide
-     */
-    public void hide(boolean animate) {
-        setTranslationY(this.getHeight(), animate);
-    }
-
-    /**
-     * unHide with animation
-     */
-    public void unHide() {
-        unHide(true);
-    }
-
-    /**
-     * @param animate is animation enabled for unHide
-     */
-    public void unHide(boolean animate) {
-        setTranslationY(0, animate);
     }
 
 
@@ -660,14 +667,14 @@ public class BottomNavigationBar extends FrameLayout {
          *
          * @param position The position of the tab that was selected
          */
-        public void onTabSelected(int position);
+        void onTabSelected(int position);
 
         /**
          * Called when a tab exits the selected state.
          *
          * @param position The position of the tab that was unselected
          */
-        public void onTabUnselected(int position);
+        void onTabUnselected(int position);
 
         /**
          * Called when a tab that is already selected is chosen again by the user. Some applications
@@ -675,6 +682,24 @@ public class BottomNavigationBar extends FrameLayout {
          *
          * @param position The position of the tab that was reselected.
          */
-        public void onTabReselected(int position);
+        void onTabReselected(int position);
+    }
+
+    /**
+     * Simple implementation of the OnTabSelectedListener interface with stub implementations of each method.
+     * Extend this if you do not intend to override every method of OnTabSelectedListener.
+     */
+    public static class SimpleOnTabSelectedListener implements OnTabSelectedListener {
+        @Override
+        public void onTabSelected(int position) {
+        }
+
+        @Override
+        public void onTabUnselected(int position) {
+        }
+
+        @Override
+        public void onTabReselected(int position) {
+        }
     }
 }
