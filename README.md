@@ -114,7 +114,7 @@ Methods: `setActiveColor, setInActiveColor, setBarBackgroundColor` Value: Color 
 
 **background color :** In BACKGROUND_STYLE_STATIC background color is the bottom bar background color. In BACKGROUND_STYLE_RIPPLE background color is the icon and text color of the active/selected tab.
 
-**Default colors:**
+**Default colors:**  
 1. Theme's Primary Color will be active color.  
 2. Color.LTGRAY will be in-active color.  
 3. Color.WHITE will be background color.  
