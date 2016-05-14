@@ -7,14 +7,14 @@
         <attr name="bnbBackgroundColor" format="color" />
         <attr name="bnbAnimationDuration" format="integer" />
         <attr name="bnbMode" format="enum">
-            <enum name="default_mode" value="0" />
-            <enum name="fixed" value="1" />
-            <enum name="shifting" value="2" />
+            <enum name="mode_default" value="0" />
+            <enum name="mode_fixed" value="1" />
+            <enum name="mode_shifting" value="2" />
         </attr>
         <attr name="bnbBackgroundStyle" format="enum">
-            <enum name="default_style" value="0" />
-            <enum name="static_style" value="1" />
-            <enum name="ripple" value="2" />
+            <enum name="background_style_default" value="0" />
+            <enum name="background_style_static" value="1" />
+            <enum name="background_style_ripple" value="2" />
         </attr>
     </declare-styleable>
 </resources>
