@@ -93,7 +93,7 @@ BACKGROUND_STYLE_STATIC | <img src="https://raw.githubusercontent.com/Ashok-Varm
 BACKGROUND_STYLE_RIPPLE | <img src="https://raw.githubusercontent.com/Ashok-Varma/BottomNavigation/master/fixed_ripple.gif" width="320" height="50" /> | <img src="https://raw.githubusercontent.com/Ashok-Varma/BottomNavigation/master/shift_ripple.gif" width="320" height="50" />
 
 #### 1. Modes
-Attribute: `bnbMode` Values: `default, fixed, shifting`  
+Attribute: `bnbMode` Values: `mode_default, mode_fixed, mode_shifting`  
 Method: `setMode()`  Values:`MODE_DEFAULT, MODE_FIXED, MODE_SHIFTING`  
 
 ##### Code Snippet Example
@@ -106,7 +106,7 @@ Method: `setMode()`  Values:`MODE_DEFAULT, MODE_FIXED, MODE_SHIFTING`
 **MODE_DEFAULT:** if number of tabs are less than or equal to three then MODE_FIXED will be used other cases MODE_SHIFTING will be used.
 
 #### 2. Background Styles
-  Attribute: `bnbBackgroundStyle` Values: `default, static, ripple`  
+  Attribute: `bnbBackgroundStyle` Values: `background_style_default, background_style_static, background_style_ripple`  
   Method: `setBackgroundStyle()` Values: `BACKGROUND_STYLE_DEFAULT, BACKGROUND_STYLE_STATIC, BACKGROUND_STYLE_RIPPLE`  
 
 ##### Code Snippet Example
@@ -173,7 +173,7 @@ if you didn't set active/in-active colors for the BottomNavigationItem then thes
 ```
 
 
-#### 5. Elevation
+#### 6. Elevation
 Attribute: `elevation` 
 
 You can set elevation to `0dp` if you don't want a shadow or plan to draw your own.
