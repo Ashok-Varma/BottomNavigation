@@ -85,7 +85,7 @@ bottomNavigationBar
 ```
 **all methods are self explanatory**
 
-### BottomNavigationBar Cutomisations
+### BottomNavigationBar Customizations
 
  | MODE_FIXED | MODE_SHIFTING
 ------------ | ------------ | -------------
@@ -93,29 +93,20 @@ BACKGROUND_STYLE_STATIC | <img src="https://raw.githubusercontent.com/Ashok-Varm
 BACKGROUND_STYLE_RIPPLE | <img src="https://raw.githubusercontent.com/Ashok-Varma/BottomNavigation/master/fixed_ripple.gif" width="320" height="50" /> | <img src="https://raw.githubusercontent.com/Ashok-Varma/BottomNavigation/master/shift_ripple.gif" width="320" height="50" />
 
 #### 1. Modes
-library provides two modes MODE_FIXED and MODE_SHIFTING
+Attribute: ```bnbMode``` Values: ```default_mode, fixed, shifting```
+Method: ```setMode()```  Values:```MODE_DEFAULT, MODE_FIXED, MODE_SHIFTING```
 
-**to set mode :**
-```java
-bottomNavigationBar
-                .setMode(BottomNavigationBar.MODE_FIXED)
-```
-##### default behaviour
 **MODE_DEFAULT:** if number of tabs are less than or equal to three then MODE_FIXED will be used other cases MODE_SHIFTING will be used.
 
 #### 2. Background Styles
-library provides two background styles BACKGROUND_STYLE_STATIC and BACKGROUND_STYLE_RIPPLE
+Attribute: ```bnbBackgroundStyle``` Values: ```default_style, static_style, ripple```
+Method: ```setMode()``` Values: ```BACKGROUND_STYLE_DEFAULT, BACKGROUND_STYLE_STATIC, BACKGROUND_STYLE_RIPPLE```
 
-**to set background style:**
-```java
-bottomNavigationBar
-                .setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_RIPPLE)
-```
-##### default behaviour
 **BACKGROUND_STYLE_DEFAULT:** if mode is MODE_FIXED then BACKGROUND_STYLE_STATIC will be used if mode is MODE_SHIFTING then BACKGROUND_STYLE_RIPPLE will be used.
 
 #### 3. Colors
-user can play with three colors : background color, active color and in-active color
+Attributes: ```bnbActiveColor, bnbInactiveColor, bnbBackgroundColor``` Value: Color value or resource 
+Methods: ```setActiveColor, setInActiveColor, setBarBackgroundColor``` Value: Color value or resource 
 
 **in-active color :** is the icon and text color of the in-active/un-selected tab
 
@@ -123,13 +114,12 @@ user can play with three colors : background color, active color and in-active c
 
 **background color :** In BACKGROUND_STYLE_STATIC background color is the bottom bar background color. In BACKGROUND_STYLE_RIPPLE background color is the icon and text color of the active/selected tab.
 
-**set colors :** you can set color either by colorResId or direct color code string:
-```java
-bottomNavigationBar
-                .setActiveColor(R.color.primary)
-                .setInActiveColor("#FFFFFF")
-                .setBarBackgroundColor("#ECECEC")
-```
+**Default colors:**
+1. Theme's Primary Color will be active color
+2. Color.LTGRAY will be in-active color.
+3. Color.WHITE will be background color
+
+#### 4. Individual BottomNavigationItem Colors and Badges
 
 **set colors to BottomNavigationItem :** if you need different active/in-active colors for different tabs. you can also set active and inactive color for the BottomNavigationItem.
 ```java
@@ -140,11 +130,26 @@ bottomNavigationBar
                 .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV"))
                 .addItem(new BottomNavigationItem(R.drawable.ic_videogame_asset_white_24dp, "Games").setActiveColor(R.color.grey))
 ```
-**BottomNavigationItem color behaviour :** if you didn't set active/in-active colors for the BottomNavigationItem then these will inherited from BottomNavigationBar active/in-active colors respectively
-##### default colors
-1. primary color will be active color
-2. Color.WHITE will be background color
-3. Color.LTGRAY will be in-active color.
+
+**add badge to BottomNavigationItem:** you may add a BadgeItem for different tabs.
+```java
+     BadgeItem numberBadgeItem = new BadgeItem()
+                .setBorderWidth(4)
+                .setBackgroundColorResource(R.color.blue)
+                .setText("5")
+                .setHideOnSelect(autoHide.isChecked());
+
+     bottomNavigationBar
+                .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
+```
+
+
+#### 5. Elevation
+Attribute: ```elevation``` 
+
+You can set elevation to ```0dp``` if you don't want a shadow or plan to draw your own.
+
+**Default elevation:** ```8dp```  
 
 ## License
 
