@@ -96,17 +96,40 @@ BACKGROUND_STYLE_RIPPLE | <img src="https://raw.githubusercontent.com/Ashok-Varm
 Attribute: `bnbMode` Values: `default, fixed, shifting`  
 Method: `setMode()`  Values:`MODE_DEFAULT, MODE_FIXED, MODE_SHIFTING`  
 
+##### Code Snippet Example
+**to set mode :**		
+ ```java
+ bottomNavigationBar
+                 .setMode(BottomNavigationBar.MODE_FIXED)
+ ```
+
 **MODE_DEFAULT:** if number of tabs are less than or equal to three then MODE_FIXED will be used other cases MODE_SHIFTING will be used.
 
 #### 2. Background Styles
   Attribute: `bnbBackgroundStyle` Values: `default, static, ripple`  
-  Method: `setMode()` Values: `BACKGROUND_STYLE_DEFAULT, BACKGROUND_STYLE_STATIC, BACKGROUND_STYLE_RIPPLE`  
+  Method: `setBackgroundStyle()` Values: `BACKGROUND_STYLE_DEFAULT, BACKGROUND_STYLE_STATIC, BACKGROUND_STYLE_RIPPLE`  
+
+##### Code Snippet Example
+**to set background style:**		
+ ```java
+ bottomNavigationBar
+                 .setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_RIPPLE)		
+ ```
 
 **BACKGROUND_STYLE_DEFAULT:** if mode is MODE_FIXED then BACKGROUND_STYLE_STATIC will be used if mode is MODE_SHIFTING then BACKGROUND_STYLE_RIPPLE will be used.
 
 #### 3. Colors
 Attributes: `bnbActiveColor, bnbInactiveColor, bnbBackgroundColor` Value: Color value or resource   
 Methods: `setActiveColor, setInActiveColor, setBarBackgroundColor` Value: Color value or resource   
+
+##### Code Snippet Example
+**to set colors:**	
+```java
+ bottomNavigationBar
+                 .setActiveColor(R.color.primary)
+                 .setInActiveColor("#FFFFFF")
+                 .setBarBackgroundColor("#ECECEC")
+ ```
 
 **in-active color :** is the icon and text color of the in-active/un-selected tab
 
@@ -119,9 +142,10 @@ Methods: `setActiveColor, setInActiveColor, setBarBackgroundColor` Value: Color 
 2. Color.LTGRAY will be in-active color.  
 3. Color.WHITE will be background color.  
 
-#### 4. Individual BottomNavigationItem Colors and Badges
+#### 4. Individual BottomNavigationItem Colors
 
 **set colors to BottomNavigationItem :** if you need different active/in-active colors for different tabs. you can also set active and inactive color for the BottomNavigationItem.
+##### Code Snippet Example
 ```java
         bottomNavigationBar
                 .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColor(R.color.orange).setInActiveColor(R.color.teal))
@@ -130,8 +154,13 @@ Methods: `setActiveColor, setInActiveColor, setBarBackgroundColor` Value: Color 
                 .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV"))
                 .addItem(new BottomNavigationItem(R.drawable.ic_videogame_asset_white_24dp, "Games").setActiveColor(R.color.grey))
 ```
+if you didn't set active/in-active colors for the BottomNavigationItem then these will inherited from BottomNavigationBar active/in-active colors respectively
+
+#### 5. Badges 
 
 **add badge to BottomNavigationItem:** you may add a BadgeItem for different tabs.
+
+##### Code Snippet Example
 ```java
      BadgeItem numberBadgeItem = new BadgeItem()
                 .setBorderWidth(4)
