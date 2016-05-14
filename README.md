@@ -93,20 +93,20 @@ BACKGROUND_STYLE_STATIC | <img src="https://raw.githubusercontent.com/Ashok-Varm
 BACKGROUND_STYLE_RIPPLE | <img src="https://raw.githubusercontent.com/Ashok-Varma/BottomNavigation/master/fixed_ripple.gif" width="320" height="50" /> | <img src="https://raw.githubusercontent.com/Ashok-Varma/BottomNavigation/master/shift_ripple.gif" width="320" height="50" />
 
 #### 1. Modes
-  Attribute: ```bnbMode``` Values: ```default_mode, fixed, shifting```
-  Method: ```setMode()```  Values:```MODE_DEFAULT, MODE_FIXED, MODE_SHIFTING```
+Attribute: `bnbMode` Values: `default_mode, fixed, shifting`  
+Method: `setMode()`  Values:`MODE_DEFAULT, MODE_FIXED, MODE_SHIFTING`  
 
 **MODE_DEFAULT:** if number of tabs are less than or equal to three then MODE_FIXED will be used other cases MODE_SHIFTING will be used.
 
 #### 2. Background Styles
-  Attribute: ```bnbBackgroundStyle``` Values: ```default_style, static_style, ripple```
-  Method: ```setMode()``` Values: ```BACKGROUND_STYLE_DEFAULT, BACKGROUND_STYLE_STATIC, BACKGROUND_STYLE_RIPPLE```
+  Attribute: `bnbBackgroundStyle` Values: `default_style, static_style, ripple`  
+  Method: `setMode()` Values: `BACKGROUND_STYLE_DEFAULT, BACKGROUND_STYLE_STATIC, BACKGROUND_STYLE_RIPPLE`  
 
 **BACKGROUND_STYLE_DEFAULT:** if mode is MODE_FIXED then BACKGROUND_STYLE_STATIC will be used if mode is MODE_SHIFTING then BACKGROUND_STYLE_RIPPLE will be used.
 
 #### 3. Colors
-  Attributes: ```bnbActiveColor, bnbInactiveColor, bnbBackgroundColor``` Value: Color value or resource 
-  Methods: ```setActiveColor, setInActiveColor, setBarBackgroundColor``` Value: Color value or resource 
+Attributes: `bnbActiveColor, bnbInactiveColor, bnbBackgroundColor` Value: Color value or resource   
+Methods: `setActiveColor, setInActiveColor, setBarBackgroundColor` Value: Color value or resource   
 
 **in-active color :** is the icon and text color of the in-active/un-selected tab
 
@@ -115,9 +115,9 @@ BACKGROUND_STYLE_RIPPLE | <img src="https://raw.githubusercontent.com/Ashok-Varm
 **background color :** In BACKGROUND_STYLE_STATIC background color is the bottom bar background color. In BACKGROUND_STYLE_RIPPLE background color is the icon and text color of the active/selected tab.
 
 **Default colors:**
-1. Theme's Primary Color will be active color
-2. Color.LTGRAY will be in-active color.
-3. Color.WHITE will be background color
+1. Theme's Primary Color will be active color.  
+2. Color.LTGRAY will be in-active color.  
+3. Color.WHITE will be background color.  
 
 #### 4. Individual BottomNavigationItem Colors and Badges
 
@@ -145,11 +145,11 @@ BACKGROUND_STYLE_RIPPLE | <img src="https://raw.githubusercontent.com/Ashok-Varm
 
 
 #### 5. Elevation
-  Attribute: ```elevation``` 
+Attribute: `elevation` 
 
-You can set elevation to ```0dp``` if you don't want a shadow or plan to draw your own.
+You can set elevation to `0dp` if you don't want a shadow or plan to draw your own.
 
-**Default elevation:** ```8dp```  
+**Default elevation:** `8dp`  
 
 ## License
 
