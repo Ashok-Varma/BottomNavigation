@@ -173,7 +173,7 @@ if you didn't set active/in-active colors for the BottomNavigationItem then thes
 ```
 
 
-#### 5. Elevation
+#### 6. Elevation
 Attribute: `elevation` 
 
 You can set elevation to `0dp` if you don't want a shadow or plan to draw your own.
