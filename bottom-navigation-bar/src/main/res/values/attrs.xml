@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="BottomNavigationBar">
-        <attr name="bnbElevation" />
+        <attr name="elevation" />
         <attr name="bnbActiveColor" format="color" />
         <attr name="bnbInactiveColor" format="color" />
         <attr name="bnbBackgroundColor" format="color" />
         <attr name="bnbAnimationDuration" format="integer" />
         <attr name="bnbMode" format="enum">
-            <enum name="default" value="0" />
+            <enum name="default_mode" value="0" />
             <enum name="fixed" value="1" />
             <enum name="shifting" value="2" />
         </attr>
         <attr name="bnbBackgroundStyle" format="enum">
-            <enum name="default" value="0" />
-            <enum name="static" value="1" />
+            <enum name="default_style" value="0" />
+            <enum name="static_style" value="1" />
             <enum name="ripple" value="2" />
         </attr>
     </declare-styleable>
