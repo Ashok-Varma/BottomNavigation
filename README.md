@@ -28,17 +28,17 @@ Download [the latest JAR][mavenAarDownload] or grab via Maven:
 <dependency>
   <groupId>com.ashokvarma.android</groupId>
   <artifactId>bottom-navigation-bar</artifactId>
-  <version>1.1.1</version>
+  <version>1.1.2</version>
   <type>pom</type>
 </dependency>
 ```
 or Gradle:
 ```groovy
-compile 'com.ashokvarma.android:bottom-navigation-bar:1.1.1'
+compile 'com.ashokvarma.android:bottom-navigation-bar:1.1.2'
 ```
 or Ivy:
 ```xml
-<dependency org='com.ashokvarma.android' name='bottom-navigation-bar' rev='1.1.1'>
+<dependency org='com.ashokvarma.android' name='bottom-navigation-bar' rev='1.1.2'>
   <artifact name='$AID' ext='pom'></artifact>
 </dependency>
 ```
@@ -68,8 +68,8 @@ bottomNavigationBar
                 .addItem(new BottomNavigationItem(R.drawable.ic_videogame_asset_white_24dp, "Games"))
                 .initialise();
 ```
-### Add TabChangeListener
 
+**Add TabSelectedListener**
 ```java
         bottomNavigationBar.setTabSelectedListener(new BottomNavigationBar.OnTabSelectedListener(){
             @Override
@@ -167,5 +167,5 @@ limitations under the License.
 
  [googlePlayStoreLink]: https://play.google.com/store/apps/details?id=com.ashokvarma.bottomnavigation.sample
  [googlePage]: https://www.google.com/design/spec/components/bottom-navigation.html
- [mavenAarDownload]:  https://repo1.maven.org/maven2/com/ashokvarma/android/bottom-navigation-bar/1.1.1/bottom-navigation-bar-1.1.1.aar
+ [mavenAarDownload]:  https://repo1.maven.org/maven2/com/ashokvarma/android/bottom-navigation-bar/1.1.2/bottom-navigation-bar-1.1.2.aar
  [mavenLatestJarDownload]: https://search.maven.org/remote_content?g=com.ashokvarma.android&a=bottom-navigation-bar&v=LATEST
