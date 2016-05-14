@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="BottomNavigationBar">
-        <attr name="bnbElevation" />
+        <attr name="bnbElevation" format="dimension" />
         <attr name="bnbActiveColor" format="color" />
         <attr name="bnbInactiveColor" format="color" />
         <attr name="bnbBackgroundColor" format="color" />
