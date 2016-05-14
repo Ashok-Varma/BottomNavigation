@@ -20,7 +20,7 @@ public class BottomVerticalScrollBehavior<V extends View> extends VerticalScroll
     private static final Interpolator INTERPOLATOR = new LinearOutSlowInInterpolator();
     private int mBottomNavHeight;
     private int mDefaultOffset;
-    //    private WeakReference<V> mViewRef;
+//    private WeakReference<V> mViewRef;
 
     private ViewPropertyAnimatorCompat mTranslationAnimator;
     private boolean hidden = false;
@@ -44,12 +44,17 @@ public class BottomVerticalScrollBehavior<V extends View> extends VerticalScroll
     }
 
     @Override
-    public void onNestedVerticalOverScroll(CoordinatorLayout coordinatorLayout, V child, @ScrollDirection int scrollDirection, int currentOverScroll, int totalOverScroll) {
+    public void onNestedVerticalScrollUnconsumed(CoordinatorLayout coordinatorLayout, V child, @ScrollDirection int scrollDirection, int currentOverScroll, int totalScroll) {
         // Empty body
     }
 
     @Override
-    public void onDirectionNestedPreScroll(CoordinatorLayout coordinatorLayout, V child, View target, int dx, int dy, int[] consumed, @ScrollDirection int scrollDirection) {
+    public void onNestedVerticalPreScroll(CoordinatorLayout coordinatorLayout, V child, View target, int dx, int dy, int[] consumed, @ScrollDirection int scrollDirection) {
+//        handleDirection(child, scrollDirection);
+    }
+
+    @Override
+    public void onNestedVerticalScrollConsumed(CoordinatorLayout coordinatorLayout, V child, @ScrollDirection int scrollDirection, int currentOverScroll, int totalConsumedScroll) {
         handleDirection(child, scrollDirection);
     }
 
@@ -64,9 +69,11 @@ public class BottomVerticalScrollBehavior<V extends View> extends VerticalScroll
     }
 
     @Override
-    protected boolean onNestedDirectionFling(CoordinatorLayout coordinatorLayout, V child, View target, float velocityX, float velocityY, @ScrollDirection int scrollDirection) {
-        handleDirection(child, scrollDirection);
-        return true;
+    protected boolean onNestedDirectionFling(CoordinatorLayout coordinatorLayout, V child, View target, float velocityX, float velocityY, boolean consumed, @ScrollDirection int scrollDirection) {
+        if (consumed) {
+            handleDirection(child, scrollDirection);
+        }
+        return consumed;
     }
 
     private void animateOffset(final V child, final int offset) {

@@ -28,17 +28,17 @@ Download [the latest JAR][mavenAarDownload] or grab via Maven:
 <dependency>
   <groupId>com.ashokvarma.android</groupId>
   <artifactId>bottom-navigation-bar</artifactId>
-  <version>1.1.2</version>
+  <version>1.2.0</version>
   <type>pom</type>
 </dependency>
 ```
 or Gradle:
 ```groovy
-compile 'com.ashokvarma.android:bottom-navigation-bar:1.1.2'
+compile 'com.ashokvarma.android:bottom-navigation-bar:1.2.0'
 ```
 or Ivy:
 ```xml
-<dependency org='com.ashokvarma.android' name='bottom-navigation-bar' rev='1.1.2'>
+<dependency org='com.ashokvarma.android' name='bottom-navigation-bar' rev='1.2.0'>
   <artifact name='$AID' ext='pom'></artifact>
 </dependency>
 ```
@@ -93,13 +93,13 @@ BACKGROUND_STYLE_STATIC | <img src="https://raw.githubusercontent.com/Ashok-Varm
 BACKGROUND_STYLE_RIPPLE | <img src="https://raw.githubusercontent.com/Ashok-Varma/BottomNavigation/master/fixed_ripple.gif" width="320" height="50" /> | <img src="https://raw.githubusercontent.com/Ashok-Varma/BottomNavigation/master/shift_ripple.gif" width="320" height="50" />
 
 #### 1. Modes
-Attribute: `bnbMode` Values: `default_mode, fixed, shifting`  
+Attribute: `bnbMode` Values: `default, fixed, shifting`  
 Method: `setMode()`  Values:`MODE_DEFAULT, MODE_FIXED, MODE_SHIFTING`  
 
 **MODE_DEFAULT:** if number of tabs are less than or equal to three then MODE_FIXED will be used other cases MODE_SHIFTING will be used.
 
 #### 2. Background Styles
-  Attribute: `bnbBackgroundStyle` Values: `default_style, static_style, ripple`  
+  Attribute: `bnbBackgroundStyle` Values: `default, static, ripple`  
   Method: `setMode()` Values: `BACKGROUND_STYLE_DEFAULT, BACKGROUND_STYLE_STATIC, BACKGROUND_STYLE_RIPPLE`  
 
 **BACKGROUND_STYLE_DEFAULT:** if mode is MODE_FIXED then BACKGROUND_STYLE_STATIC will be used if mode is MODE_SHIFTING then BACKGROUND_STYLE_RIPPLE will be used.
@@ -172,5 +172,5 @@ limitations under the License.
 
  [googlePlayStoreLink]: https://play.google.com/store/apps/details?id=com.ashokvarma.bottomnavigation.sample
  [googlePage]: https://www.google.com/design/spec/components/bottom-navigation.html
- [mavenAarDownload]:  https://repo1.maven.org/maven2/com/ashokvarma/android/bottom-navigation-bar/1.1.2/bottom-navigation-bar-1.1.2.aar
+ [mavenAarDownload]:  https://repo1.maven.org/maven2/com/ashokvarma/android/bottom-navigation-bar/1.2.0/bottom-navigation-bar-1.2.0.aar
  [mavenLatestJarDownload]: https://search.maven.org/remote_content?g=com.ashokvarma.android&a=bottom-navigation-bar&v=LATEST
