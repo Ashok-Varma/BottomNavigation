@@ -20,12 +20,15 @@ import java.lang.annotation.RetentionPolicy;
 public abstract class VerticalScrollingBehavior<V extends View> extends CoordinatorLayout.Behavior<V> {
 
     private int mTotalDyUnconsumed = 0;
+    private int mTotalDyConsumed = 0;
     private int mTotalDy = 0;
 
     @ScrollDirection
-    private int mOverScrollDirection = ScrollDirection.SCROLL_NONE;
-    @ScrollDirection
     private int mScrollDirection = ScrollDirection.SCROLL_NONE;
+    @ScrollDirection
+    private int mPreScrollDirection = ScrollDirection.SCROLL_NONE;
+    @ScrollDirection
+    private int mConsumedScrollDirection = ScrollDirection.SCROLL_NONE;
 
     public VerticalScrollingBehavior(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -44,48 +47,30 @@ public abstract class VerticalScrollingBehavior<V extends View> extends Coordina
     }
 
 
-    /*
-       @return Overscroll direction: SCROLL_DIRECTION_UP, CROLL_DIRECTION_DOWN, SCROLL_NONE
-   */
-    @ScrollDirection
-    public int getOverScrollDirection() {
-        return mOverScrollDirection;
-    }
-
-
     /**
-     * @return Scroll direction: SCROLL_DIRECTION_UP, SCROLL_DIRECTION_DOWN, SCROLL_NONE
+     * @return Scroll direction: SCROLL_DIRECTION_UP, CROLL_DIRECTION_DOWN, SCROLL_NONE
      */
-
     @ScrollDirection
     public int getScrollDirection() {
         return mScrollDirection;
     }
 
+    /**
+     * @return ConsumedScroll direction: SCROLL_DIRECTION_UP, CROLL_DIRECTION_DOWN, SCROLL_NONE
+     */
+    @ScrollDirection
+    public int getConsumedScrollDirection() {
+        return mConsumedScrollDirection;
+    }
+
 
     /**
-     * @param coordinatorLayout the CoordinatorLayout parent of the view this Behavior is
-     *                          associated with
-     * @param child             the child view of the CoordinatorLayout this Behavior is associated with
-     * @param scrollDirection         Direction of the scroll: SCROLL_DIRECTION_UP, SCROLL_DIRECTION_DOWN
-     * @param currentOverScroll Unconsumed value, negative or positive based on the direction;
-     * @param totalOverScroll   Cumulative value for current direction
+     * @return PreScroll direction: SCROLL_DIRECTION_UP, SCROLL_DIRECTION_DOWN, SCROLL_NONE
      */
-    public abstract void onNestedVerticalOverScroll(CoordinatorLayout coordinatorLayout, V child, @ScrollDirection int scrollDirection, int currentOverScroll, int totalOverScroll);
-
-    /**
-     * @param coordinatorLayout the CoordinatorLayout parent of the view this Behavior is
-     *                          associated with
-     * @param child             the child view of the CoordinatorLayout this Behavior is associated with
-     * @param target            the descendant view of the CoordinatorLayout performing the nested scroll
-     * @param dx                the raw horizontal number of pixels that the user attempted to scroll
-     * @param dy                the raw vertical number of pixels that the user attempted to scroll
-     * @param consumed          out parameter. consumed[0] should be set to the distance of dx that
-     *                          was consumed, consumed[1] should be set to the distance of dy that
-     *                          was consumed
-     * @param scrollDirection   Direction of the scroll: SCROLL_DIRECTION_UP, SCROLL_DIRECTION_DOWN
-     */
-    public abstract void onDirectionNestedPreScroll(CoordinatorLayout coordinatorLayout, V child, View target, int dx, int dy, int[] consumed, @ScrollDirection int scrollDirection);
+    @ScrollDirection
+    public int getPreScrollDirection() {
+        return mPreScrollDirection;
+    }
 
     @Override
     public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, V child, View directTargetChild, View target, int nestedScrollAxes) {
@@ -107,13 +92,25 @@ public abstract class VerticalScrollingBehavior<V extends View> extends Coordina
         super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed);
         if (dyUnconsumed > 0 && mTotalDyUnconsumed < 0) {
             mTotalDyUnconsumed = 0;
-            mOverScrollDirection = ScrollDirection.SCROLL_DIRECTION_UP;
+            mScrollDirection = ScrollDirection.SCROLL_DIRECTION_UP;
+            onNestedVerticalScrollUnconsumed(coordinatorLayout, child, mScrollDirection, dyConsumed, mTotalDyUnconsumed);
         } else if (dyUnconsumed < 0 && mTotalDyUnconsumed > 0) {
             mTotalDyUnconsumed = 0;
-            mOverScrollDirection = ScrollDirection.SCROLL_DIRECTION_DOWN;
+            mScrollDirection = ScrollDirection.SCROLL_DIRECTION_DOWN;
+            onNestedVerticalScrollUnconsumed(coordinatorLayout, child, mScrollDirection, dyConsumed, mTotalDyUnconsumed);
         }
         mTotalDyUnconsumed += dyUnconsumed;
-        onNestedVerticalOverScroll(coordinatorLayout, child, mOverScrollDirection, dyConsumed, mTotalDyUnconsumed);
+
+        if (dyConsumed > 0 && mTotalDyConsumed < 0) {
+            mTotalDyConsumed = 0;
+            mConsumedScrollDirection = ScrollDirection.SCROLL_DIRECTION_UP;
+            onNestedVerticalScrollConsumed(coordinatorLayout, child, mConsumedScrollDirection, dyConsumed, mTotalDyConsumed);
+        } else if (dyConsumed < 0 && mTotalDyConsumed > 0) {
+            mTotalDyConsumed = 0;
+            mConsumedScrollDirection = ScrollDirection.SCROLL_DIRECTION_DOWN;
+            onNestedVerticalScrollConsumed(coordinatorLayout, child, mConsumedScrollDirection, dyConsumed, mTotalDyConsumed);
+        }
+        mTotalDyConsumed += dyConsumed;
     }
 
     @Override
@@ -121,22 +118,57 @@ public abstract class VerticalScrollingBehavior<V extends View> extends Coordina
         super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed);
         if (dy > 0 && mTotalDy < 0) {
             mTotalDy = 0;
-            mScrollDirection = ScrollDirection.SCROLL_DIRECTION_UP;
+            mPreScrollDirection = ScrollDirection.SCROLL_DIRECTION_UP;
+            onNestedVerticalPreScroll(coordinatorLayout, child, target, dx, dy, consumed, mPreScrollDirection);
         } else if (dy < 0 && mTotalDy > 0) {
             mTotalDy = 0;
-            mScrollDirection = ScrollDirection.SCROLL_DIRECTION_DOWN;
+            mPreScrollDirection = ScrollDirection.SCROLL_DIRECTION_DOWN;
+            onNestedVerticalPreScroll(coordinatorLayout, child, target, dx, dy, consumed, mPreScrollDirection);
         }
         mTotalDy += dy;
-        onDirectionNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed, mScrollDirection);
     }
 
 
     @Override
     public boolean onNestedFling(CoordinatorLayout coordinatorLayout, V child, View target, float velocityX, float velocityY, boolean consumed) {
         super.onNestedFling(coordinatorLayout, child, target, velocityX, velocityY, consumed);
-        mScrollDirection = velocityY > 0 ? ScrollDirection.SCROLL_DIRECTION_UP : ScrollDirection.SCROLL_DIRECTION_DOWN;
-        return onNestedDirectionFling(coordinatorLayout, child, target, velocityX, velocityY, mScrollDirection);
+        return onNestedDirectionFling(coordinatorLayout, child, target, velocityX, velocityY, consumed
+                , velocityY > 0 ? ScrollDirection.SCROLL_DIRECTION_UP : ScrollDirection.SCROLL_DIRECTION_DOWN);
     }
+
+    /**
+     * @param coordinatorLayout the CoordinatorLayout parent of the view this Behavior is
+     *                          associated with
+     * @param child             the child view of the CoordinatorLayout this Behavior is associated with
+     * @param scrollDirection   Direction of the scroll: SCROLL_DIRECTION_UP, SCROLL_DIRECTION_DOWN
+     * @param currentOverScroll Unconsumed value, negative or positive based on the direction;
+     * @param totalScroll       Cumulative value for current direction (Unconsumed)
+     */
+    public abstract void onNestedVerticalScrollUnconsumed(CoordinatorLayout coordinatorLayout, V child, @ScrollDirection int scrollDirection, int currentOverScroll, int totalScroll);
+
+    /**
+     * @param coordinatorLayout   the CoordinatorLayout parent of the view this Behavior is
+     *                            associated with
+     * @param child               the child view of the CoordinatorLayout this Behavior is associated with
+     * @param scrollDirection     Direction of the scroll: SCROLL_DIRECTION_UP, SCROLL_DIRECTION_DOWN
+     * @param currentOverScroll   Unconsumed value, negative or positive based on the direction;
+     * @param totalConsumedScroll Cumulative value for current direction (Unconsumed)
+     */
+    public abstract void onNestedVerticalScrollConsumed(CoordinatorLayout coordinatorLayout, V child, @ScrollDirection int scrollDirection, int currentOverScroll, int totalConsumedScroll);
+
+    /**
+     * @param coordinatorLayout the CoordinatorLayout parent of the view this Behavior is
+     *                          associated with
+     * @param child             the child view of the CoordinatorLayout this Behavior is associated with
+     * @param target            the descendant view of the CoordinatorLayout performing the nested scroll
+     * @param dx                the raw horizontal number of pixels that the user attempted to scroll
+     * @param dy                the raw vertical number of pixels that the user attempted to scroll
+     * @param consumed          out parameter. consumed[0] should be set to the distance of dx that
+     *                          was consumed, consumed[1] should be set to the distance of dy that
+     *                          was consumed
+     * @param scrollDirection   Direction of the scroll: SCROLL_DIRECTION_UP, SCROLL_DIRECTION_DOWN
+     */
+    public abstract void onNestedVerticalPreScroll(CoordinatorLayout coordinatorLayout, V child, View target, int dx, int dy, int[] consumed, @ScrollDirection int scrollDirection);
 
     /**
      * @param coordinatorLayout the CoordinatorLayout parent of the view this Behavior is
@@ -145,10 +177,11 @@ public abstract class VerticalScrollingBehavior<V extends View> extends Coordina
      * @param target            the descendant view of the CoordinatorLayout performing the nested scroll
      * @param velocityX         horizontal velocity of the attempted fling
      * @param velocityY         vertical velocity of the attempted fling
+     * @param consumed          true if the nested child view consumed the fling
      * @param scrollDirection   Direction of the scroll: SCROLL_DIRECTION_UP, SCROLL_DIRECTION_DOWN
-     * @return
+     * @return true if the Behavior consumed the fling
      */
-    protected abstract boolean onNestedDirectionFling(CoordinatorLayout coordinatorLayout, V child, View target, float velocityX, float velocityY, @ScrollDirection int scrollDirection);
+    protected abstract boolean onNestedDirectionFling(CoordinatorLayout coordinatorLayout, V child, View target, float velocityX, float velocityY, boolean consumed, @ScrollDirection int scrollDirection);
 
 //    @Override
 //    public boolean onNestedPreFling(CoordinatorLayout coordinatorLayout, V child, View target, float velocityX, float velocityY) {

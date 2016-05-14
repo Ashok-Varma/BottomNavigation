@@ -129,14 +129,14 @@ public class BottomNavigationBar extends FrameLayout {
         if (attrs != null) {
             TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.BottomNavigationBar, 0, 0);
 
-            mActiveColor = typedArray.getColor(R.styleable.BottomNavigationBar_activeColor, Utils.fetchContextColor(context, R.attr.colorAccent));
-            mInActiveColor = typedArray.getColor(R.styleable.BottomNavigationBar_inactiveColor, Color.LTGRAY);
-            mBackgroundColor = typedArray.getColor(R.styleable.BottomNavigationBar_barBackgroundColor, Color.WHITE);
-            mElevation = typedArray.getDimension(R.styleable.BottomNavigationBar_elevation, getResources().getDimension(R.dimen.bottom_navigation_elevation));
+            mActiveColor = typedArray.getColor(R.styleable.BottomNavigationBar_bnbActiveColor, Utils.fetchContextColor(context, R.attr.colorAccent));
+            mInActiveColor = typedArray.getColor(R.styleable.BottomNavigationBar_bnbInactiveColor, Color.LTGRAY);
+            mBackgroundColor = typedArray.getColor(R.styleable.BottomNavigationBar_bnbBackgroundColor, Color.WHITE);
+            mElevation = typedArray.getDimension(R.styleable.BottomNavigationBar_bnbElevation, getResources().getDimension(R.dimen.bottom_navigation_elevation));
 
-            setAnimationDuration(typedArray.getInt(R.styleable.BottomNavigationBar_animationDuration, DEFAULT_ANIMATION_DURATION));
+            setAnimationDuration(typedArray.getInt(R.styleable.BottomNavigationBar_bnbAnimationDuration, DEFAULT_ANIMATION_DURATION));
 
-            switch (typedArray.getInt(R.styleable.BottomNavigationBar_mode, MODE_DEFAULT)) {
+            switch (typedArray.getInt(R.styleable.BottomNavigationBar_bnbMode, MODE_DEFAULT)) {
                 case MODE_FIXED:
                     mMode = MODE_FIXED;
                     break;
@@ -151,7 +151,7 @@ public class BottomNavigationBar extends FrameLayout {
                     break;
             }
 
-            switch (typedArray.getInt(R.styleable.BottomNavigationBar_backgroundStyle, BACKGROUND_STYLE_DEFAULT)) {
+            switch (typedArray.getInt(R.styleable.BottomNavigationBar_bnbBackgroundStyle, BACKGROUND_STYLE_DEFAULT)) {
                 case BACKGROUND_STYLE_STATIC:
                     mBackgroundStyle = BACKGROUND_STYLE_STATIC;
                     break;
