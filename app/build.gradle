@@ -32,6 +32,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        debug {
+            versionNameSuffix "_" + System.getProperty("user.name", "N/A") + "_Debug"
+        }
     }
 }
 
