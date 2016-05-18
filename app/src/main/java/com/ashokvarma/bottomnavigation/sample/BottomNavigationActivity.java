@@ -22,7 +22,6 @@ import io.fabric.sdk.android.Fabric;
 
 public class BottomNavigationActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener, BottomNavigationBar.OnTabSelectedListener {
 
-
     BottomNavigationBar bottomNavigationBar;
 
     CheckBox modeFixed;
