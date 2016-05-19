@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ashokvarma.bottomnavigation.sample">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,5 +21,5 @@
             android:value="8ce6f72ae4c61f33d852ccccb2caab802b8f1113" />
     </application>
 
-    <uses-permission android:name="android.permission.INTERNET" />
+
 </manifest>

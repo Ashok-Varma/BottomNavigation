@@ -1,3 +1,6 @@
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-BottomNavigation-green.svg?style=true)](https://android-arsenal.com/details/1/3612)
+
+
 # BottomNavigation
 
 **get sample apk from [Google Play Store][googlePlayStoreLink]**

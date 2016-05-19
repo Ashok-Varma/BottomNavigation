@@ -25,7 +25,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="MODE_FIXED" />
+                    android:text="@string/mode_fixed" />
 
                 <CheckBox
                     android:id="@+id/mode_shifting"
@@ -33,7 +33,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:checked="true"
-                    android:text="MODE_SHIFTING" />
+                    android:text="@string/mode_shifting" />
             </LinearLayout>
 
             <LinearLayout
@@ -46,7 +46,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="BS_STATIC" />
+                    android:text="@string/bs_static" />
 
                 <CheckBox
                     android:id="@+id/bg_ripple"
@@ -54,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:checked="true"
-                    android:text="BS_RIPPLE" />
+                    android:text="@string/bs_ripple" />
             </LinearLayout>
 
             <LinearLayout
@@ -67,14 +67,14 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="3 items" />
+                    android:text="@string/_3_items" />
 
                 <CheckBox
                     android:id="@+id/items_4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="4 items" />
+                    android:text="@string/_4_items" />
 
                 <CheckBox
                     android:id="@+id/items_5"
@@ -82,7 +82,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:checked="true"
-                    android:text="5 items" />
+                    android:text="@string/_5_items" />
             </LinearLayout>
 
             <CheckBox
@@ -90,7 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Auto hide badge" />
+                android:text="@string/auto_hide_badge" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -103,14 +103,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="Toggle Hide" />
+                    android:text="@string/toggle_hide" />
 
                 <Button
                     android:id="@+id/toggle_badge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="Toggle Badge" />
+                    android:text="@string/toggle_badge" />
 
             </LinearLayout>
 
@@ -119,14 +119,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/scrollable_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:textSize="16dp" />
+                android:textSize="16sp" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
