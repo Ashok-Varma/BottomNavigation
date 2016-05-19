@@ -13,8 +13,8 @@ script:
 notifications:
   email: false
 
-sudo: false
+#sudo: false
 
-cache:
-  directories:
-    - $HOME/.gradle
+#cache:
+#  directories:
+#    - $HOME/.gradle
