@@ -3,17 +3,17 @@ language: android
 android:
   components:
       - platform-tools
-      - build-tools-23.0.2
+      - build-tools-23.0.3
       - android-23
       - extra-android-m2repository
 
+#sudo: required
+
 script:
-   - ./gradlew build connectedCheck
+   - ./gradlew install
 
 notifications:
   email: false
-
-#sudo: false
 
 #cache:
 #  directories:
