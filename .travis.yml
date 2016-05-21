@@ -2,19 +2,62 @@ language: android
 
 android:
   components:
+      - tools
       - platform-tools
       - build-tools-23.0.3
       - android-23
       - extra-android-m2repository
 
-#sudo: required
+cache:
+  directories:
+    - $HOME/.gradle/caches/2.10
+# Remember to change 2.10 with your gradle version if you are using a different one and remember also that the version is specified in the file gradle-wrapper.properties in your root gradle folder.
+    - $HOME/.gradle/caches/jars-1
+    - $HOME/.gradle/daemon
+    - $HOME/.gradle/native
+    - $HOME/.gradle/wrapper
 
-script:
-   - ./gradlew install
+sudo: false
 
 notifications:
   email: false
 
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
 #cache:
 #  directories:
 #    - $HOME/.gradle
+
+
+##--------------------------------------------------------------------------------
+## After test cases written
+
+#env:
+#    matrix:
+#        - ANDROID_TARGET=android-23 ANDROID_ABI=armeabi-v7a
+#        - ANDROID_TARGET=android-16 ANDROID_ABI=armeabi-v7a
+
+#before_script:
+#    - echo no | android create avd --force --name test --target $ANDROID_TARGET --abi $ANDROID_ABI
+#    - emulator -avd test -no-skin -no-audio -no-window &amp;
+
+#script:
+#  - ./gradlew check -PdisablePreDex --continue --stacktrace
+#  - android-wait-for-emulator
+#  - adb devices
+#  - adb shell input keyevent 82 &amp;
+#  - ./gradlew connectedAndroidTest -PdisablePreDex --continue --stacktrace
+
+#after_failure:
+#  - wget http://imgur.com/tools/imgurbash.sh
+#  - chmod a+x imgurbash.sh
+#  - adb shell screencap -p | sed 's/\r$//' &gt; screen.png
+#  - ./imgurbash.sh screen.png
+#  - pandoc builder/build/reports/tests/index.html -t plain | sed -n '/^Failed tests/,/default-package/p'
+
+#after_success:
+#  - ./gradlew jacocoFullReport
+#  - pip install --user codecov
+#  - codecov
+
