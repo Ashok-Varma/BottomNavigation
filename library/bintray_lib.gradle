@@ -31,24 +31,24 @@ artifacts {
 }
 
 // Bintray
-//Properties properties = new Properties()
-//def user = System.env.gradlePublishUser
-//def key = System.env.gradlePublishKey
-//def secret = System.env.gradlePublishSecret
-//
-//if (!key || !user || !secret) {
-//// This is for local build
-//    properties.load(project.rootProject.file('local.properties').newDataInputStream())
-//} else {
-//// This is for remote build set System Properties in travis system
-//    properties.setProperty("bintray.user", user)
-//    properties.setProperty("bintray.apikey", key)
-//    properties.setProperty("bintray.gpg.password", secret)
-//}
+Properties properties = new Properties()
+def user = System.env.gradlePublishUser
+def key = System.env.gradlePublishKey
+def secret = System.env.gradlePublishSecret
+
+if (!key || !user || !secret) {
+// This is for local build
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+} else {
+// This is for remote build set System Properties in travis system
+    properties.setProperty("bintray.user", user)
+    properties.setProperty("bintray.apikey", key)
+    properties.setProperty("bintray.gpg.password", secret)
+}
 
 bintray {
-    Properties properties = new Properties()
-    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+//    Properties properties = new Properties()
+//    properties.load(project.rootProject.file('local.properties').newDataInputStream())
     user = properties.getProperty("bintray.user")
     key = properties.getProperty("bintray.apikey")
 
