@@ -1,6 +1,5 @@
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-BottomNavigation-green.svg?style=true)](https://android-arsenal.com/details/1/3612)
 [![Build Status](https://travis-ci.org/Ashok-Varma/BottomNavigation.svg?branch=master)](https://travis-ci.org/Ashok-Varma/BottomNavigation)
-[![codecov](https://codecov.io/gh/Ashok-Varma/BottomNavigation/branch/master/graph/badge.svg)](https://codecov.io/gh/Ashok-Varma/BottomNavigation)
 
 # BottomNavigation
 
@@ -32,17 +31,17 @@ Download [the latest JAR][mavenAarDownload] or grab via Maven:
 <dependency>
   <groupId>com.ashokvarma.android</groupId>
   <artifactId>bottom-navigation-bar</artifactId>
-  <version>1.2.0</version>
+  <version>1.2.1</version>
   <type>pom</type>
 </dependency>
 ```
 or Gradle:
 ```groovy
-compile 'com.ashokvarma.android:bottom-navigation-bar:1.2.0'
+compile 'com.ashokvarma.android:bottom-navigation-bar:1.2.1'
 ```
 or Ivy:
 ```xml
-<dependency org='com.ashokvarma.android' name='bottom-navigation-bar' rev='1.2.0'>
+<dependency org='com.ashokvarma.android' name='bottom-navigation-bar' rev='1.2.1'>
   <artifact name='$AID' ext='pom'></artifact>
 </dependency>
 ```
@@ -205,5 +204,5 @@ limitations under the License.
 
  [googlePlayStoreLink]: https://play.google.com/store/apps/details?id=com.ashokvarma.bottomnavigation.sample
  [googlePage]: https://www.google.com/design/spec/components/bottom-navigation.html
- [mavenAarDownload]:  https://repo1.maven.org/maven2/com/ashokvarma/android/bottom-navigation-bar/1.2.0/bottom-navigation-bar-1.2.0.aar
+ [mavenAarDownload]:  https://repo1.maven.org/maven2/com/ashokvarma/android/bottom-navigation-bar/1.2.1/bottom-navigation-bar-1.2.1.aar
  [mavenLatestJarDownload]: https://search.maven.org/remote_content?g=com.ashokvarma.android&a=bottom-navigation-bar&v=LATEST
