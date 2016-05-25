@@ -1,3 +1,6 @@
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-BottomNavigation-green.svg?style=true)](https://android-arsenal.com/details/1/3612)
+[![Build Status](https://travis-ci.org/Ashok-Varma/BottomNavigation.svg?branch=master)](https://travis-ci.org/Ashok-Varma/BottomNavigation)
+
 # BottomNavigation
 
 **get sample apk from [Google Play Store][googlePlayStoreLink]**
@@ -28,17 +31,17 @@ Download [the latest JAR][mavenAarDownload] or grab via Maven:
 <dependency>
   <groupId>com.ashokvarma.android</groupId>
   <artifactId>bottom-navigation-bar</artifactId>
-  <version>1.2.0</version>
+  <version>1.2.1</version>
   <type>pom</type>
 </dependency>
 ```
 or Gradle:
 ```groovy
-compile 'com.ashokvarma.android:bottom-navigation-bar:1.2.0'
+compile 'com.ashokvarma.android:bottom-navigation-bar:1.2.1'
 ```
 or Ivy:
 ```xml
-<dependency org='com.ashokvarma.android' name='bottom-navigation-bar' rev='1.2.0'>
+<dependency org='com.ashokvarma.android' name='bottom-navigation-bar' rev='1.2.1'>
   <artifact name='$AID' ext='pom'></artifact>
 </dependency>
 ```
@@ -93,7 +96,7 @@ BACKGROUND_STYLE_STATIC | <img src="https://raw.githubusercontent.com/Ashok-Varm
 BACKGROUND_STYLE_RIPPLE | <img src="https://raw.githubusercontent.com/Ashok-Varma/BottomNavigation/master/fixed_ripple.gif" width="320" height="50" /> | <img src="https://raw.githubusercontent.com/Ashok-Varma/BottomNavigation/master/shift_ripple.gif" width="320" height="50" />
 
 #### 1. Modes
-Attribute: `bnbMode` Values: `default, fixed, shifting`  
+Attribute: `bnbMode` Values: `mode_default, mode_fixed, mode_shifting`  
 Method: `setMode()`  Values:`MODE_DEFAULT, MODE_FIXED, MODE_SHIFTING`  
 
 ##### Code Snippet Example
@@ -106,7 +109,7 @@ Method: `setMode()`  Values:`MODE_DEFAULT, MODE_FIXED, MODE_SHIFTING`
 **MODE_DEFAULT:** if number of tabs are less than or equal to three then MODE_FIXED will be used other cases MODE_SHIFTING will be used.
 
 #### 2. Background Styles
-  Attribute: `bnbBackgroundStyle` Values: `default, static, ripple`  
+  Attribute: `bnbBackgroundStyle` Values: `background_style_default, background_style_static, background_style_ripple`  
   Method: `setBackgroundStyle()` Values: `BACKGROUND_STYLE_DEFAULT, BACKGROUND_STYLE_STATIC, BACKGROUND_STYLE_RIPPLE`  
 
 ##### Code Snippet Example
@@ -174,7 +177,7 @@ if you didn't set active/in-active colors for the BottomNavigationItem then thes
 
 
 #### 5. Elevation
-Attribute: `elevation` 
+Attribute: `bnbElevation` 
 
 You can set elevation to `0dp` if you don't want a shadow or plan to draw your own.
 
@@ -201,5 +204,5 @@ limitations under the License.
 
  [googlePlayStoreLink]: https://play.google.com/store/apps/details?id=com.ashokvarma.bottomnavigation.sample
  [googlePage]: https://www.google.com/design/spec/components/bottom-navigation.html
- [mavenAarDownload]:  https://repo1.maven.org/maven2/com/ashokvarma/android/bottom-navigation-bar/1.2.0/bottom-navigation-bar-1.2.0.aar
+ [mavenAarDownload]:  https://repo1.maven.org/maven2/com/ashokvarma/android/bottom-navigation-bar/1.2.1/bottom-navigation-bar-1.2.1.aar
  [mavenLatestJarDownload]: https://search.maven.org/remote_content?g=com.ashokvarma.android&a=bottom-navigation-bar&v=LATEST

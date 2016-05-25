@@ -20,6 +20,7 @@
             android:layout_width="@dimen/shifting_icon_grid"
             android:layout_height="@dimen/shifting_icon_grid"
             android:layout_gravity="center"
+            android:contentDescription="@string/icon"
             android:gravity="center"
             android:scaleType="fitXY" />
 

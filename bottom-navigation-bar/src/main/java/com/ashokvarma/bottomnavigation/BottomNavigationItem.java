@@ -217,7 +217,7 @@ public class BottomNavigationItem {
      */
     protected int getActiveColor(Context context) {
         if (this.mActiveColorResource != 0) {
-            return context.getResources().getColor(mActiveColorResource);
+            return ContextCompat.getColor(context, mActiveColorResource);
         } else if (!TextUtils.isEmpty(mActiveColorCode)) {
             return Color.parseColor(mActiveColorCode);
         } else if (this.mActiveColor != 0) {
@@ -233,7 +233,7 @@ public class BottomNavigationItem {
      */
     protected int getInActiveColor(Context context) {
         if (this.mInActiveColorResource != 0) {
-            return context.getResources().getColor(mInActiveColorResource);
+            return ContextCompat.getColor(context, mInActiveColorResource);
         } else if (!TextUtils.isEmpty(mInActiveColorCode)) {
             return Color.parseColor(mInActiveColorCode);
         } else if (this.mInActiveColor != 0) {

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.ColorRes;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorCompat;
 import android.support.v4.view.ViewPropertyAnimatorListener;
@@ -224,7 +225,7 @@ public class BadgeItem {
      */
     protected int getBackgroundColor(Context context) {
         if (this.mBackgroundColorResource != 0) {
-            return context.getResources().getColor(mBackgroundColorResource);
+            return ContextCompat.getColor(context, mBackgroundColorResource);
         } else if (!TextUtils.isEmpty(mBackgroundColorCode)) {
             return Color.parseColor(mBackgroundColorCode);
         } else {
@@ -238,7 +239,7 @@ public class BadgeItem {
      */
     protected int getTextColor(Context context) {
         if (this.mTextColorResource != 0) {
-            return context.getResources().getColor(mTextColorResource);
+            return ContextCompat.getColor(context, mTextColorResource);
         } else if (!TextUtils.isEmpty(mTextColorCode)) {
             return Color.parseColor(mTextColorCode);
         } else {
@@ -259,7 +260,7 @@ public class BadgeItem {
      */
     protected int getBorderColor(Context context) {
         if (this.mBorderColorResource != 0) {
-            return context.getResources().getColor(mBorderColorResource);
+            return ContextCompat.getColor(context, mBorderColorResource);
         } else if (!TextUtils.isEmpty(mBorderColorCode)) {
             return Color.parseColor(mBorderColorCode);
         } else {

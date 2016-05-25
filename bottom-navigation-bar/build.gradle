@@ -53,5 +53,5 @@ dependencies {
 }
 
 // Place it at the end of the file
-apply from: 'https://raw.githubusercontent.com/Ashok-Varma/JCenter/master/installv1.gradle'
-apply from: 'https://raw.githubusercontent.com/Ashok-Varma/JCenter/master/bintrayv1.gradle'
+apply from: 'install_lib.gradle'
+apply from: 'bintray_lib.gradle'

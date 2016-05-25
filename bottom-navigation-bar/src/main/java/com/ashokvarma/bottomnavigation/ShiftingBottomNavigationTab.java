@@ -72,9 +72,7 @@ class ShiftingBottomNavigationTab extends BottomNavigationTab {
         anim.setDuration(animationDuration);
         this.startAnimation(anim);
 
-//        labelView.animate().scaleY(0).scaleX(0).setDuration(animationDuration).start();
-        labelView.setScaleY(0);
-        labelView.setScaleX(0);
+        labelView.animate().scaleY(0).scaleX(0).setDuration(0).start();
     }
 
 //    @Override

@@ -8,6 +8,7 @@ import android.os.Build;
 import android.support.annotation.ColorRes;
 import android.support.annotation.IntDef;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorCompat;
 import android.support.v4.view.animation.LinearOutSlowInInterpolator;
@@ -256,7 +257,7 @@ public class BottomNavigationBar extends FrameLayout {
      * @return this, to allow builder pattern
      */
     public BottomNavigationBar setActiveColor(@ColorRes int activeColor) {
-        this.mActiveColor = getContext().getResources().getColor(activeColor);
+        this.mActiveColor = ContextCompat.getColor(getContext(), activeColor);
         return this;
     }
 
@@ -274,7 +275,7 @@ public class BottomNavigationBar extends FrameLayout {
      * @return this, to allow builder pattern
      */
     public BottomNavigationBar setInActiveColor(@ColorRes int inActiveColor) {
-        this.mInActiveColor = getContext().getResources().getColor(inActiveColor);
+        this.mInActiveColor = ContextCompat.getColor(getContext(), inActiveColor);
         return this;
     }
 
@@ -292,7 +293,7 @@ public class BottomNavigationBar extends FrameLayout {
      * @return this, to allow builder pattern
      */
     public BottomNavigationBar setBarBackgroundColor(@ColorRes int backgroundColor) {
-        this.mBackgroundColor = getContext().getResources().getColor(backgroundColor);
+        this.mBackgroundColor = ContextCompat.getColor(getContext(), backgroundColor);
         return this;
     }
 
