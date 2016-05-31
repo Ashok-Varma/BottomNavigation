@@ -40,6 +40,8 @@
         android:gravity="center"
         android:includeFontPadding="false"
         android:lines="1"
-        android:textSize="@dimen/fixed_label_inactive" />
+        android:scaleX="@dimen/fixed_label_active_to_inactive_ratio"
+        android:scaleY="@dimen/fixed_label_active_to_inactive_ratio"
+        android:textSize="@dimen/fixed_label_active" />
 
 </FrameLayout>

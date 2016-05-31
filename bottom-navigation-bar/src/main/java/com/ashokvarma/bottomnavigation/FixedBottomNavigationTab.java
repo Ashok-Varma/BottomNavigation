@@ -50,22 +50,21 @@ class FixedBottomNavigationTab extends BottomNavigationTab {
         iconView = (ImageView) view.findViewById(R.id.fixed_bottom_navigation_icon);
         badgeView = (TextView) view.findViewById(R.id.fixed_bottom_navigation_badge);
 
-        labelScale = getResources().getDimension(R.dimen.fixed_label_active) / getResources().getDimension(R.dimen.fixed_label_inactive);
+        labelScale = getResources().getDimension(R.dimen.fixed_label_inactive) / getResources().getDimension(R.dimen.fixed_label_active);
 
         super.init();
     }
 
     @Override
     public void select(boolean setActiveColor, int animationDuration) {
-
-        labelView.animate().scaleX(labelScale).scaleY(labelScale).setDuration(animationDuration).start();
+        labelView.animate().scaleX(1).scaleY(1).setDuration(animationDuration).start();
 //        labelView.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.fixed_label_active));
         super.select(setActiveColor, animationDuration);
     }
 
     @Override
     public void unSelect(boolean setActiveColor, int animationDuration) {
-        labelView.animate().scaleX(1).scaleY(1).setDuration(animationDuration).start();
+        labelView.animate().scaleX(labelScale).scaleY(labelScale).setDuration(animationDuration).start();
 //        labelView.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.fixed_label_inactive));
         super.unSelect(setActiveColor, animationDuration);
     }
