@@ -1,12 +1,31 @@
 language: android
+sudo: false
+jdk: oraclejdk7
 
 android:
   components:
+      # Uncomment the lines below if you want to
+      # use the latest revision of Android SDK Tools
       - tools
       - platform-tools
+
+      # The BuildTools version used by your project
       - build-tools-23.0.3
+
+      # The SDK version used to compile your project
       - android-23
+
+      # Additional components
+      - extra-google-google_play_services
+      - extra-google-m2repository
       - extra-android-m2repository
+
+      # Specify at least one system image,
+      # if you need to run emulator(s) during your tests
+      - sys-img-armeabi-v7a-android-23
+
+      licenses:
+        - 'android-sdk-license-.+'
 
 cache:
   directories:
@@ -29,11 +48,9 @@ env:
       - android-wait-for-emulator
       - adb shell input keyevent 82 &
 
-#script:
-#    - android list target
-#    - ./gradlew connectedAndroidTest
-
-sudo: false
+script:
+    - android list target
+    - ./gradlew connectedAndroidTest
 
 notifications:
   email: false
