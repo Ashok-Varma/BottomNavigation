@@ -231,7 +231,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onTabUnselected(int position) {
-
     }
 
     @Override
