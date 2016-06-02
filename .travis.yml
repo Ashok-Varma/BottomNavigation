@@ -1,31 +1,12 @@
 language: android
-sudo: false
-jdk: oraclejdk7
 
 android:
   components:
-      # Uncomment the lines below if you want to
-      # use the latest revision of Android SDK Tools
       - tools
       - platform-tools
-
-      # The BuildTools version used by your project
       - build-tools-23.0.3
-
-      # The SDK version used to compile your project
       - android-23
-
-      # Additional components
-      - extra-google-google_play_services
-      - extra-google-m2repository
       - extra-android-m2repository
-
-      # Specify at least one system image,
-      # if you need to run emulator(s) during your tests
-      - sys-img-armeabi-v7a-android-23
-
-      licenses:
-        - 'android-sdk-license-.+'
 
 cache:
   directories:
@@ -36,21 +17,7 @@ cache:
     - $HOME/.gradle/native
     - $HOME/.gradle/wrapper
 
-env:
-    global:
-    # install timeout in minutes (2 minutes by default)
-    - ADB_INSTALL_TIMEOUT=8
-
-# Emulator Management: Create, Start and Wait
-    before_script:
-      - echo no | android create avd --force -n test -t android-23 --abi armeabi-v7a
-      - emulator -avd test -no-skin -no-audio -no-window &
-      - android-wait-for-emulator
-      - adb shell input keyevent 82 &
-
-script:
-    - android list target
-    - ./gradlew connectedAndroidTest
+sudo: false
 
 notifications:
   email: false
