@@ -171,6 +171,12 @@ class BottomNavigationHelper {
             FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) bottomNavigationTab.badgeView.getLayoutParams();
             layoutParams.gravity = badgeItem.getGravity();
             bottomNavigationTab.badgeView.setLayoutParams(layoutParams);
+
+            if(badgeItem.isHidden()){
+                // if hide is called before the initialisation of bottom-bar this will handle that
+                // by hiding it.
+                badgeItem.hide();
+            }
         }
     }
 

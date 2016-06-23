@@ -23,7 +23,6 @@ public class BottomVerticalScrollBehavior<V extends View> extends VerticalScroll
 //    private WeakReference<V> mViewRef;
 
     private ViewPropertyAnimatorCompat mTranslationAnimator;
-    private boolean hidden = false;
 
     @Override
     public boolean onLayoutChild(CoordinatorLayout parent, final V child, int layoutDirection) {
@@ -59,11 +58,12 @@ public class BottomVerticalScrollBehavior<V extends View> extends VerticalScroll
     }
 
     private void handleDirection(V child, int scrollDirection) {
+        float yOffset = child.getTranslationY();
+        boolean hidden = yOffset > mDefaultOffset;
+        
         if (scrollDirection == ScrollDirection.SCROLL_DIRECTION_DOWN && hidden) {
-            hidden = false;
             animateOffset(child, mDefaultOffset);
         } else if (scrollDirection == ScrollDirection.SCROLL_DIRECTION_UP && !hidden) {
-            hidden = true;
             animateOffset(child, mBottomNavHeight + mDefaultOffset);
         }
     }

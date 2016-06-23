@@ -26,6 +26,8 @@ android {
         targetSdkVersion Integer.parseInt(ANDROID_BUILD_TARGET_SDK_VERSION)
         versionCode Integer.parseInt(APP_VERSION_CODE)
         versionName project.APP_VERSION_NAME
+
+//        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
     }
     buildTypes {
         release {
@@ -48,11 +50,23 @@ ext {
 }
 
 dependencies {
-    testCompile 'junit:junit:4.12'
+//    testCompile 'junit:junit:4.12'
     compile "com.android.support:appcompat-v7:${supportLibraryVersion}"
     compile "com.android.support:design:${supportLibraryVersion}"
     compile project(':bottom-navigation-bar')
     compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
         transitive = true;
     }
+
+    // Testing-only dependencies
+
+    // Android testing support library's runner and rules
+//    androidTestCompile 'com.android.support.test:runner:0.5'
+//    androidTestCompile 'com.android.support.test:rules:0.5'
+    // Force usage of support annotations in the test app, since it is internally used by the runner module.
+    // to avoid Conflict with dependency 'com.android.support:support-annotations'. Resolved versions for app (23.4.0) and test app (23.1.1) differ.
+//    androidTestCompile "com.android.support:support-annotations:${supportLibraryVersion}"
+
+    // Espresso Ui Testing dependencies
+//    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
 }

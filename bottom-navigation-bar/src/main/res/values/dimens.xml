@@ -14,7 +14,7 @@
 
     <dimen name="fixed_label_active">14sp</dimen>
     <dimen name="fixed_label_inactive">12sp</dimen>
-    <!--<item name="fixed_label_active_to_inactive_ratio" format="float" type="dimen">0.857</item>-->
+    <item name="fixed_label_active_to_inactive_ratio" format="float" type="dimen">0.857</item>
 
     <dimen name="fixed_icon_grid">24dp</dimen>
     <dimen name="fixed_icon_badge_grid_height">36dp

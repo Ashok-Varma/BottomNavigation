@@ -350,7 +350,7 @@ public class BottomNavigationBar extends FrameLayout {
             }
 
             if (mBackgroundStyle == BACKGROUND_STYLE_STATIC) {
-                mBackgroundOverlay.setBackgroundColor(mBackgroundColor);
+                mBackgroundOverlay.setVisibility(View.GONE);
                 mContainer.setBackgroundColor(mBackgroundColor);
             }
 
@@ -419,7 +419,7 @@ public class BottomNavigationBar extends FrameLayout {
         mTabContainer.removeAllViews();
         mBottomNavigationTabs.clear();
         mBottomNavigationItems.clear();
-        mBackgroundOverlay.setBackgroundColor(Color.TRANSPARENT);
+        mBackgroundOverlay.setVisibility(View.GONE);
         mContainer.setBackgroundColor(Color.TRANSPARENT);
         mSelectedPosition = DEFAULT_SELECTED_POSITION;
     }
