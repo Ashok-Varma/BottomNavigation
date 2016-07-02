@@ -19,9 +19,9 @@ import java.lang.annotation.RetentionPolicy;
  */
 public abstract class VerticalScrollingBehavior<V extends View> extends CoordinatorLayout.Behavior<V> {
 
-    private int mTotalDyUnconsumed = 0;
-    private int mTotalDyConsumed = 0;
-    private int mTotalDy = 0;
+    private int mTotalDyUnconsumed = -1;
+    private int mTotalDyConsumed = -1;
+    private int mTotalDy = -1;
 
     @ScrollDirection
     private int mScrollDirection = ScrollDirection.SCROLL_NONE;

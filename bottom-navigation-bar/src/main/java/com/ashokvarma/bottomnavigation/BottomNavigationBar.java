@@ -8,6 +8,7 @@ import android.os.Build;
 import android.support.annotation.ColorRes;
 import android.support.annotation.IntDef;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorCompat;
@@ -21,6 +22,7 @@ import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import com.ashokvarma.bottomnavigation.behaviour.BBFabBehaviour;
 import com.ashokvarma.bottomnavigation.behaviour.BottomVerticalScrollBehavior;
 import com.ashokvarma.bottomnavigation.utils.Utils;
 
@@ -59,6 +61,16 @@ public class BottomNavigationBar extends FrameLayout {
     public @interface BackgroundStyle {
     }
 
+
+    private static final int FAB_BEHAVIOUR_TRANSLATE_AND_STICK = 0;
+    private static final int FAB_BEHAVIOUR_DISAPPEAR = 1;
+    private static final int FAB_BEHAVIOUR_TRANSLATE_OUT = 2;
+
+    @IntDef({FAB_BEHAVIOUR_TRANSLATE_AND_STICK, FAB_BEHAVIOUR_DISAPPEAR, FAB_BEHAVIOUR_TRANSLATE_OUT})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface FabBehaviour {
+    }
+
     @Mode
     private int mMode = MODE_DEFAULT;
     @BackgroundStyle
@@ -93,6 +105,9 @@ public class BottomNavigationBar extends FrameLayout {
     private int mRippleAnimationDuration = (int) (DEFAULT_ANIMATION_DURATION * 2.5);
 
     private float mElevation;
+
+    private boolean mAutoHideEnabled;
+    private boolean mIsHidden = false;
 
     ///////////////////////////////////////////////////////////////////////////
     // View Default Constructors and Methods
@@ -133,6 +148,7 @@ public class BottomNavigationBar extends FrameLayout {
             mActiveColor = typedArray.getColor(R.styleable.BottomNavigationBar_bnbActiveColor, Utils.fetchContextColor(context, R.attr.colorAccent));
             mInActiveColor = typedArray.getColor(R.styleable.BottomNavigationBar_bnbInactiveColor, Color.LTGRAY);
             mBackgroundColor = typedArray.getColor(R.styleable.BottomNavigationBar_bnbBackgroundColor, Color.WHITE);
+            mAutoHideEnabled = typedArray.getBoolean(R.styleable.BottomNavigationBar_bnbAutoHideEnabled, true);
             mElevation = typedArray.getDimension(R.styleable.BottomNavigationBar_bnbElevation, getResources().getDimension(R.dimen.bottom_navigation_elevation));
 
             setAnimationDuration(typedArray.getInt(R.styleable.BottomNavigationBar_bnbAnimationDuration, DEFAULT_ANIMATION_DURATION));
@@ -562,6 +578,7 @@ public class BottomNavigationBar extends FrameLayout {
      * @param animate is animation enabled for hide
      */
     public void hide(boolean animate) {
+        mIsHidden = true;
         setTranslationY(this.getHeight(), animate);
     }
 
@@ -576,6 +593,7 @@ public class BottomNavigationBar extends FrameLayout {
      * @param animate is animation enabled for unHide
      */
     public void unHide(boolean animate) {
+        mIsHidden = false;
         setTranslationY(0, animate);
     }
 
@@ -612,6 +630,41 @@ public class BottomNavigationBar extends FrameLayout {
             mTranslationAnimator.cancel();
         }
         mTranslationAnimator.translationY(offset).start();
+    }
+
+    public boolean isHidden() {
+        return mIsHidden;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Behaviour Handing Handling
+    ///////////////////////////////////////////////////////////////////////////
+
+    public boolean isAutoHideEnabled() {
+        return mAutoHideEnabled;
+    }
+
+    public void setAutoHideEnabled(boolean mAutoHideEnabled) {
+        this.mAutoHideEnabled = mAutoHideEnabled;
+    }
+
+    public void setFab(FloatingActionButton fab) {
+        ViewGroup.LayoutParams layoutParams = fab.getLayoutParams();
+        if (layoutParams != null && layoutParams instanceof CoordinatorLayout.LayoutParams) {
+            CoordinatorLayout.LayoutParams coLayoutParams = (CoordinatorLayout.LayoutParams) layoutParams;
+            BBFabBehaviour bbFabBehaviour = new BBFabBehaviour();
+            coLayoutParams.setBehavior(bbFabBehaviour);
+        }
+    }
+
+    // scheduled for next
+    private void setFab(FloatingActionButton fab, @FabBehaviour int fabBehaviour) {
+        ViewGroup.LayoutParams layoutParams = fab.getLayoutParams();
+        if (layoutParams != null && layoutParams instanceof CoordinatorLayout.LayoutParams) {
+            CoordinatorLayout.LayoutParams coLayoutParams = (CoordinatorLayout.LayoutParams) layoutParams;
+            BBFabBehaviour bbFabBehaviour = new BBFabBehaviour();
+            coLayoutParams.setBehavior(bbFabBehaviour);
+        }
     }
 
 

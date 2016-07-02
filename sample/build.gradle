@@ -50,7 +50,7 @@ ext {
 }
 
 dependencies {
-//    testCompile 'junit:junit:4.12'
+    testCompile 'junit:junit:4.12'
     compile "com.android.support:appcompat-v7:${supportLibraryVersion}"
     compile "com.android.support:design:${supportLibraryVersion}"
     compile project(':bottom-navigation-bar')

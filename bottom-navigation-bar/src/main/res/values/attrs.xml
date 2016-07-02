@@ -16,5 +16,6 @@
             <enum name="background_style_static" value="1" />
             <enum name="background_style_ripple" value="2" />
         </attr>
+        <attr name="bnbAutoHideEnabled" format="boolean"/>
     </declare-styleable>
 </resources>
