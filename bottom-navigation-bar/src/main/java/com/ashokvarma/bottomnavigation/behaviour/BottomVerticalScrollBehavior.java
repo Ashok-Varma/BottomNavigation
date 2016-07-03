@@ -123,7 +123,7 @@ public class BottomVerticalScrollBehavior<V extends View> extends VerticalScroll
         if (bottomNavigationBar != null && bottomNavigationBar.isAutoHideEnabled()) {
             if (scrollDirection == ScrollDirection.SCROLL_DIRECTION_DOWN && bottomNavigationBar.isHidden()) {
                 updateSnackBarPosition(parent, child, getSnackBarInstance(parent, child), -mBottomNavHeight);
-                bottomNavigationBar.unHide();
+                bottomNavigationBar.show();
             } else if (scrollDirection == ScrollDirection.SCROLL_DIRECTION_UP && !bottomNavigationBar.isHidden()) {
                 updateSnackBarPosition(parent, child, getSnackBarInstance(parent, child), 0);
                 bottomNavigationBar.hide();

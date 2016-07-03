@@ -22,7 +22,7 @@ import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
-import com.ashokvarma.bottomnavigation.behaviour.BBFabBehaviour;
+import com.ashokvarma.bottomnavigation.behaviour.BottomNavBarFabBehaviour;
 import com.ashokvarma.bottomnavigation.behaviour.BottomVerticalScrollBehavior;
 import com.ashokvarma.bottomnavigation.utils.Utils;
 
@@ -583,16 +583,16 @@ public class BottomNavigationBar extends FrameLayout {
     }
 
     /**
-     * unHide with animation
+     * show with animation
      */
-    public void unHide() {
-        unHide(true);
+    public void show() {
+        show(true);
     }
 
     /**
-     * @param animate is animation enabled for unHide
+     * @param animate is animation enabled for show
      */
-    public void unHide(boolean animate) {
+    public void show(boolean animate) {
         mIsHidden = false;
         setTranslationY(0, animate);
     }
@@ -652,8 +652,8 @@ public class BottomNavigationBar extends FrameLayout {
         ViewGroup.LayoutParams layoutParams = fab.getLayoutParams();
         if (layoutParams != null && layoutParams instanceof CoordinatorLayout.LayoutParams) {
             CoordinatorLayout.LayoutParams coLayoutParams = (CoordinatorLayout.LayoutParams) layoutParams;
-            BBFabBehaviour bbFabBehaviour = new BBFabBehaviour();
-            coLayoutParams.setBehavior(bbFabBehaviour);
+            BottomNavBarFabBehaviour bottomNavBarFabBehaviour = new BottomNavBarFabBehaviour();
+            coLayoutParams.setBehavior(bottomNavBarFabBehaviour);
         }
     }
 
@@ -662,8 +662,8 @@ public class BottomNavigationBar extends FrameLayout {
         ViewGroup.LayoutParams layoutParams = fab.getLayoutParams();
         if (layoutParams != null && layoutParams instanceof CoordinatorLayout.LayoutParams) {
             CoordinatorLayout.LayoutParams coLayoutParams = (CoordinatorLayout.LayoutParams) layoutParams;
-            BBFabBehaviour bbFabBehaviour = new BBFabBehaviour();
-            coLayoutParams.setBehavior(bbFabBehaviour);
+            BottomNavBarFabBehaviour bottomNavBarFabBehaviour = new BottomNavBarFabBehaviour();
+            coLayoutParams.setBehavior(bottomNavBarFabBehaviour);
         }
     }
 

@@ -116,7 +116,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         if (v.getId() == R.id.toggle_hide) {
             if (bottomNavigationBar != null) {
                 if (hidden) {
-                    bottomNavigationBar.unHide();
+                    bottomNavigationBar.show();
                 } else {
                     bottomNavigationBar.hide();
                 }

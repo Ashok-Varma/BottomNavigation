@@ -21,11 +21,11 @@ import java.util.List;
  * @see
  * @since 06 Jun 2016
  */
-public class BBFabBehaviour extends CoordinatorLayout.Behavior<FloatingActionButton> {
+public class BottomNavBarFabBehaviour extends CoordinatorLayout.Behavior<FloatingActionButton> {
 
     ViewPropertyAnimatorCompat mFabTranslationYAnimator;
-    @BottomNavigationBar.FabBehaviour
-    private int mFabBehaviour;
+//    @BottomNavigationBar.FabBehaviour
+//    private int mFabBehaviour;
 
     static final Interpolator FAST_OUT_SLOW_IN_INTERPOLATOR = new FastOutSlowInInterpolator();
 
@@ -33,7 +33,7 @@ public class BBFabBehaviour extends CoordinatorLayout.Behavior<FloatingActionBut
     // Constructor
     ///////////////////////////////////////////////////////////////////////////
 
-//    public BBFabBehaviour() {
+//    public BottomNavBarFabBehaviour() {
 //        mFabBehaviour = BottomNavigationBar.FAB_BEHAVIOUR_TRANSLATE_AND_STICK;
 //    }
     ///////////////////////////////////////////////////////////////////////////
@@ -157,9 +157,9 @@ public class BBFabBehaviour extends CoordinatorLayout.Behavior<FloatingActionBut
         return minOffset;
     }
 
-    public void setmFabBehaviour(int mFabBehaviour) {
-        this.mFabBehaviour = mFabBehaviour;
-    }
+//    public void setmFabBehaviour(int mFabBehaviour) {
+//        this.mFabBehaviour = mFabBehaviour;
+//    }
 
     ///////////////////////////////////////////////////////////////////////////
     // Animator Initializer
