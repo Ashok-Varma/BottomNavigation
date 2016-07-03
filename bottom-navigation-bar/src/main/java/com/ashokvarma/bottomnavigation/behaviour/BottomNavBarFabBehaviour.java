@@ -18,7 +18,6 @@ import java.util.List;
  *
  * @author ashokvarma
  * @version 1.0
- * @see
  * @since 06 Jun 2016
  */
 public class BottomNavBarFabBehaviour extends CoordinatorLayout.Behavior<FloatingActionButton> {
