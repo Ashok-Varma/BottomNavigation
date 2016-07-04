@@ -505,6 +505,9 @@ public class BottomNavigationBar extends FrameLayout {
      * @param callListener is listener callbacks enabled for this change
      */
     private void selectTabInternal(int newPosition, boolean firstTab, boolean callListener) {
+        if (!mTabSelectedListener.onTabWillBeSelected(newPosition)) {
+            return;
+        }
         int oldPosition = mSelectedPosition;
         if (mSelectedPosition != newPosition) {
             if (mBackgroundStyle == BACKGROUND_STYLE_STATIC) {
@@ -717,6 +720,14 @@ public class BottomNavigationBar extends FrameLayout {
     public interface OnTabSelectedListener {
 
         /**
+         * Called when a tab is pressed, the result indicates whether the tab can be selected.
+         * This action can be used with business logic such as login.
+         * @param position The position of the tab was pressed
+         * @return Whether the tab can be selected.
+         */
+        boolean onTabWillBeSelected(int position);
+
+        /**
          * Called when a tab enters the selected state.
          *
          * @param position The position of the tab that was selected
@@ -754,6 +765,11 @@ public class BottomNavigationBar extends FrameLayout {
 
         @Override
         public void onTabReselected(int position) {
+        }
+
+        @Override
+        public boolean onTabWillBeSelected(int position) {
+            return true;
         }
     }
 }
