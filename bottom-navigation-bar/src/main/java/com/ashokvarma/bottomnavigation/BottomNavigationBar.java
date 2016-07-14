@@ -348,6 +348,9 @@ public class BottomNavigationBar extends FrameLayout {
      * This method will take all changes in to consideration and redraws tabs.
      */
     public void initialise() {
+        mSelectedPosition = DEFAULT_SELECTED_POSITION;
+        mBottomNavigationTabs.clear();
+
         if (!mBottomNavigationItems.isEmpty()) {
             mTabContainer.removeAllViews();
             if (mMode == MODE_DEFAULT) {
@@ -568,6 +571,26 @@ public class BottomNavigationBar extends FrameLayout {
     ///////////////////////////////////////////////////////////////////////////
 
     /**
+     * show BottomNavigationBar if it is hidden and hide if it is shown
+     */
+    public void toggle() {
+        toggle(true);
+    }
+
+    /**
+     * show BottomNavigationBar if it is hidden and hide if it is shown
+     *
+     * @param animate is animation enabled for toggle
+     */
+    public void toggle(boolean animate) {
+        if (mIsHidden) {
+            show(animate);
+        } else {
+            hide(animate);
+        }
+    }
+
+    /**
      * hide with animation
      */
     public void hide() {
@@ -614,7 +637,7 @@ public class BottomNavigationBar extends FrameLayout {
 
     /**
      * Internal Method
-     * <p/>
+     * <p>
      * used to set animation and
      * takes care of cancelling current animation
      * and sets duration and interpolator for animation
