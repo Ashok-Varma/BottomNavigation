@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ashokvarma.bottomnavigation.BadgeItem;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
@@ -241,6 +242,16 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onTabUnselected(int position) {
+    }
+
+    @Override
+    public boolean onTabWillBeSelected(int position) {
+        if (position == 2) {
+            Toast.makeText(HomeActivity.this, "To select this tab, you need to login first", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            return true;
+        }
     }
 
     @Override
