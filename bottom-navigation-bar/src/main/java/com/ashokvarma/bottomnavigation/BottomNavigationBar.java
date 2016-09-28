@@ -399,9 +399,9 @@ public class BottomNavigationBar extends FrameLayout {
             }
 
             if (mBottomNavigationTabs.size() > mFirstSelectedPosition) {
-                selectTabInternal(mFirstSelectedPosition, true, false);
+                selectTabInternal(mFirstSelectedPosition, true, false, false);
             } else if (!mBottomNavigationTabs.isEmpty()) {
-                selectTabInternal(0, true, false);
+                selectTabInternal(0, true, false, false);
             }
         }
     }
@@ -463,7 +463,7 @@ public class BottomNavigationBar extends FrameLayout {
      * @param callListener should this change call listener callbacks
      */
     public void selectTab(int newPosition, boolean callListener) {
-        selectTabInternal(newPosition, false, callListener);
+        selectTabInternal(newPosition, false, callListener, callListener);
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -487,7 +487,7 @@ public class BottomNavigationBar extends FrameLayout {
             @Override
             public void onClick(View v) {
                 BottomNavigationTab bottomNavigationTabView = (BottomNavigationTab) v;
-                selectTabInternal(bottomNavigationTabView.getPosition(), false, true);
+                selectTabInternal(bottomNavigationTabView.getPosition(), false, true, false);
             }
         });
 
@@ -503,11 +503,12 @@ public class BottomNavigationBar extends FrameLayout {
     /**
      * Internal Method to select a tab
      *
-     * @param newPosition  to select a tab after bottom navigation bar is initialised
-     * @param firstTab     if firstTab the no ripple animation will be done
-     * @param callListener is listener callbacks enabled for this change
+     * @param newPosition     to select a tab after bottom navigation bar is initialised
+     * @param firstTab        if firstTab the no ripple animation will be done
+     * @param callListener    is listener callbacks enabled for this change
+     * @param forcedSelection if bottom navigation bar forced to select tab (in this case call on selected irrespective of previous state
      */
-    private void selectTabInternal(int newPosition, boolean firstTab, boolean callListener) {
+    private void selectTabInternal(int newPosition, boolean firstTab, boolean callListener, boolean forcedSelection) {
         int oldPosition = mSelectedPosition;
         if (mSelectedPosition != newPosition) {
             if (mBackgroundStyle == BACKGROUND_STYLE_STATIC) {
@@ -542,25 +543,30 @@ public class BottomNavigationBar extends FrameLayout {
         }
 
         if (callListener) {
-            sendListenerCall(oldPosition, newPosition);
+            sendListenerCall(oldPosition, newPosition, forcedSelection);
         }
     }
 
     /**
      * Internal method used to send callbacks to listener
      *
-     * @param oldPosition old selected tab position, -1 if this is first call
-     * @param newPosition newly selected tab position
+     * @param oldPosition     old selected tab position, -1 if this is first call
+     * @param newPosition     newly selected tab position
+     * @param forcedSelection if bottom navigation bar forced to select tab (in this case call on selected irrespective of previous state
      */
-    private void sendListenerCall(int oldPosition, int newPosition) {
+    private void sendListenerCall(int oldPosition, int newPosition, boolean forcedSelection) {
         if (mTabSelectedListener != null) {
 //                && oldPosition != -1) {
-            if (oldPosition == newPosition) {
-                mTabSelectedListener.onTabReselected(newPosition);
-            } else {
+            if (forcedSelection) {
                 mTabSelectedListener.onTabSelected(newPosition);
-                if (oldPosition != -1) {
-                    mTabSelectedListener.onTabUnselected(oldPosition);
+            } else {
+                if (oldPosition == newPosition) {
+                    mTabSelectedListener.onTabReselected(newPosition);
+                } else {
+                    mTabSelectedListener.onTabSelected(newPosition);
+                    if (oldPosition != -1) {
+                        mTabSelectedListener.onTabUnselected(oldPosition);
+                    }
                 }
             }
         }
