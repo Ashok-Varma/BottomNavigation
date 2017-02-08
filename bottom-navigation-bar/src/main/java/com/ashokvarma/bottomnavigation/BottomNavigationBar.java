@@ -108,6 +108,7 @@ public class BottomNavigationBar extends FrameLayout {
 
     private boolean mAutoHideEnabled;
     private boolean mIsHidden = false;
+    private boolean mIconAnimation = true;
 
     ///////////////////////////////////////////////////////////////////////////
     // View Default Constructors and Methods
@@ -411,6 +412,19 @@ public class BottomNavigationBar extends FrameLayout {
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
+     * add iconAnimation control
+     */
+    public BottomNavigationBar setIconAnimation(boolean iconAnimation){
+        this.mIconAnimation = iconAnimation;
+        return this;
+    }
+
+    public boolean getIconAnimation(){
+        return mIconAnimation;
+    }
+
+
+    /**
      * @param tabSelectedListener callback listener for tabs
      * @return this, to allow builder pattern
      */
@@ -482,7 +496,8 @@ public class BottomNavigationBar extends FrameLayout {
         bottomNavigationTab.setInactiveWidth(itemWidth);
         bottomNavigationTab.setActiveWidth(itemActiveWidth);
         bottomNavigationTab.setPosition(mBottomNavigationItems.indexOf(currentItem));
-
+        if (mMode != MODE_SHIFTING)
+            bottomNavigationTab.setIconAnimation(mIconAnimation);
         bottomNavigationTab.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

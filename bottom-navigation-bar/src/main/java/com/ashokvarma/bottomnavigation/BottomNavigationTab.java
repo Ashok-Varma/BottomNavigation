@@ -44,6 +44,7 @@ class BottomNavigationTab extends FrameLayout {
     protected BadgeItem badgeItem;
 
     boolean isActive = false;
+    boolean  iconAnimation = true;
 
     View containerView;
     TextView labelView;
@@ -129,21 +130,34 @@ class BottomNavigationTab extends FrameLayout {
         return mPosition;
     }
 
+    /**
+     * add iconAnimation control
+     * @param iconAnimation
+     */
+    public void setIconAnimation(boolean iconAnimation){
+        this.iconAnimation = iconAnimation;
+    }
+
+    public boolean getIconAnimation(){
+        return iconAnimation;
+    }
+
     public void select(boolean setActiveColor, int animationDuration) {
         isActive = true;
-
-        ValueAnimator animator = ValueAnimator.ofInt(containerView.getPaddingTop(), paddingTopActive);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                containerView.setPadding(containerView.getPaddingLeft(),
-                        (Integer) valueAnimator.getAnimatedValue(),
-                        containerView.getPaddingRight(),
-                        containerView.getPaddingBottom());
-            }
-        });
-        animator.setDuration(animationDuration);
-        animator.start();
+        if(iconAnimation) {
+            ValueAnimator animator = ValueAnimator.ofInt(containerView.getPaddingTop(), paddingTopActive);
+            animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                    containerView.setPadding(containerView.getPaddingLeft(),
+                            (Integer) valueAnimator.getAnimatedValue(),
+                            containerView.getPaddingRight(),
+                            containerView.getPaddingBottom());
+                }
+            });
+            animator.setDuration(animationDuration);
+            animator.start();
+        }
 
         iconView.setSelected(true);
         if (setActiveColor) {
@@ -159,19 +173,20 @@ class BottomNavigationTab extends FrameLayout {
 
     public void unSelect(boolean setActiveColor, int animationDuration) {
         isActive = false;
-
-        ValueAnimator animator = ValueAnimator.ofInt(containerView.getPaddingTop(), paddingTopInActive);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                containerView.setPadding(containerView.getPaddingLeft(),
-                        (Integer) valueAnimator.getAnimatedValue(),
-                        containerView.getPaddingRight(),
-                        containerView.getPaddingBottom());
-            }
-        });
-        animator.setDuration(animationDuration);
-        animator.start();
+        if(iconAnimation) {
+            ValueAnimator animator = ValueAnimator.ofInt(containerView.getPaddingTop(), paddingTopInActive);
+            animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                    containerView.setPadding(containerView.getPaddingLeft(),
+                            (Integer) valueAnimator.getAnimatedValue(),
+                            containerView.getPaddingRight(),
+                            containerView.getPaddingBottom());
+                }
+            });
+            animator.setDuration(animationDuration);
+            animator.start();
+        }
 
         labelView.setTextColor(mInActiveColor);
         iconView.setSelected(false);
