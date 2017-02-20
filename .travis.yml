@@ -51,9 +51,8 @@ addons:
     packages:
       - oracle-java8-installer
 
-language: java
-jdk:
-  - oraclejdk8
+language: android
+jdk: oraclejdk8
 
 notifications:
   email: false
