@@ -45,10 +45,6 @@ before_script:
 # script: "./gradlew build"
 
 sudo: false
-addons:
-  apt:
-    packages:
-      - oracle-java8-installer
 
 notifications:
   email: false
