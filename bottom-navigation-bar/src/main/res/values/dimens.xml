@@ -6,6 +6,7 @@
     <dimen name="fixed_width_padding">12dp</dimen>
 
     <dimen name="fixed_height">56dp</dimen>
+    <dimen name="fixed_height_without_title">48dp</dimen>
     <dimen name="fixed_height_top_padding_inactive">2dp
     </dimen><!-- 8(Top Padding) - 12/2(extra padding due to badges) = 2 -->
     <dimen name="fixed_height_top_padding_active">0dp

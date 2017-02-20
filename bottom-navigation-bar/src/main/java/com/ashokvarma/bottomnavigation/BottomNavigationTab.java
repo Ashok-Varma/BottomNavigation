@@ -46,6 +46,7 @@ class BottomNavigationTab extends FrameLayout {
     boolean isActive = false;
 
     View containerView;
+    View badgeContainerView;
     TextView labelView;
     ImageView iconView;
     TextView badgeView;
@@ -98,6 +99,13 @@ class BottomNavigationTab extends FrameLayout {
     public void setLabel(String label) {
         mLabel = label;
         labelView.setText(label);
+    }
+
+    public void hideLabel() {
+        labelView.setVisibility(GONE);
+        containerView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, (int) getResources().getDimension(R.dimen.fixed_height_without_title)));
+        if (badgeContainerView != null)
+        badgeContainerView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, (int) getResources().getDimension(R.dimen.fixed_height_without_title)));
     }
 
     public void setActiveColor(int activeColor) {
