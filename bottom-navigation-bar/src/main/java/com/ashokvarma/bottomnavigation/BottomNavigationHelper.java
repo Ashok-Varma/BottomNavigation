@@ -116,7 +116,11 @@ class BottomNavigationHelper {
 
         Context context = bottomNavigationBar.getContext();
 
-        bottomNavigationTab.setLabel(bottomNavigationItem.getTitle(context));
+        if (bottomNavigationItem.getTitle(context) != null) {
+            bottomNavigationTab.setLabel(bottomNavigationItem.getTitle(context));
+        } else {
+            bottomNavigationTab.hideLabel();
+        }
         bottomNavigationTab.setIcon(bottomNavigationItem.getIcon(context));
 
         int activeColor = bottomNavigationItem.getActiveColor(context);

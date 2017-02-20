@@ -6,6 +6,8 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -40,19 +42,20 @@ class FixedBottomNavigationTab extends BottomNavigationTab {
 
     @Override
     void init() {
+        super.init();
         paddingTopActive = (int) getResources().getDimension(R.dimen.fixed_height_top_padding_active);
         paddingTopInActive = (int) getResources().getDimension(R.dimen.fixed_height_top_padding_inactive);
 
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View view = inflater.inflate(R.layout.fixed_bottom_navigation_item, this, true);
         containerView = view.findViewById(R.id.fixed_bottom_navigation_container);
+        badgeContainerView = view.findViewById(R.id.fixed_bottom_navigation_badge_container);
         labelView = (TextView) view.findViewById(R.id.fixed_bottom_navigation_title);
         iconView = (ImageView) view.findViewById(R.id.fixed_bottom_navigation_icon);
         badgeView = (TextView) view.findViewById(R.id.fixed_bottom_navigation_badge);
 
         labelScale = getResources().getDimension(R.dimen.fixed_label_inactive) / getResources().getDimension(R.dimen.fixed_label_active);
 
-        super.init();
     }
 
     @Override

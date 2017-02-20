@@ -677,6 +677,14 @@ public class BottomNavigationBar extends FrameLayout {
         this.mAutoHideEnabled = mAutoHideEnabled;
     }
 
+    /**
+     * @return this, to allow builder pattern
+     */
+    public BottomNavigationBar hideLabel() {
+        mContainer.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,(int) getResources().getDimension(R.dimen.fixed_height_without_title)));
+        return this;
+    }
+
     public void setFab(FloatingActionButton fab) {
         ViewGroup.LayoutParams layoutParams = fab.getLayoutParams();
         if (layoutParams != null && layoutParams instanceof CoordinatorLayout.LayoutParams) {
