@@ -204,17 +204,17 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         if (items3.isChecked()) {
             bottomNavigationBar
-                    .addItem(new BottomNavigationItem(R.drawable.ic_location_on_white_24dp, "Nearby").setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
-                    .addItem(new BottomNavigationItem(R.drawable.ic_find_replace_white_24dp, "Find").setActiveColorResource(R.color.teal))
-                    .addItem(new BottomNavigationItem(R.drawable.ic_favorite_white_24dp, "Categories").setActiveColorResource(R.color.blue))
+                    .addItem(new BottomNavigationItem(R.drawable.ic_location_on_white_24dp).setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
+                    .addItem(new BottomNavigationItem(R.drawable.ic_find_replace_white_24dp).setActiveColorResource(R.color.teal))
+                    .addItem(new BottomNavigationItem(R.drawable.ic_favorite_white_24dp).setActiveColorResource(R.color.blue))
                     .setFirstSelectedPosition(lastSelectedPosition > 2 ? 2 : lastSelectedPosition)
                     .initialise();
         } else if (items4.isChecked()) {
             bottomNavigationBar
-                    .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
-                    .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp, "Books").setActiveColorResource(R.color.teal))
-                    .addItem(new BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "Music").setActiveColorResource(R.color.blue))
-                    .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV").setActiveColorResource(R.color.brown))
+                    .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp).setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
+                    .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp).setActiveColorResource(R.color.teal))
+                    .addItem(new BottomNavigationItem(R.drawable.ic_music_note_white_24dp).setActiveColorResource(R.color.blue))
+                    .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp).setActiveColorResource(R.color.brown))
                     .setFirstSelectedPosition(lastSelectedPosition > 3 ? 3 : lastSelectedPosition)
                     .initialise();
         } else if (items5.isChecked()) {

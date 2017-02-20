@@ -120,6 +120,7 @@ class BottomNavigationHelper {
             bottomNavigationTab.setLabel(bottomNavigationItem.getTitle(context));
         } else {
             bottomNavigationTab.hideLabel();
+            bottomNavigationBar.hideLabel();
         }
         bottomNavigationTab.setIcon(bottomNavigationItem.getIcon(context));
 
