@@ -65,6 +65,21 @@
                 android:orientation="horizontal">
 
                 <CheckBox
+                    android:id="@+id/show_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="@string/show_text" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
                     android:id="@+id/items_3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

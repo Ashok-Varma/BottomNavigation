@@ -77,6 +77,22 @@ public class BottomNavigationItem {
     }
 
     /**
+     * @param mIconResource resource for the Tab icon.
+     */
+    public BottomNavigationItem(@DrawableRes int mIconResource) {
+        this.mIconResource = mIconResource;
+        this.mTitle = mTitle;
+    }
+
+    /**
+     * @param mIcon  drawable icon for the Tab.
+     */
+    public BottomNavigationItem(Drawable mIcon) {
+        this.mIcon = mIcon;
+        this.mTitle = mTitle;
+    }
+
+    /**
      * By default library will switch the color of icon provided (in between active and in-active icons)
      * This method is used, if people need to set different icons for active and in-active modes.
      *

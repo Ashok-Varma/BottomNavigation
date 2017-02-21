@@ -32,6 +32,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     CheckBox modeShifting;
     CheckBox bgStatic;
     CheckBox bgRipple;
+    CheckBox showText;
     CheckBox items3;
     CheckBox items4;
     CheckBox items5;
@@ -44,6 +45,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     TextView scrollableText;
 
     int lastSelectedPosition = 0;
+
+    boolean showTextFlag = true;
 
     BadgeItem numberBadgeItem;
 
@@ -60,6 +63,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         modeShifting = (CheckBox) findViewById(R.id.mode_shifting);
         bgStatic = (CheckBox) findViewById(R.id.bg_static);
         bgRipple = (CheckBox) findViewById(R.id.bg_ripple);
+        showText = (CheckBox) findViewById(R.id.show_text);
         items3 = (CheckBox) findViewById(R.id.items_3);
         items4 = (CheckBox) findViewById(R.id.items_4);
         items5 = (CheckBox) findViewById(R.id.items_5);
@@ -75,6 +79,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         modeShifting.setOnCheckedChangeListener(this);
         bgRipple.setOnCheckedChangeListener(this);
         bgStatic.setOnCheckedChangeListener(this);
+        showText.setOnCheckedChangeListener(this);
         items3.setOnCheckedChangeListener(this);
         items4.setOnCheckedChangeListener(this);
         items5.setOnCheckedChangeListener(this);
@@ -146,6 +151,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.mode_shifting:
                 modeFixed.setChecked(!isChecked);
                 break;
+            case R.id.show_text:
+                showTextFlag = isChecked;
+                break;
             case R.id.items_3:
                 if (isChecked) {
                     items4.setChecked(false);
@@ -203,29 +211,59 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         if (items3.isChecked()) {
-            bottomNavigationBar
-                    .addItem(new BottomNavigationItem(R.drawable.ic_location_on_white_24dp, "Nearby").setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
-                    .addItem(new BottomNavigationItem(R.drawable.ic_find_replace_white_24dp, "Find").setActiveColorResource(R.color.teal))
-                    .addItem(new BottomNavigationItem(R.drawable.ic_favorite_white_24dp, "Categories").setActiveColorResource(R.color.blue))
-                    .setFirstSelectedPosition(lastSelectedPosition > 2 ? 2 : lastSelectedPosition)
-                    .initialise();
+            if (showTextFlag) {
+                bottomNavigationBar
+                        .addItem(new BottomNavigationItem(R.drawable.ic_location_on_white_24dp, "Nearby").setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_find_replace_white_24dp, "Find").setActiveColorResource(R.color.teal))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_favorite_white_24dp, "Categories").setActiveColorResource(R.color.blue))
+                        .setFirstSelectedPosition(lastSelectedPosition > 2 ? 2 : lastSelectedPosition)
+                        .initialise();
+            } else {
+                bottomNavigationBar
+                        .addItem(new BottomNavigationItem(R.drawable.ic_location_on_white_24dp).setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_find_replace_white_24dp).setActiveColorResource(R.color.teal))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_favorite_white_24dp).setActiveColorResource(R.color.blue))
+                        .setFirstSelectedPosition(lastSelectedPosition > 2 ? 2 : lastSelectedPosition)
+                        .initialise();
+            }
         } else if (items4.isChecked()) {
-            bottomNavigationBar
-                    .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
-                    .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp, "Books").setActiveColorResource(R.color.teal))
-                    .addItem(new BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "Music").setActiveColorResource(R.color.blue))
-                    .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV").setActiveColorResource(R.color.brown))
-                    .setFirstSelectedPosition(lastSelectedPosition > 3 ? 3 : lastSelectedPosition)
-                    .initialise();
+            if (showTextFlag) {
+                bottomNavigationBar
+                        .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp, "Books").setActiveColorResource(R.color.teal))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "Music").setActiveColorResource(R.color.blue))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV").setActiveColorResource(R.color.brown))
+                        .setFirstSelectedPosition(lastSelectedPosition > 3 ? 3 : lastSelectedPosition)
+                        .initialise();
+            } else {
+                bottomNavigationBar
+                        .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp).setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp).setActiveColorResource(R.color.teal))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_music_note_white_24dp).setActiveColorResource(R.color.blue))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp).setActiveColorResource(R.color.brown))
+                        .setFirstSelectedPosition(lastSelectedPosition > 3 ? 3 : lastSelectedPosition)
+                        .initialise();
+            }
         } else if (items5.isChecked()) {
-            bottomNavigationBar
-                    .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
-                    .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp, "Books").setActiveColorResource(R.color.teal))
-                    .addItem(new BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "Music").setActiveColorResource(R.color.blue))
-                    .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV").setActiveColorResource(R.color.brown))
-                    .addItem(new BottomNavigationItem(R.drawable.ic_videogame_asset_white_24dp, "Games").setActiveColorResource(R.color.grey))
-                    .setFirstSelectedPosition(lastSelectedPosition)
-                    .initialise();
+            if (showTextFlag) {
+                bottomNavigationBar
+                        .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp, "Books").setActiveColorResource(R.color.teal))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "Music").setActiveColorResource(R.color.blue))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV").setActiveColorResource(R.color.brown))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_videogame_asset_white_24dp, "Games").setActiveColorResource(R.color.grey))
+                        .setFirstSelectedPosition(lastSelectedPosition)
+                        .initialise();
+            } else {
+                bottomNavigationBar
+                        .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp).setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp).setActiveColorResource(R.color.teal))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_music_note_white_24dp).setActiveColorResource(R.color.blue))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp).setActiveColorResource(R.color.brown))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_videogame_asset_white_24dp).setActiveColorResource(R.color.grey))
+                        .setFirstSelectedPosition(lastSelectedPosition)
+                        .initialise();
+            }
         }
     }
 

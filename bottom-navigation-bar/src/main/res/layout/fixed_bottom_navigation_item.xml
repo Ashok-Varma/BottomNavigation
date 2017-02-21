@@ -10,6 +10,7 @@
     android:paddingTop="@dimen/fixed_height_top_padding_inactive">
 
     <FrameLayout
+        android:id="@+id/fixed_bottom_navigation_layout"
         android:layout_width="@dimen/fixed_icon_badge_grid_width"
         android:layout_height="@dimen/fixed_icon_badge_grid_height"
         android:layout_gravity="center_horizontal|top">

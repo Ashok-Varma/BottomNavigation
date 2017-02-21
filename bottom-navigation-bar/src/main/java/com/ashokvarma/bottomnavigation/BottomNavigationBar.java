@@ -14,6 +14,7 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorCompat;
 import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -494,6 +495,11 @@ public class BottomNavigationBar extends FrameLayout {
         mBottomNavigationTabs.add(bottomNavigationTab);
 
         BottomNavigationHelper.bindTabWithData(currentItem, bottomNavigationTab, this);
+
+        if (bottomNavigationTab instanceof FixedBottomNavigationTab
+                && bottomNavigationTab.getLabelVisibility() == View.GONE) {
+            bottomNavigationTab.setIconLayoutGravityCenter();
+        }
 
         bottomNavigationTab.initialise(mBackgroundStyle == BACKGROUND_STYLE_STATIC);
 
