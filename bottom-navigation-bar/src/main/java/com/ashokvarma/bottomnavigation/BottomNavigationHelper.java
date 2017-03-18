@@ -7,6 +7,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.widget.FrameLayout;
@@ -116,7 +117,11 @@ class BottomNavigationHelper {
 
         Context context = bottomNavigationBar.getContext();
 
-        bottomNavigationTab.setLabel(bottomNavigationItem.getTitle(context));
+        if (TextUtils.isEmpty(bottomNavigationItem.getTitle(context))) {
+            bottomNavigationTab.setLabelVisibility(View.GONE);
+        } else {
+            bottomNavigationTab.setLabel(bottomNavigationItem.getTitle(context));
+        }
         bottomNavigationTab.setIcon(bottomNavigationItem.getIcon(context));
 
         int activeColor = bottomNavigationItem.getActiveColor(context);
