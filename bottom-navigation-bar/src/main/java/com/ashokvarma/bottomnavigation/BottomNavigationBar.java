@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.ColorRes;
 import android.support.annotation.IntDef;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
@@ -614,7 +615,11 @@ public class BottomNavigationBar extends FrameLayout {
      */
     public void hide(boolean animate) {
         mIsHidden = true;
-        setTranslationY(this.getHeight(), animate);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            setTranslationY(this.getHeight(), animate);
+        } else {
+            setVisibility(View.GONE);
+        }
     }
 
     /**
@@ -629,13 +634,18 @@ public class BottomNavigationBar extends FrameLayout {
      */
     public void show(boolean animate) {
         mIsHidden = false;
-        setTranslationY(0, animate);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            setTranslationY(0, animate);
+        } else {
+            setVisibility(View.VISIBLE);
+        }
     }
 
     /**
      * @param offset  offset needs to be set
      * @param animate is animation enabled for translation
      */
+    @RequiresApi(Build.VERSION_CODES.HONEYCOMB)
     private void setTranslationY(int offset, boolean animate) {
         if (animate) {
             animateOffset(offset);
