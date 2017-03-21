@@ -21,11 +21,10 @@ public class Utils {
      * @param context used to get system services
      * @return screenWidth in pixels
      */
+    @SuppressWarnings("deprecation") // Targeting API 10 so must use deprecated method.
     public static int getScreenWidth(Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        Point size = new Point();
-        wm.getDefaultDisplay().getSize(size);
-        return size.x;
+        return wm.getDefaultDisplay().getWidth();
     }
 
     /**
