@@ -4,6 +4,7 @@ package com.ashokvarma.bottomnavigation.behaviour;
 import android.content.Context;
 import android.support.annotation.IntDef;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -74,7 +75,7 @@ public abstract class VerticalScrollingBehavior<V extends View> extends Coordina
 
     @Override
     public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, V child, View directTargetChild, View target, int nestedScrollAxes) {
-        return (nestedScrollAxes & View.SCROLL_AXIS_VERTICAL) != 0;
+        return (nestedScrollAxes & ViewCompat.SCROLL_AXIS_VERTICAL) != 0;
     }
 
 //    @Override

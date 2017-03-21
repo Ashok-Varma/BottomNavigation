@@ -7,6 +7,8 @@ import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
+import android.support.v4.animation.AnimatorCompatHelper;
+import android.support.v4.animation.ValueAnimatorCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.AttributeSet;
 import android.view.View;
@@ -153,10 +155,11 @@ class BottomNavigationTab extends FrameLayout {
     public void select(boolean setActiveColor, int animationDuration) {
         isActive = true;
 
-        if (labelView.getVisibility() != GONE) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             ValueAnimator animator = ValueAnimator.ofInt(containerView.getPaddingTop(), paddingTopActive);
             animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
+                @TargetApi(Build.VERSION_CODES.HONEYCOMB)
                 public void onAnimationUpdate(ValueAnimator valueAnimator) {
                     containerView.setPadding(containerView.getPaddingLeft(),
                             (Integer) valueAnimator.getAnimatedValue(),
@@ -166,6 +169,11 @@ class BottomNavigationTab extends FrameLayout {
             });
             animator.setDuration(animationDuration);
             animator.start();
+        } else {
+            containerView.setPadding(containerView.getPaddingLeft(),
+                    paddingTopActive,
+                    containerView.getPaddingRight(),
+                    containerView.getPaddingBottom());
         }
 
         iconView.setSelected(true);
@@ -183,10 +191,11 @@ class BottomNavigationTab extends FrameLayout {
     public void unSelect(boolean setActiveColor, int animationDuration) {
         isActive = false;
 
-        if (labelView.getVisibility() != GONE) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             ValueAnimator animator = ValueAnimator.ofInt(containerView.getPaddingTop(), paddingTopInActive);
             animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
+                @TargetApi(Build.VERSION_CODES.HONEYCOMB)
                 public void onAnimationUpdate(ValueAnimator valueAnimator) {
                     containerView.setPadding(containerView.getPaddingLeft(),
                             (Integer) valueAnimator.getAnimatedValue(),
@@ -196,6 +205,11 @@ class BottomNavigationTab extends FrameLayout {
             });
             animator.setDuration(animationDuration);
             animator.start();
+        } else {
+            containerView.setPadding(containerView.getPaddingLeft(),
+                    paddingTopInActive,
+                    containerView.getPaddingRight(),
+                    containerView.getPaddingBottom());
         }
 
         labelView.setTextColor(mInActiveColor);
