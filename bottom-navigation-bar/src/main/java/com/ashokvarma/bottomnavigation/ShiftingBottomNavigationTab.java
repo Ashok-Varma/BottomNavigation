@@ -51,29 +51,44 @@ class ShiftingBottomNavigationTab extends BottomNavigationTab {
         iconView = (ImageView) view.findViewById(R.id.shifting_bottom_navigation_icon);
         badgeView = (TextView) view.findViewById(R.id.shifting_bottom_navigation_badge);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            labelView.setScaleX(0);
+            labelView.setScaleY(0);
+        } else {
+            labelView.setVisibility(View.GONE);
+        }
+
         super.init();
     }
 
     @Override
     public void select(boolean setActiveColor, int animationDuration) {
-        super.select(setActiveColor, animationDuration);
-
         ResizeWidthAnimation anim = new ResizeWidthAnimation(this, mActiveWidth);
         anim.setDuration(animationDuration);
         this.startAnimation(anim);
 
-        labelView.animate().scaleY(1).scaleX(1).setDuration(animationDuration).start();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
+            labelView.animate().scaleY(1).scaleX(1).setDuration(animationDuration);
+        } else {
+            labelView.setVisibility(View.VISIBLE);
+        }
+
+        super.select(setActiveColor, animationDuration);
     }
 
     @Override
     public void unSelect(boolean setActiveColor, int animationDuration) {
-        super.unSelect(setActiveColor, animationDuration);
-
         ResizeWidthAnimation anim = new ResizeWidthAnimation(this, mInActiveWidth);
         anim.setDuration(animationDuration);
         this.startAnimation(anim);
 
-        labelView.animate().scaleY(0).scaleX(0).setDuration(0).start();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
+            labelView.animate().scaleY(0).scaleX(0).setDuration(0);
+        } else {
+            labelView.setVisibility(View.GONE);
+        }
+
+        super.unSelect(setActiveColor, animationDuration);
     }
 
 //    @Override
