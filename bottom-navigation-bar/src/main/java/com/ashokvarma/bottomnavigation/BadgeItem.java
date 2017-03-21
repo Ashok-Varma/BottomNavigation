@@ -2,6 +2,7 @@ package com.ashokvarma.bottomnavigation;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
 import android.support.annotation.ColorRes;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -379,7 +380,7 @@ public class BadgeItem {
         mIsHidden = false;
         if (isWeakReferenceValid()) {
             TextView textView = mTextViewRef.get();
-            if (animate) {
+            if (animate && Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
                 textView.setScaleX(0);
                 textView.setScaleY(0);
                 textView.setVisibility(View.VISIBLE);
@@ -390,8 +391,10 @@ public class BadgeItem {
                 animatorCompat.setListener(null);
                 animatorCompat.start();
             } else {
-                textView.setScaleX(1);
-                textView.setScaleY(1);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                    textView.setScaleX(1);
+                    textView.setScaleY(1);
+                }
                 textView.setVisibility(View.VISIBLE);
             }
         }
@@ -413,7 +416,7 @@ public class BadgeItem {
         mIsHidden = true;
         if (isWeakReferenceValid()) {
             TextView textView = mTextViewRef.get();
-            if (animate) {
+            if (animate && Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
                 ViewPropertyAnimatorCompat animatorCompat = ViewCompat.animate(textView);
                 animatorCompat.cancel();
                 animatorCompat.setDuration(mAnimationDuration);
