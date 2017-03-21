@@ -7,6 +7,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
+import android.support.v4.view.ViewCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -205,7 +206,7 @@ class BottomNavigationHelper {
      */
     public static void setBackgroundWithRipple(View clickedView, final View backgroundView,
                                                final View bgOverlay, final int newColor, int animationDuration) {
-        int centerX = (int) (clickedView.getX() + (clickedView.getMeasuredWidth() / 2));
+        int centerX = (int) (ViewCompat.getX(clickedView) + (clickedView.getMeasuredWidth() / 2));
         int centerY = clickedView.getMeasuredHeight() / 2;
         int finalRadius = backgroundView.getWidth();
 
