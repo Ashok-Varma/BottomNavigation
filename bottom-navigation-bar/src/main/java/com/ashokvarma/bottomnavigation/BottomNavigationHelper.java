@@ -213,36 +213,39 @@ class BottomNavigationHelper {
         backgroundView.clearAnimation();
         bgOverlay.clearAnimation();
 
-        Animator circularReveal;
+        Animator circularReveal = null;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             circularReveal = ViewAnimationUtils
                     .createCircularReveal(bgOverlay, centerX, centerY, 0, finalRadius);
-        } else {
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             bgOverlay.setAlpha(0);
             circularReveal = ObjectAnimator.ofFloat(bgOverlay, "alpha", 0, 1);
         }
 
-        circularReveal.setDuration(animationDuration);
-        circularReveal.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                onCancel();
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-                onCancel();
-            }
-
-            private void onCancel() {
-                backgroundView.setBackgroundColor(newColor);
-                bgOverlay.setVisibility(View.GONE);
-            }
-        });
-
         bgOverlay.setBackgroundColor(newColor);
         bgOverlay.setVisibility(View.VISIBLE);
-        circularReveal.start();
+
+        if (circularReveal != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            circularReveal.setDuration(animationDuration);
+            circularReveal.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    onCancel();
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+                    onCancel();
+                }
+
+                private void onCancel() {
+                    backgroundView.setBackgroundColor(newColor);
+                    bgOverlay.setVisibility(View.GONE);
+                }
+            });
+
+            circularReveal.start();
+        }
     }
 }
