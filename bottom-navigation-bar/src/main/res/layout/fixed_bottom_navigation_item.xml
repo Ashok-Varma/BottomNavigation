@@ -24,13 +24,25 @@
             android:gravity="center"
             android:scaleType="fitXY" />
 
-        <TextView
-            android:id="@+id/fixed_bottom_navigation_badge"
-            style="@style/BadgeText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|end"
-            android:gravity="center" />
+
+
+        <LinearLayout
+            android:id="@+id/ll_badge_container"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:orientation="vertical"
+            android:background="#000000"
+            android:gravity="center" >
+
+            <TextView
+                android:id="@+id/fixed_bottom_navigation_badge"
+                style="@style/BadgeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|end"
+                android:gravity="center" />
+
+        </LinearLayout>
     </FrameLayout>
 
     <TextView

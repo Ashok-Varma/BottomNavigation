@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <!--
+            android:shape
+                Keyword. Defines the type of shape. Valid values are:
+
+                    rectangle : A rectangle that fills the containing View. This is the default shape.
+                    oval : An oval shape that fits the dimensions of the containing View.
+                    line : A horizontal line that spans the width of the containing View. This
+                           shape requires the <stroke> element to define the width of the line.
+                    ring : A ring shape.
+        -->
+        <shape android:shape="oval">
+            <solid android:color="#e42828"/>
+            <stroke android:color="#3b91d7" android:width="5dp"/>
+            <!-- Set the same value for both width and height to get a circular shape -->
+            <size android:width="250dp" android:height="250dp"/>
+        </shape>
+    </item>
+</selector>

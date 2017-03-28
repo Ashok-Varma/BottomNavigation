@@ -52,6 +52,7 @@ class BottomNavigationTab extends FrameLayout {
     FrameLayout iconLayout;
     TextView labelView;
     ImageView iconView;
+    LinearLayout badgeContiner;
     TextView badgeView;
 
     public BottomNavigationTab(Context context) {
@@ -116,9 +117,15 @@ class BottomNavigationTab extends FrameLayout {
         ViewGroup.LayoutParams layoutParams = iconLayout.getLayoutParams();
         layoutParams.height = Utils.dp2px(getContext(), 56);
         iconLayout.setLayoutParams(layoutParams);
-        ViewGroup.MarginLayoutParams lp = (MarginLayoutParams) badgeView.getLayoutParams();
-        lp.topMargin = Utils.dp2px(getContext(), 10);
-        badgeView.setLayoutParams(lp);
+
+        ViewGroup.MarginLayoutParams llp = (MarginLayoutParams) badgeContiner.getLayoutParams();
+        llp.topMargin = Utils.dp2px(getContext(), 10);
+        badgeContiner.setLayoutParams(llp);
+
+        /*ViewGroup.MarginLayoutParams lp = (MarginLayoutParams) badgeView.getLayoutParams();
+        //lp.topMargin = Utils.dp2px(getContext(), 10);
+        lp.topMargin = Utils.dp2px(getContext(), 0);
+        badgeView.setLayoutParams(lp);*/
     }
 
     public void setActiveColor(int activeColor) {

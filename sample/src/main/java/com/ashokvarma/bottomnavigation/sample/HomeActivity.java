@@ -188,9 +188,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         setScrollableText(lastSelectedPosition);
 
         numberBadgeItem = new BadgeItem()
-                .setBorderWidth(4)
+                .setBorderWidth(0)
                 .setBackgroundColorResource(R.color.blue)
-                .setText("" + lastSelectedPosition)
+                .hasText(true)
                 .setHideOnSelect(autoHide.isChecked());
 
 

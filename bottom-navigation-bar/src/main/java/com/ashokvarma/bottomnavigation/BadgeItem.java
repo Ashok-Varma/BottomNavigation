@@ -51,12 +51,16 @@ public class BadgeItem {
 
     private int mAnimationDuration = 200;
 
+    private boolean hasText;
+
 
     ///////////////////////////////////////////////////////////////////////////
     // Public setter methods
     ///////////////////////////////////////////////////////////////////////////
 
     /**
+     * Sets background color resource.
+     *
      * @param colorResource resource for background color
      * @return this, to allow builder pattern
      */
@@ -67,6 +71,8 @@ public class BadgeItem {
     }
 
     /**
+     * Sets background color.
+     *
      * @param colorCode color code for background color
      * @return this, to allow builder pattern
      */
@@ -77,6 +83,8 @@ public class BadgeItem {
     }
 
     /**
+     * Sets background color.
+     *
      * @param color background color
      * @return this, to allow builder pattern
      */
@@ -87,6 +95,8 @@ public class BadgeItem {
     }
 
     /**
+     * Sets text color resource.
+     *
      * @param colorResource resource for text color
      * @return this, to allow builder pattern
      */
@@ -97,6 +107,8 @@ public class BadgeItem {
     }
 
     /**
+     * Sets text color.
+     *
      * @param colorCode color code for text color
      * @return this, to allow builder pattern
      */
@@ -107,6 +119,8 @@ public class BadgeItem {
     }
 
     /**
+     * Sets text color.
+     *
      * @param color text color
      * @return this, to allow builder pattern
      */
@@ -117,6 +131,8 @@ public class BadgeItem {
     }
 
     /**
+     * Sets text.
+     *
      * @param text text to be set in badge (this shouldn't be empty text)
      * @return this, to allow builder pattern
      */
@@ -124,7 +140,7 @@ public class BadgeItem {
         this.mText = text;
         if (isWeakReferenceValid()) {
             TextView textView = mTextViewRef.get();
-            if (!TextUtils.isEmpty(text)) {
+            if (!TextUtils.isEmpty(text) && hasText ) {
                 textView.setText(text);
             }
         }
@@ -132,6 +148,18 @@ public class BadgeItem {
     }
 
     /**
+     * Has text.
+     *
+     * @param bool the set false if user is not intented to set text
+     */
+    public BadgeItem hasText(boolean bool){
+        this.hasText = bool;
+        return this;
+    }
+
+    /**
+     * Sets border color resource.
+     *
      * @param colorResource resource for border color
      * @return this, to allow builder pattern
      */
@@ -142,6 +170,8 @@ public class BadgeItem {
     }
 
     /**
+     * Sets border color.
+     *
      * @param colorCode color code for border color
      * @return this, to allow builder pattern
      */
@@ -152,6 +182,8 @@ public class BadgeItem {
     }
 
     /**
+     * Sets border color.
+     *
      * @param color border color
      * @return this, to allow builder pattern
      */
@@ -162,6 +194,8 @@ public class BadgeItem {
     }
 
     /**
+     * Sets border width.
+     *
      * @param borderWidth border width in pixels
      * @return this, to allow builder pattern
      */
@@ -172,6 +206,8 @@ public class BadgeItem {
     }
 
     /**
+     * Sets gravity.
+     *
      * @param gravity gravity of badge (TOP|LEFT ..etc)
      * @return this, to allow builder pattern
      */
@@ -187,6 +223,8 @@ public class BadgeItem {
     }
 
     /**
+     * Sets hide on select.
+     *
      * @param hideOnSelect if true hides badge on tab selection
      * @return this, to allow builder pattern
      */
@@ -196,6 +234,8 @@ public class BadgeItem {
     }
 
     /**
+     * Sets animation duration.
+     *
      * @param animationDuration hide and show animation time
      * @return this, to allow builder pattern
      */
@@ -220,6 +260,8 @@ public class BadgeItem {
     }
 
     /**
+     * Gets background color.
+     *
      * @param context to fetch color
      * @return background color
      */
@@ -234,6 +276,8 @@ public class BadgeItem {
     }
 
     /**
+     * Gets text color.
+     *
      * @param context to fetch color
      * @return text color
      */
@@ -248,13 +292,20 @@ public class BadgeItem {
     }
 
     /**
+     * Gets text.
+     *
      * @return text that needs to be set in badge
      */
     protected CharSequence getText() {
-        return mText;
+        if(hasText)
+           return mText;
+        else
+           return "";
     }
 
     /**
+     * Gets border color.
+     *
      * @param context to fetch color
      * @return border color
      */
@@ -269,6 +320,8 @@ public class BadgeItem {
     }
 
     /**
+     * Gets border width.
+     *
      * @return border width
      */
     protected int getBorderWidth() {
@@ -276,6 +329,8 @@ public class BadgeItem {
     }
 
     /**
+     * Gets gravity.
+     *
      * @return gravity of badge
      */
     protected int getGravity() {
@@ -283,6 +338,8 @@ public class BadgeItem {
     }
 
     /**
+     * Is hide on select boolean.
+     *
      * @return should hide on selection ?
      */
     protected boolean isHideOnSelect() {
@@ -290,6 +347,8 @@ public class BadgeItem {
     }
 
     /**
+     * Gets text view.
+     *
      * @return reference to text-view
      */
     protected WeakReference<TextView> getTextView() {
@@ -346,6 +405,8 @@ public class BadgeItem {
     ///////////////////////////////////////////////////////////////////////////
 
     /**
+     * Toggle badge item.
+     *
      * @return this, to allow builder pattern
      */
     public BadgeItem toggle() {
@@ -353,6 +414,8 @@ public class BadgeItem {
     }
 
     /**
+     * Toggle badge item.
+     *
      * @param animate whether to animate the change
      * @return this, to allow builder pattern
      */
@@ -365,6 +428,8 @@ public class BadgeItem {
     }
 
     /**
+     * Show badge item.
+     *
      * @return this, to allow builder pattern
      */
     public BadgeItem show() {
@@ -372,6 +437,8 @@ public class BadgeItem {
     }
 
     /**
+     * Show badge item.
+     *
      * @param animate whether to animate the change
      * @return this, to allow builder pattern
      */
@@ -399,6 +466,8 @@ public class BadgeItem {
     }
 
     /**
+     * Hide badge item.
+     *
      * @return this, to allow builder pattern
      */
     public BadgeItem hide() {
@@ -406,6 +475,8 @@ public class BadgeItem {
     }
 
     /**
+     * Hide badge item.
+     *
      * @param animate whether to animate the change
      * @return this, to allow builder pattern
      */
@@ -443,6 +514,8 @@ public class BadgeItem {
     }
 
     /**
+     * Is hidden boolean.
+     *
      * @return if the badge is hidden
      */
     public boolean isHidden() {

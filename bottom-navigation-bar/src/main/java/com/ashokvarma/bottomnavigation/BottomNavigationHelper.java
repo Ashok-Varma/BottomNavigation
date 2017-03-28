@@ -4,13 +4,19 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
+import android.support.v7.widget.CardView;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
+import android.widget.TextView;
 
 /**
  * Class description : This is utils class specific for this library, most the common code goes here.
@@ -166,15 +172,16 @@ class BottomNavigationHelper {
             bottomNavigationTab.badgeView.setBackgroundDrawable(shape);
 
             bottomNavigationTab.setBadgeItem(badgeItem);
-            badgeItem.setTextView(bottomNavigationTab.badgeView);
+            //badgeItem.setTextView(bottomNavigationTab.badgeView);
             bottomNavigationTab.badgeView.setVisibility(View.VISIBLE);
 
             bottomNavigationTab.badgeView.setTextColor(badgeItem.getTextColor(context));
+            //bottomNavigationTab.badgeView.setVisibility(View.GONE);
             bottomNavigationTab.badgeView.setText(badgeItem.getText());
 
 
-            FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) bottomNavigationTab.badgeView.getLayoutParams();
-            layoutParams.gravity = badgeItem.getGravity();
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) bottomNavigationTab.badgeContiner.getLayoutParams();
+            layoutParams.gravity = Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL;//badgeItem.getGravity();
             bottomNavigationTab.badgeView.setLayoutParams(layoutParams);
 
             if(badgeItem.isHidden()){
@@ -188,6 +195,7 @@ class BottomNavigationHelper {
     static GradientDrawable getBadgeDrawable(BadgeItem badgeItem, Context context) {
         GradientDrawable shape = new GradientDrawable();
         shape.setShape(GradientDrawable.RECTANGLE);
+        //shape.setCornerRadii(new float[] { 20, 20, 20, 20, 20, 20, 20, 20 });
         shape.setCornerRadius(context.getResources().getDimensionPixelSize(R.dimen.badge_corner_radius));
         shape.setColor(badgeItem.getBackgroundColor(context));
         shape.setStroke(badgeItem.getBorderWidth(), badgeItem.getBorderColor(context));
