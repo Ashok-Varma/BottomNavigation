@@ -10,7 +10,6 @@ import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
@@ -50,8 +49,8 @@ class ShiftingBottomNavigationTab extends BottomNavigationTab {
         containerView = view.findViewById(R.id.shifting_bottom_navigation_container);
         labelView = (TextView) view.findViewById(R.id.shifting_bottom_navigation_title);
         iconView = (ImageView) view.findViewById(R.id.shifting_bottom_navigation_icon);
-        badgeView = (TextView) view.findViewById(R.id.shifting_bottom_navigation_badge);
-        badgeContiner = (LinearLayout) view.findViewById(R.id.ll_badge_container);
+        textBadgeView = (TextView) view.findViewById(R.id.shifting_bottom_navigation_badge);
+        shapeBadgeView = (FrameLayout) view.findViewById(R.id.ll_badge_container);
         super.init();
     }
 

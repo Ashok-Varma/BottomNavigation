@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ashokvarma.bottomnavigation.utils.Utils;
@@ -44,7 +43,8 @@ class BottomNavigationTab extends FrameLayout {
     protected boolean isInActiveIconSet = false;
     protected String mLabel;
 
-    protected BadgeItem badgeItem;
+    protected TextBadgeItem textBadgeItem;
+    protected ShapeBadgeItem shapeBadgeItem;
 
     boolean isActive = false;
 
@@ -52,8 +52,8 @@ class BottomNavigationTab extends FrameLayout {
     FrameLayout iconLayout;
     TextView labelView;
     ImageView iconView;
-    LinearLayout badgeContiner;
-    TextView badgeView;
+    FrameLayout shapeBadgeView;
+    TextView textBadgeView;
 
     public BottomNavigationTab(Context context) {
         super(context);
@@ -118,14 +118,13 @@ class BottomNavigationTab extends FrameLayout {
         layoutParams.height = Utils.dp2px(getContext(), 56);
         iconLayout.setLayoutParams(layoutParams);
 
-        ViewGroup.MarginLayoutParams llp = (MarginLayoutParams) badgeContiner.getLayoutParams();
+        ViewGroup.MarginLayoutParams llp = (MarginLayoutParams) shapeBadgeView.getLayoutParams();
         llp.topMargin = Utils.dp2px(getContext(), 10);
-        badgeContiner.setLayoutParams(llp);
+        shapeBadgeView.setLayoutParams(llp);
 
-        /*ViewGroup.MarginLayoutParams lp = (MarginLayoutParams) badgeView.getLayoutParams();
-        //lp.topMargin = Utils.dp2px(getContext(), 10);
+        ViewGroup.MarginLayoutParams lp = (MarginLayoutParams) textBadgeView.getLayoutParams();
         lp.topMargin = Utils.dp2px(getContext(), 0);
-        badgeView.setLayoutParams(lp);*/
+        textBadgeView.setLayoutParams(lp);
     }
 
     public void setActiveColor(int activeColor) {
@@ -149,8 +148,12 @@ class BottomNavigationTab extends FrameLayout {
         mPosition = position;
     }
 
-    public void setBadgeItem(BadgeItem badgeItem) {
-        this.badgeItem = badgeItem;
+    public void setTextBadgeItem(TextBadgeItem textBadgeItem) {
+        this.textBadgeItem = textBadgeItem;
+    }
+
+    public void setShapeBadgeItem( ShapeBadgeItem shapeBadgeItem){
+        this.shapeBadgeItem = shapeBadgeItem;
     }
 
     public int getPosition() {
@@ -182,8 +185,12 @@ class BottomNavigationTab extends FrameLayout {
             labelView.setTextColor(mBackgroundColor);
         }
 
-        if (badgeItem != null) {
-            badgeItem.select();
+        if (textBadgeItem != null) {
+            textBadgeItem.select();
+        }
+
+        if(shapeBadgeItem != null){
+            shapeBadgeItem.select();
         }
     }
 
@@ -208,8 +215,12 @@ class BottomNavigationTab extends FrameLayout {
         labelView.setTextColor(mInActiveColor);
         iconView.setSelected(false);
 
-        if (badgeItem != null) {
-            badgeItem.unSelect();
+        if (textBadgeItem != null) {
+            textBadgeItem.unSelect();
+        }
+
+        if(shapeBadgeItem != null){
+            shapeBadgeItem.unSelect();
         }
     }
 
