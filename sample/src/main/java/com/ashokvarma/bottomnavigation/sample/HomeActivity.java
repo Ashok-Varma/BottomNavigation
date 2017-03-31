@@ -16,7 +16,7 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.ashokvarma.bottomnavigation.ShapeBadgeItem;
-import com.ashokvarma.bottomnavigation.TextBadgeItem;
+import com.ashokvarma.bottomnavigation.BadgeItem;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.crashlytics.android.Crashlytics;
@@ -49,9 +49,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     boolean showTextFlag = true;
 
-    TextBadgeItem textBadgeItem;
+    BadgeItem badgeItem;
 
-    ShapeBadgeItem shapeBadgeItem;
+    ShapeBadgeItem circularBadgeItem, sqaureBadgeItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,11 +124,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 bottomNavigationBar.toggle();
             }
         } else if (v.getId() == R.id.toggle_badge) {
-            if (textBadgeItem != null) {
-                textBadgeItem.toggle();
+            if (badgeItem != null) {
+                badgeItem.toggle();
             }
-            if(shapeBadgeItem != null){
-                shapeBadgeItem.toggle();
+            if(circularBadgeItem != null){
+                circularBadgeItem.toggle();
             }
         } else if (v.getId() == R.id.fab_home) {
             final Snackbar snackbar = Snackbar.make(message, "Fab Clicked", Snackbar.LENGTH_LONG);
@@ -193,7 +193,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         setScrollableText(lastSelectedPosition);
 
-        textBadgeItem = new TextBadgeItem()
+        badgeItem = new BadgeItem()
                 .setBorderWidth(4)
                 .setBackgroundColorResource(R.color.blue)
                 .setText("2")
@@ -203,11 +203,19 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         /*
         * Sample to show how to add a dot like badge issue #109
         * */
-        shapeBadgeItem  =   new ShapeBadgeItem()
+        circularBadgeItem =   new ShapeBadgeItem()
                 //.setBorderWidth(8)
                 .setBackgroundColorResource(R.color.red)
-                .setDimen(5) // the size to badge in dp
+                .setDimen(8) // the size to badge in dp
                 .setShape(ShapeBadgeItem.CIRCLE) // Choose between ShapeBadgeItem.CIRCLE or ShapeBadgeItem.SQUARE
+                .setMargins(0, 2, 4, 0) // left, top, right, bottom
+                .setHideOnSelect(autoHide.isChecked());
+
+        sqaureBadgeItem =   new ShapeBadgeItem()
+                //.setBorderWidth(8)
+                .setBackgroundColorResource(R.color.teal)
+                .setDimen(8) // the size to badge in dp
+                .setShape(ShapeBadgeItem.SQUARE) // Choose between ShapeBadgeItem.CIRCLE or ShapeBadgeItem.SQUARE
                 .setMargins(0, 2, 4, 0) // left, top, right, bottom
                 .setHideOnSelect(autoHide.isChecked());
 
@@ -230,14 +238,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         if (items3.isChecked()) {
             if (showTextFlag) {
                 bottomNavigationBar
-                        .addItem(new BottomNavigationItem(R.drawable.ic_location_on_white_24dp, "Nearby").setActiveColorResource(R.color.orange).setTextBadgeItem(textBadgeItem))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_location_on_white_24dp, "Nearby").setActiveColorResource(R.color.orange).setTextBadgeItem(badgeItem))
                         .addItem(new BottomNavigationItem(R.drawable.ic_find_replace_white_24dp, "Find").setActiveColorResource(R.color.teal))
                         .addItem(new BottomNavigationItem(R.drawable.ic_favorite_white_24dp, "Categories").setActiveColorResource(R.color.blue))
                         .setFirstSelectedPosition(lastSelectedPosition > 2 ? 2 : lastSelectedPosition)
                         .initialise();
             } else {
                 bottomNavigationBar
-                        .addItem(new BottomNavigationItem(R.drawable.ic_location_on_white_24dp).setActiveColorResource(R.color.orange).setTextBadgeItem(textBadgeItem))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_location_on_white_24dp).setActiveColorResource(R.color.orange).setTextBadgeItem(badgeItem))
                         .addItem(new BottomNavigationItem(R.drawable.ic_find_replace_white_24dp).setActiveColorResource(R.color.teal))
                         .addItem(new BottomNavigationItem(R.drawable.ic_favorite_white_24dp).setActiveColorResource(R.color.blue))
                         .setFirstSelectedPosition(lastSelectedPosition > 2 ? 2 : lastSelectedPosition)
@@ -246,7 +254,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         } else if (items4.isChecked()) {
             if (showTextFlag) {
                 bottomNavigationBar
-                        .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColorResource(R.color.orange).setTextBadgeItem(textBadgeItem))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColorResource(R.color.orange).setTextBadgeItem(badgeItem))
                         .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp, "Books").setActiveColorResource(R.color.teal))
                         .addItem(new BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "Music").setActiveColorResource(R.color.blue))
                         .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV").setActiveColorResource(R.color.brown))
@@ -254,7 +262,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                         .initialise();
             } else {
                 bottomNavigationBar
-                        .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp).setActiveColorResource(R.color.orange).setTextBadgeItem(textBadgeItem))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp).setActiveColorResource(R.color.orange).setTextBadgeItem(badgeItem))
                         .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp).setActiveColorResource(R.color.teal))
                         .addItem(new BottomNavigationItem(R.drawable.ic_music_note_white_24dp).setActiveColorResource(R.color.blue))
                         .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp).setActiveColorResource(R.color.brown))
@@ -264,16 +272,16 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         } else if (items5.isChecked()) {
             if (showTextFlag) {
                 bottomNavigationBar
-                        .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColorResource(R.color.orange).setTextBadgeItem(textBadgeItem))
-                        .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp, "Books").setActiveColorResource(R.color.teal).setShapeBadgeItem(shapeBadgeItem))
-                        .addItem(new BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "Music").setActiveColorResource(R.color.blue))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColorResource(R.color.orange).setTextBadgeItem(badgeItem))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp, "Books").setActiveColorResource(R.color.teal).setShapeBadgeItem(circularBadgeItem))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "Music").setActiveColorResource(R.color.blue).setShapeBadgeItem(sqaureBadgeItem))
                         .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV").setActiveColorResource(R.color.brown))
                         .addItem(new BottomNavigationItem(R.drawable.ic_videogame_asset_white_24dp, "Games").setActiveColorResource(R.color.grey))
                         .setFirstSelectedPosition(lastSelectedPosition)
                         .initialise();
             } else {
                 bottomNavigationBar
-                        .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp).setActiveColorResource(R.color.orange).setTextBadgeItem(textBadgeItem))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp).setActiveColorResource(R.color.orange).setTextBadgeItem(badgeItem))
                         .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp).setActiveColorResource(R.color.teal))
                         .addItem(new BottomNavigationItem(R.drawable.ic_music_note_white_24dp).setActiveColorResource(R.color.blue))
                         .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp).setActiveColorResource(R.color.brown))
@@ -288,8 +296,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     public void onTabSelected(int position) {
         lastSelectedPosition = position;
         setMessageText(position + " Tab Selected");
-        if (textBadgeItem != null) {
-            textBadgeItem.setText(Integer.toString(position));
+        if (badgeItem != null) {
+            badgeItem.setText(Integer.toString(position));
         }
         setScrollableText(position);
     }

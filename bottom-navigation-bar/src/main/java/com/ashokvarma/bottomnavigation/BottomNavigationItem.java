@@ -38,7 +38,7 @@ public class BottomNavigationItem {
     protected String mInActiveColorCode;
     protected int mInActiveColor;
 
-    protected TextBadgeItem mTextBadgeItem;
+    protected BadgeItem mBadgeItem;
     protected ShapeBadgeItem mShapeBadgeItem;
 
     /**
@@ -177,11 +177,11 @@ public class BottomNavigationItem {
     }
 
     /**
-     * @param textBadgeItem badge that needs to be displayed for this tab
+     * @param badgeItem badge that needs to be displayed for this tab
      * @return this, to allow builder pattern
      */
-    public BottomNavigationItem setTextBadgeItem(@Nullable TextBadgeItem textBadgeItem) {
-        this.mTextBadgeItem = textBadgeItem;
+    public BottomNavigationItem setTextBadgeItem(@Nullable BadgeItem badgeItem) {
+        this.mBadgeItem = badgeItem;
         return this;
     }
 
@@ -272,8 +272,8 @@ public class BottomNavigationItem {
     /**
      * @return badge item that needs to set to respective view
      */
-    protected TextBadgeItem getTextBadgeItem() {
-        return mTextBadgeItem;
+    protected BadgeItem getTextBadgeItem() {
+        return mBadgeItem;
     }
 
     /**

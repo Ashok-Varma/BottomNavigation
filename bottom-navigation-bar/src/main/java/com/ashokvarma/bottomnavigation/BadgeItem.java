@@ -24,7 +24,7 @@ import java.lang.ref.WeakReference;
  * @version 1.0
  * @since 21 Apr 2016
  */
-public class TextBadgeItem {
+public class BadgeItem {
 
     private int mBackgroundColorResource;
     private String mBackgroundColorCode;
@@ -60,7 +60,7 @@ public class TextBadgeItem {
      * @param colorResource resource for background color
      * @return this, to allow builder pattern
      */
-    public TextBadgeItem setBackgroundColorResource(@ColorRes int colorResource) {
+    public BadgeItem setBackgroundColorResource(@ColorRes int colorResource) {
         this.mBackgroundColorResource = colorResource;
         refreshDrawable();
         return this;
@@ -70,7 +70,7 @@ public class TextBadgeItem {
      * @param colorCode color code for background color
      * @return this, to allow builder pattern
      */
-    public TextBadgeItem setBackgroundColor(@Nullable String colorCode) {
+    public BadgeItem setBackgroundColor(@Nullable String colorCode) {
         this.mBackgroundColorCode = colorCode;
         refreshDrawable();
         return this;
@@ -80,7 +80,7 @@ public class TextBadgeItem {
      * @param color background color
      * @return this, to allow builder pattern
      */
-    public TextBadgeItem setBackgroundColor(int color) {
+    public BadgeItem setBackgroundColor(int color) {
         this.mBackgroundColor = color;
         refreshDrawable();
         return this;
@@ -90,7 +90,7 @@ public class TextBadgeItem {
      * @param colorResource resource for text color
      * @return this, to allow builder pattern
      */
-    public TextBadgeItem setTextColorResource(@ColorRes int colorResource) {
+    public BadgeItem setTextColorResource(@ColorRes int colorResource) {
         this.mTextColorResource = colorResource;
         setTextColor();
         return this;
@@ -100,7 +100,7 @@ public class TextBadgeItem {
      * @param colorCode color code for text color
      * @return this, to allow builder pattern
      */
-    public TextBadgeItem setTextColor(@Nullable String colorCode) {
+    public BadgeItem setTextColor(@Nullable String colorCode) {
         this.mTextColorCode = colorCode;
         setTextColor();
         return this;
@@ -110,7 +110,7 @@ public class TextBadgeItem {
      * @param color text color
      * @return this, to allow builder pattern
      */
-    public TextBadgeItem setTextColor(int color) {
+    public BadgeItem setTextColor(int color) {
         this.mTextColor = color;
         setTextColor();
         return this;
@@ -120,7 +120,7 @@ public class TextBadgeItem {
      * @param text text to be set in badge (this shouldn't be empty text)
      * @return this, to allow builder pattern
      */
-    public TextBadgeItem setText(@Nullable CharSequence text) {
+    public BadgeItem setText(@Nullable CharSequence text) {
         this.mText = text;
         if (isWeakReferenceValid()) {
             TextView textView = mTextViewRef.get();
@@ -135,7 +135,7 @@ public class TextBadgeItem {
      * @param colorResource resource for border color
      * @return this, to allow builder pattern
      */
-    public TextBadgeItem setBorderColorResource(@ColorRes int colorResource) {
+    public BadgeItem setBorderColorResource(@ColorRes int colorResource) {
         this.mBorderColorResource = colorResource;
         refreshDrawable();
         return this;
@@ -145,7 +145,7 @@ public class TextBadgeItem {
      * @param colorCode color code for border color
      * @return this, to allow builder pattern
      */
-    public TextBadgeItem setBorderColor(@Nullable String colorCode) {
+    public BadgeItem setBorderColor(@Nullable String colorCode) {
         this.mBorderColorCode = colorCode;
         refreshDrawable();
         return this;
@@ -155,7 +155,7 @@ public class TextBadgeItem {
      * @param color border color
      * @return this, to allow builder pattern
      */
-    public TextBadgeItem setBorderColor(int color) {
+    public BadgeItem setBorderColor(int color) {
         this.mBorderColor = color;
         refreshDrawable();
         return this;
@@ -165,7 +165,7 @@ public class TextBadgeItem {
      * @param borderWidth border width in pixels
      * @return this, to allow builder pattern
      */
-    public TextBadgeItem setBorderWidth(int borderWidth) {
+    public BadgeItem setBorderWidth(int borderWidth) {
         this.mBorderWidth = borderWidth;
         refreshDrawable();
         return this;
@@ -175,7 +175,7 @@ public class TextBadgeItem {
      * @param gravity gravity of badge (TOP|LEFT ..etc)
      * @return this, to allow builder pattern
      */
-    public TextBadgeItem setGravity(int gravity) {
+    public BadgeItem setGravity(int gravity) {
         this.mGravity = gravity;
         if (isWeakReferenceValid()) {
             TextView textView = mTextViewRef.get();
@@ -190,7 +190,7 @@ public class TextBadgeItem {
      * @param hideOnSelect if true hides badge on tab selection
      * @return this, to allow builder pattern
      */
-    public TextBadgeItem setHideOnSelect(boolean hideOnSelect) {
+    public BadgeItem setHideOnSelect(boolean hideOnSelect) {
         this.mHideOnSelect = hideOnSelect;
         return this;
     }
@@ -199,7 +199,7 @@ public class TextBadgeItem {
      * @param animationDuration hide and show animation time
      * @return this, to allow builder pattern
      */
-    public TextBadgeItem setAnimationDuration(int animationDuration) {
+    public BadgeItem setAnimationDuration(int animationDuration) {
         this.mAnimationDuration = animationDuration;
         return this;
     }
@@ -214,7 +214,7 @@ public class TextBadgeItem {
      * @param mTextView badge textView
      * @return this, to allow builder pattern
      */
-    protected TextBadgeItem setTextView(TextView mTextView) {
+    protected BadgeItem setTextView(TextView mTextView) {
         this.mTextViewRef = new WeakReference<>(mTextView);
         return this;
     }
@@ -348,7 +348,7 @@ public class TextBadgeItem {
     /**
      * @return this, to allow builder pattern
      */
-    public TextBadgeItem toggle() {
+    public BadgeItem toggle() {
         return toggle(true);
     }
 
@@ -356,7 +356,7 @@ public class TextBadgeItem {
      * @param animate whether to animate the change
      * @return this, to allow builder pattern
      */
-    public TextBadgeItem toggle(boolean animate) {
+    public BadgeItem toggle(boolean animate) {
         if (mIsHidden) {
             return show(animate);
         } else {
@@ -367,7 +367,7 @@ public class TextBadgeItem {
     /**
      * @return this, to allow builder pattern
      */
-    public TextBadgeItem show() {
+    public BadgeItem show() {
         return show(true);
     }
 
@@ -375,7 +375,7 @@ public class TextBadgeItem {
      * @param animate whether to animate the change
      * @return this, to allow builder pattern
      */
-    public TextBadgeItem show(boolean animate) {
+    public BadgeItem show(boolean animate) {
         mIsHidden = false;
         if (isWeakReferenceValid()) {
             TextView textView = mTextViewRef.get();
@@ -401,7 +401,7 @@ public class TextBadgeItem {
     /**
      * @return this, to allow builder pattern
      */
-    public TextBadgeItem hide() {
+    public BadgeItem hide() {
         return hide(true);
     }
 
@@ -409,7 +409,7 @@ public class TextBadgeItem {
      * @param animate whether to animate the change
      * @return this, to allow builder pattern
      */
-    public TextBadgeItem hide(boolean animate) {
+    public BadgeItem hide(boolean animate) {
         mIsHidden = true;
         if (isWeakReferenceValid()) {
             TextView textView = mTextViewRef.get();

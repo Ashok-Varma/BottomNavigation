@@ -202,40 +202,40 @@ class BottomNavigationHelper {
     /**
      * Used to set badge for given tab
      *
-     * @param textBadgeItem           holds badge data
+     * @param badgeItem           holds badge data
      * @param bottomNavigationTab bottom navigation tab to which badge needs to be attached
      */
-    private static void setTextBadgeForTab(TextBadgeItem textBadgeItem, BottomNavigationTab bottomNavigationTab) {
-        if (textBadgeItem != null) {
+    private static void setTextBadgeForTab(BadgeItem badgeItem, BottomNavigationTab bottomNavigationTab) {
+        if (badgeItem != null) {
             Context context = bottomNavigationTab.getContext();
 
-            GradientDrawable shape = getBadgeDrawable(textBadgeItem, context);
+            GradientDrawable shape = getBadgeDrawable(badgeItem, context);
             bottomNavigationTab.textBadgeView.setBackgroundDrawable(shape);
-            bottomNavigationTab.setTextBadgeItem(textBadgeItem);
-            textBadgeItem.setTextView(bottomNavigationTab.textBadgeView);
+            bottomNavigationTab.setBadgeItem(badgeItem);
+            badgeItem.setTextView(bottomNavigationTab.textBadgeView);
             bottomNavigationTab.textBadgeView.setVisibility(View.VISIBLE);
 
-            bottomNavigationTab.textBadgeView.setTextColor(textBadgeItem.getTextColor(context));
-            bottomNavigationTab.textBadgeView.setText(textBadgeItem.getText());
+            bottomNavigationTab.textBadgeView.setTextColor(badgeItem.getTextColor(context));
+            bottomNavigationTab.textBadgeView.setText(badgeItem.getText());
 
             FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) bottomNavigationTab.textBadgeView.getLayoutParams();
-            layoutParams.gravity = textBadgeItem.getGravity();
+            layoutParams.gravity = badgeItem.getGravity();
             bottomNavigationTab.textBadgeView.setLayoutParams(layoutParams);
 
-            if(textBadgeItem.isHidden()){
+            if(badgeItem.isHidden()){
                 // if hide is called before the initialisation of bottom-bar this will handle that
                 // by hiding it.
-                textBadgeItem.hide();
+                badgeItem.hide();
             }
         }
     }
 
-    static GradientDrawable getBadgeDrawable(TextBadgeItem textBadgeItem, Context context) {
+    static GradientDrawable getBadgeDrawable(BadgeItem badgeItem, Context context) {
         GradientDrawable shape = new GradientDrawable();
         shape.setShape(GradientDrawable.RECTANGLE);
         shape.setCornerRadius(context.getResources().getDimensionPixelSize(R.dimen.badge_corner_radius));
-        shape.setColor(textBadgeItem.getBackgroundColor(context));
-        shape.setStroke(textBadgeItem.getBorderWidth(), textBadgeItem.getBorderColor(context));
+        shape.setColor(badgeItem.getBackgroundColor(context));
+        shape.setStroke(badgeItem.getBorderWidth(), badgeItem.getBorderColor(context));
         return shape;
     }
 

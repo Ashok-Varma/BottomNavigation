@@ -43,7 +43,7 @@ class BottomNavigationTab extends FrameLayout {
     protected boolean isInActiveIconSet = false;
     protected String mLabel;
 
-    protected TextBadgeItem textBadgeItem;
+    protected BadgeItem badgeItem;
     protected ShapeBadgeItem shapeBadgeItem;
 
     boolean isActive = false;
@@ -148,8 +148,8 @@ class BottomNavigationTab extends FrameLayout {
         mPosition = position;
     }
 
-    public void setTextBadgeItem(TextBadgeItem textBadgeItem) {
-        this.textBadgeItem = textBadgeItem;
+    public void setBadgeItem(BadgeItem badgeItem) {
+        this.badgeItem = badgeItem;
     }
 
     public void setShapeBadgeItem( ShapeBadgeItem shapeBadgeItem){
@@ -185,8 +185,8 @@ class BottomNavigationTab extends FrameLayout {
             labelView.setTextColor(mBackgroundColor);
         }
 
-        if (textBadgeItem != null) {
-            textBadgeItem.select();
+        if (badgeItem != null) {
+            badgeItem.select();
         }
 
         if(shapeBadgeItem != null){
@@ -215,8 +215,8 @@ class BottomNavigationTab extends FrameLayout {
         labelView.setTextColor(mInActiveColor);
         iconView.setSelected(false);
 
-        if (textBadgeItem != null) {
-            textBadgeItem.unSelect();
+        if (badgeItem != null) {
+            badgeItem.unSelect();
         }
 
         if(shapeBadgeItem != null){
