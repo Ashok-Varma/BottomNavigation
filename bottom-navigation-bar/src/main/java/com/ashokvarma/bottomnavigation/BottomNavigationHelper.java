@@ -7,6 +7,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
+import android.support.v4.view.ViewCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -205,43 +206,46 @@ class BottomNavigationHelper {
      */
     public static void setBackgroundWithRipple(View clickedView, final View backgroundView,
                                                final View bgOverlay, final int newColor, int animationDuration) {
-        int centerX = (int) (clickedView.getX() + (clickedView.getMeasuredWidth() / 2));
+        int centerX = (int) (ViewCompat.getX(clickedView) + (clickedView.getMeasuredWidth() / 2));
         int centerY = clickedView.getMeasuredHeight() / 2;
         int finalRadius = backgroundView.getWidth();
 
         backgroundView.clearAnimation();
         bgOverlay.clearAnimation();
 
-        Animator circularReveal;
+        Animator circularReveal = null;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             circularReveal = ViewAnimationUtils
                     .createCircularReveal(bgOverlay, centerX, centerY, 0, finalRadius);
-        } else {
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             bgOverlay.setAlpha(0);
             circularReveal = ObjectAnimator.ofFloat(bgOverlay, "alpha", 0, 1);
         }
 
-        circularReveal.setDuration(animationDuration);
-        circularReveal.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                onCancel();
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-                onCancel();
-            }
-
-            private void onCancel() {
-                backgroundView.setBackgroundColor(newColor);
-                bgOverlay.setVisibility(View.GONE);
-            }
-        });
-
         bgOverlay.setBackgroundColor(newColor);
         bgOverlay.setVisibility(View.VISIBLE);
-        circularReveal.start();
+
+        if (circularReveal != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            circularReveal.setDuration(animationDuration);
+            circularReveal.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    onCancel();
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+                    onCancel();
+                }
+
+                private void onCancel() {
+                    backgroundView.setBackgroundColor(newColor);
+                    bgOverlay.setVisibility(View.GONE);
+                }
+            });
+
+            circularReveal.start();
+        }
     }
 }

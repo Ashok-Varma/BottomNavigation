@@ -41,8 +41,6 @@
         android:gravity="center"
         android:includeFontPadding="false"
         android:lines="1"
-        android:scaleX="0"
-        android:scaleY="0"
         android:textSize="@dimen/shifting_label" />
 
 </FrameLayout>

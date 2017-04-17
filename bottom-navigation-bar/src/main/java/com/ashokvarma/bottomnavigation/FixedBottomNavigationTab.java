@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -22,6 +23,8 @@ import android.widget.TextView;
 class FixedBottomNavigationTab extends BottomNavigationTab {
 
     float labelScale;
+    float labelActiveSize;
+    float labelInactiveSize;
 
     public FixedBottomNavigationTab(Context context) {
         super(context);
@@ -53,22 +56,37 @@ class FixedBottomNavigationTab extends BottomNavigationTab {
         iconView = (ImageView) view.findViewById(R.id.fixed_bottom_navigation_icon);
         badgeView = (TextView) view.findViewById(R.id.fixed_bottom_navigation_badge);
 
-        labelScale = getResources().getDimension(R.dimen.fixed_label_inactive) / getResources().getDimension(R.dimen.fixed_label_active);
+        labelActiveSize = getResources().getDimension(R.dimen.fixed_label_active);
+        labelInactiveSize = getResources().getDimension(R.dimen.fixed_label_inactive);
+        labelScale = labelInactiveSize / labelActiveSize;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
+            labelView.setScaleX(labelScale);
+            labelView.setScaleY(labelScale);
+        } else {
+            labelView.setTextSize(TypedValue.COMPLEX_UNIT_PX, labelInactiveSize);
+        }
 
         super.init();
     }
 
     @Override
     public void select(boolean setActiveColor, int animationDuration) {
-        labelView.animate().scaleX(1).scaleY(1).setDuration(animationDuration).start();
-//        labelView.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.fixed_label_active));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
+            labelView.animate().scaleX(1).scaleY(1).setDuration(animationDuration);
+        } else {
+            labelView.setTextSize(TypedValue.COMPLEX_UNIT_PX, labelActiveSize);
+        }
         super.select(setActiveColor, animationDuration);
     }
 
     @Override
     public void unSelect(boolean setActiveColor, int animationDuration) {
-        labelView.animate().scaleX(labelScale).scaleY(labelScale).setDuration(animationDuration).start();
-//        labelView.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.fixed_label_inactive));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
+            labelView.animate().scaleX(labelScale).scaleY(labelScale).setDuration(animationDuration);
+        } else {
+            labelView.setTextSize(TypedValue.COMPLEX_UNIT_PX, labelInactiveSize);
+        }
         super.unSelect(setActiveColor, animationDuration);
     }
 
