@@ -49,8 +49,8 @@ class ShiftingBottomNavigationTab extends BottomNavigationTab {
         containerView = view.findViewById(R.id.shifting_bottom_navigation_container);
         labelView = (TextView) view.findViewById(R.id.shifting_bottom_navigation_title);
         iconView = (ImageView) view.findViewById(R.id.shifting_bottom_navigation_icon);
-        badgeView = (TextView) view.findViewById(R.id.shifting_bottom_navigation_badge);
-
+        textBadgeView = (TextView) view.findViewById(R.id.shifting_bottom_navigation_badge);
+        shapeBadgeView = (FrameLayout) view.findViewById(R.id.ll_badge_container);
         super.init();
     }
 

@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.widget.FrameLayout;
 
+import com.ashokvarma.bottomnavigation.utils.Utils;
+
 /**
  * Class description : This is utils class specific for this library, most the common code goes here.
  *
@@ -148,7 +150,53 @@ class BottomNavigationHelper {
 
         bottomNavigationTab.setItemBackgroundColor(bottomNavigationBar.getBackgroundColor());
 
-        setBadgeForTab(bottomNavigationItem.getBadgeItem(), bottomNavigationTab);
+        if(bottomNavigationItem.getTextBadgeItem()!=null)
+            setTextBadgeForTab(bottomNavigationItem.getTextBadgeItem(), bottomNavigationTab);
+        else if(bottomNavigationItem.getShapeBadgeItem()!=null)
+            setShapeBadgeForTab(bottomNavigationItem.getShapeBadgeItem(), bottomNavigationTab);
+    }
+
+    private static void setShapeBadgeForTab(ShapeBadgeItem shapeBadgeItem, BottomNavigationTab bottomNavigationTab) {
+        if(shapeBadgeItem != null){
+            Context context = bottomNavigationTab.getContext();
+
+            int radius = Utils.dp2px(context, shapeBadgeItem.getDimen());
+
+            if( shapeBadgeItem.getShape() == ShapeBadgeItem.CIRCLE ){
+                bottomNavigationTab.shapeBadgeView.setBackgroundDrawable( context.getResources().getDrawable(R.drawable.shape_circle) );
+            }else if( shapeBadgeItem.getShape() == ShapeBadgeItem.SQUARE){
+                bottomNavigationTab.shapeBadgeView.setBackgroundDrawable( context.getResources().getDrawable(R.drawable.shape_rect) );
+            }else{
+                bottomNavigationTab.shapeBadgeView.setBackgroundDrawable( shapeBadgeItem.getBadgeBackground() );
+            }
+
+            shapeBadgeItem.setFrameLayout( bottomNavigationTab.shapeBadgeView );
+            bottomNavigationTab.setShapeBadgeItem( shapeBadgeItem);
+
+            GradientDrawable bgShape = (GradientDrawable)bottomNavigationTab.shapeBadgeView.getBackground();
+            bgShape.setColor( shapeBadgeItem.getBackgroundColor(context));
+
+
+            if(shapeBadgeItem.getMargins() != null){
+                int left =   Utils.dp2px(context,  shapeBadgeItem.getMargins()[0]);
+                int top =   Utils.dp2px(context,  shapeBadgeItem.getMargins()[1]);
+                int right =   Utils.dp2px(context,  shapeBadgeItem.getMargins()[2]);
+                int bottom =   Utils.dp2px(context,  shapeBadgeItem.getMargins()[3]);
+
+                FrameLayout.LayoutParams fl = new FrameLayout.LayoutParams(radius, radius, shapeBadgeItem.getGravity() );
+                fl.setMargins(left, top, right, bottom);
+                bottomNavigationTab.shapeBadgeView.setLayoutParams(fl);
+
+            }
+
+
+
+            if(shapeBadgeItem.isHidden()){
+                // if hide is called before the initialisation of bottom-bar this will handle that
+                // by hiding it.
+                shapeBadgeItem.hide();
+            }
+        }
     }
 
     /**
@@ -157,25 +205,22 @@ class BottomNavigationHelper {
      * @param badgeItem           holds badge data
      * @param bottomNavigationTab bottom navigation tab to which badge needs to be attached
      */
-    private static void setBadgeForTab(BadgeItem badgeItem, BottomNavigationTab bottomNavigationTab) {
+    private static void setTextBadgeForTab(BadgeItem badgeItem, BottomNavigationTab bottomNavigationTab) {
         if (badgeItem != null) {
-
             Context context = bottomNavigationTab.getContext();
 
             GradientDrawable shape = getBadgeDrawable(badgeItem, context);
-            bottomNavigationTab.badgeView.setBackgroundDrawable(shape);
-
+            bottomNavigationTab.textBadgeView.setBackgroundDrawable(shape);
             bottomNavigationTab.setBadgeItem(badgeItem);
-            badgeItem.setTextView(bottomNavigationTab.badgeView);
-            bottomNavigationTab.badgeView.setVisibility(View.VISIBLE);
+            badgeItem.setTextView(bottomNavigationTab.textBadgeView);
+            bottomNavigationTab.textBadgeView.setVisibility(View.VISIBLE);
 
-            bottomNavigationTab.badgeView.setTextColor(badgeItem.getTextColor(context));
-            bottomNavigationTab.badgeView.setText(badgeItem.getText());
+            bottomNavigationTab.textBadgeView.setTextColor(badgeItem.getTextColor(context));
+            bottomNavigationTab.textBadgeView.setText(badgeItem.getText());
 
-
-            FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) bottomNavigationTab.badgeView.getLayoutParams();
+            FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) bottomNavigationTab.textBadgeView.getLayoutParams();
             layoutParams.gravity = badgeItem.getGravity();
-            bottomNavigationTab.badgeView.setLayoutParams(layoutParams);
+            bottomNavigationTab.textBadgeView.setLayoutParams(layoutParams);
 
             if(badgeItem.isHidden()){
                 // if hide is called before the initialisation of bottom-bar this will handle that
@@ -189,6 +234,15 @@ class BottomNavigationHelper {
         GradientDrawable shape = new GradientDrawable();
         shape.setShape(GradientDrawable.RECTANGLE);
         shape.setCornerRadius(context.getResources().getDimensionPixelSize(R.dimen.badge_corner_radius));
+        shape.setColor(badgeItem.getBackgroundColor(context));
+        shape.setStroke(badgeItem.getBorderWidth(), badgeItem.getBorderColor(context));
+        return shape;
+    }
+
+    static GradientDrawable getShapeBadgeDrawable(ShapeBadgeItem badgeItem, Context context) {
+        GradientDrawable shape = new GradientDrawable();
+        shape.setShape(GradientDrawable.RECTANGLE);
+        //shape.setCornerRadius(context.getResources().getDimensionPixelSize(R.dimen.badge_corner_radius));
         shape.setColor(badgeItem.getBackgroundColor(context));
         shape.setStroke(badgeItem.getBorderWidth(), badgeItem.getBorderColor(context));
         return shape;

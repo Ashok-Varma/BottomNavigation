@@ -24,6 +24,15 @@
             android:gravity="center"
             android:scaleType="fitXY" />
 
+        <FrameLayout
+            android:id="@+id/ll_badge_container"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:orientation="vertical"
+            android:gravity="center" >
+
+        </FrameLayout>
+
         <TextView
             android:id="@+id/shifting_bottom_navigation_badge"
             style="@style/BadgeText"
@@ -31,6 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top|end"
             android:gravity="center" />
+
     </FrameLayout>
 
     <TextView

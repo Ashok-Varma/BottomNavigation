@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ashokvarma.bottomnavigation.utils.Utils;
@@ -45,6 +44,7 @@ class BottomNavigationTab extends FrameLayout {
     protected String mLabel;
 
     protected BadgeItem badgeItem;
+    protected ShapeBadgeItem shapeBadgeItem;
 
     boolean isActive = false;
 
@@ -52,7 +52,8 @@ class BottomNavigationTab extends FrameLayout {
     FrameLayout iconLayout;
     TextView labelView;
     ImageView iconView;
-    TextView badgeView;
+    FrameLayout shapeBadgeView;
+    TextView textBadgeView;
 
     public BottomNavigationTab(Context context) {
         super(context);
@@ -116,9 +117,14 @@ class BottomNavigationTab extends FrameLayout {
         ViewGroup.LayoutParams layoutParams = iconLayout.getLayoutParams();
         layoutParams.height = Utils.dp2px(getContext(), 56);
         iconLayout.setLayoutParams(layoutParams);
-        ViewGroup.MarginLayoutParams lp = (MarginLayoutParams) badgeView.getLayoutParams();
-        lp.topMargin = Utils.dp2px(getContext(), 10);
-        badgeView.setLayoutParams(lp);
+
+        ViewGroup.MarginLayoutParams llp = (MarginLayoutParams) shapeBadgeView.getLayoutParams();
+        llp.topMargin = Utils.dp2px(getContext(), 10);
+        shapeBadgeView.setLayoutParams(llp);
+
+        ViewGroup.MarginLayoutParams lp = (MarginLayoutParams) textBadgeView.getLayoutParams();
+        lp.topMargin = Utils.dp2px(getContext(), 0);
+        textBadgeView.setLayoutParams(lp);
     }
 
     public void setActiveColor(int activeColor) {
@@ -144,6 +150,10 @@ class BottomNavigationTab extends FrameLayout {
 
     public void setBadgeItem(BadgeItem badgeItem) {
         this.badgeItem = badgeItem;
+    }
+
+    public void setShapeBadgeItem( ShapeBadgeItem shapeBadgeItem){
+        this.shapeBadgeItem = shapeBadgeItem;
     }
 
     public int getPosition() {
@@ -178,6 +188,10 @@ class BottomNavigationTab extends FrameLayout {
         if (badgeItem != null) {
             badgeItem.select();
         }
+
+        if(shapeBadgeItem != null){
+            shapeBadgeItem.select();
+        }
     }
 
     public void unSelect(boolean setActiveColor, int animationDuration) {
@@ -203,6 +217,10 @@ class BottomNavigationTab extends FrameLayout {
 
         if (badgeItem != null) {
             badgeItem.unSelect();
+        }
+
+        if(shapeBadgeItem != null){
+            shapeBadgeItem.unSelect();
         }
     }
 

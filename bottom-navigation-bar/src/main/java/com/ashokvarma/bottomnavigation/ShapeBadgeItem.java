@@ -2,6 +2,7 @@ package com.ashokvarma.bottomnavigation;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorRes;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -17,24 +18,22 @@ import android.widget.TextView;
 import java.lang.ref.WeakReference;
 
 /**
- * Class description : Holds and manages data for badges
+ * Class description : This class is derived from BadgeItem class.
  * (i.e data structure which holds all data to paint a badge and updates badges when changes are made)
  *
- * @author ashokvarma
+ * @author rahulpandey
  * @version 1.0
- * @since 21 Apr 2016
+ * @since 31 Mar 2017
  */
-public class BadgeItem {
+public class ShapeBadgeItem {
 
     private int mBackgroundColorResource;
     private String mBackgroundColorCode;
     private int mBackgroundColor = Color.RED;
+    public static int CIRCLE = 100;
+    public static int SQUARE = 101;
 
-    private int mTextColorResource;
-    private String mTextColorCode;
     private int mTextColor = Color.WHITE;
-
-    private CharSequence mText;
 
     private int mBorderColorResource;
     private String mBorderColorCode;
@@ -45,11 +44,21 @@ public class BadgeItem {
     private int mGravity = Gravity.TOP | Gravity.END;
     private boolean mHideOnSelect;
 
-    private WeakReference<TextView> mTextViewRef;
+    //private WeakReference<TextView> mTextViewRef;
 
     private boolean mIsHidden = false;
 
     private int mAnimationDuration = 200;
+
+    private int mDimen;
+
+    private Drawable mBadgeBackground;
+
+    private int shape;
+
+    private int[] marginArr;
+
+    WeakReference<FrameLayout> mFrameLayout;
 
 
     ///////////////////////////////////////////////////////////////////////////
@@ -57,125 +66,41 @@ public class BadgeItem {
     ///////////////////////////////////////////////////////////////////////////
 
     /**
+     * Sets background color resource.
+     *
      * @param colorResource resource for background color
      * @return this, to allow builder pattern
      */
-    public BadgeItem setBackgroundColorResource(@ColorRes int colorResource) {
+    public ShapeBadgeItem setBackgroundColorResource(@ColorRes int colorResource) {
         this.mBackgroundColorResource = colorResource;
-        refreshDrawable();
+        //refreshDrawable();
         return this;
     }
 
-    /**
-     * @param colorCode color code for background color
-     * @return this, to allow builder pattern
-     */
-    public BadgeItem setBackgroundColor(@Nullable String colorCode) {
-        this.mBackgroundColorCode = colorCode;
-        refreshDrawable();
-        return this;
+
+    public Drawable getBadgeBackground(){
+        return this.mBadgeBackground;
     }
 
     /**
-     * @param color background color
-     * @return this, to allow builder pattern
-     */
-    public BadgeItem setBackgroundColor(int color) {
-        this.mBackgroundColor = color;
-        refreshDrawable();
-        return this;
-    }
-
-    /**
-     * @param colorResource resource for text color
-     * @return this, to allow builder pattern
-     */
-    public BadgeItem setTextColorResource(@ColorRes int colorResource) {
-        this.mTextColorResource = colorResource;
-        setTextColor();
-        return this;
-    }
-
-    /**
-     * @param colorCode color code for text color
-     * @return this, to allow builder pattern
-     */
-    public BadgeItem setTextColor(@Nullable String colorCode) {
-        this.mTextColorCode = colorCode;
-        setTextColor();
-        return this;
-    }
-
-    /**
-     * @param color text color
-     * @return this, to allow builder pattern
-     */
-    public BadgeItem setTextColor(int color) {
-        this.mTextColor = color;
-        setTextColor();
-        return this;
-    }
-
-    /**
-     * @param text text to be set in badge (this shouldn't be empty text)
-     * @return this, to allow builder pattern
-     */
-    public BadgeItem setText(@Nullable CharSequence text) {
-        this.mText = text;
-        if (isWeakReferenceValid()) {
-            TextView textView = mTextViewRef.get();
-            if (!TextUtils.isEmpty(text)) {
-                textView.setText(text);
-            }
-        }
-        return this;
-    }
-
-    /**
-     * @param colorResource resource for border color
-     * @return this, to allow builder pattern
-     */
-    public BadgeItem setBorderColorResource(@ColorRes int colorResource) {
-        this.mBorderColorResource = colorResource;
-        refreshDrawable();
-        return this;
-    }
-
-    /**
-     * @param colorCode color code for border color
-     * @return this, to allow builder pattern
-     */
-    public BadgeItem setBorderColor(@Nullable String colorCode) {
-        this.mBorderColorCode = colorCode;
-        refreshDrawable();
-        return this;
-    }
-
-    /**
-     * @param color border color
-     * @return this, to allow builder pattern
-     */
-    public BadgeItem setBorderColor(int color) {
-        this.mBorderColor = color;
-        refreshDrawable();
-        return this;
-    }
-
-    /**
+     * Sets border width.
+     *
      * @param borderWidth border width in pixels
      * @return this, to allow builder pattern
      */
-    public BadgeItem setBorderWidth(int borderWidth) {
+    public ShapeBadgeItem setBorderWidth(int borderWidth) {
         this.mBorderWidth = borderWidth;
-        refreshDrawable();
+        //refreshDrawable();
         return this;
     }
 
     /**
+     * Sets gravity.
+     *
      * @param gravity gravity of badge (TOP|LEFT ..etc)
      * @return this, to allow builder pattern
      */
-    public BadgeItem setGravity(int gravity) {
+    /*public ShapeBadgeItem setGravity(int gravity) {
         this.mGravity = gravity;
         if (isWeakReferenceValid()) {
             TextView textView = mTextViewRef.get();
@@ -184,22 +109,26 @@ public class BadgeItem {
             textView.setLayoutParams(layoutParams);
         }
         return this;
-    }
+    }*/
 
     /**
+     * Sets hide on select.
+     *
      * @param hideOnSelect if true hides badge on tab selection
      * @return this, to allow builder pattern
      */
-    public BadgeItem setHideOnSelect(boolean hideOnSelect) {
+    public ShapeBadgeItem setHideOnSelect(boolean hideOnSelect) {
         this.mHideOnSelect = hideOnSelect;
         return this;
     }
 
     /**
+     * Sets animation duration.
+     *
      * @param animationDuration hide and show animation time
      * @return this, to allow builder pattern
      */
-    public BadgeItem setAnimationDuration(int animationDuration) {
+    public ShapeBadgeItem setAnimationDuration(int animationDuration) {
         this.mAnimationDuration = animationDuration;
         return this;
     }
@@ -209,17 +138,8 @@ public class BadgeItem {
     ///////////////////////////////////////////////////////////////////////////
 
     /**
-     * Internal method used to update view when ever changes are made
+     * Gets background color.
      *
-     * @param mTextView badge textView
-     * @return this, to allow builder pattern
-     */
-    protected BadgeItem setTextView(TextView mTextView) {
-        this.mTextViewRef = new WeakReference<>(mTextView);
-        return this;
-    }
-
-    /**
      * @param context to fetch color
      * @return background color
      */
@@ -233,28 +153,10 @@ public class BadgeItem {
         }
     }
 
-    /**
-     * @param context to fetch color
-     * @return text color
-     */
-    protected int getTextColor(Context context) {
-        if (this.mTextColorResource != 0) {
-            return ContextCompat.getColor(context, mTextColorResource);
-        } else if (!TextUtils.isEmpty(mTextColorCode)) {
-            return Color.parseColor(mTextColorCode);
-        } else {
-            return mTextColor;
-        }
-    }
 
     /**
-     * @return text that needs to be set in badge
-     */
-    protected CharSequence getText() {
-        return mText;
-    }
-
-    /**
+     * Gets border color.
+     *
      * @param context to fetch color
      * @return border color
      */
@@ -269,6 +171,8 @@ public class BadgeItem {
     }
 
     /**
+     * Gets border width.
+     *
      * @return border width
      */
     protected int getBorderWidth() {
@@ -276,6 +180,8 @@ public class BadgeItem {
     }
 
     /**
+     * Gets gravity.
+     *
      * @return gravity of badge
      */
     protected int getGravity() {
@@ -283,6 +189,8 @@ public class BadgeItem {
     }
 
     /**
+     * Is hide on select boolean.
+     *
      * @return should hide on selection ?
      */
     protected boolean isHideOnSelect() {
@@ -290,33 +198,35 @@ public class BadgeItem {
     }
 
     /**
+     * Gets text view.
+     *
      * @return reference to text-view
      */
-    protected WeakReference<TextView> getTextView() {
+    /*protected WeakReference<TextView> getTextView() {
         return mTextViewRef;
-    }
+    }*/
 
 
     ///////////////////////////////////////////////////////////////////////////
     // Internal Methods
     ///////////////////////////////////////////////////////////////////////////
 
-    private void refreshDrawable() {
+    /*private void refreshDrawable() {
         if (isWeakReferenceValid()) {
             TextView textView = mTextViewRef.get();
-            textView.setBackgroundDrawable(BottomNavigationHelper.getBadgeDrawable(this, textView.getContext()));
+            textView.setBackgroundDrawable(BottomNavigationHelper.getShapeBadgeDrawable(this, textView.getContext()));
         }
-    }
+    }*/
 
-    private void setTextColor() {
+    /*private void setTextColor() {
         if (isWeakReferenceValid()) {
             TextView textView = mTextViewRef.get();
             textView.setTextColor(getTextColor(textView.getContext()));
         }
-    }
+    }*/
 
     private boolean isWeakReferenceValid() {
-        return mTextViewRef != null && mTextViewRef.get() != null;
+        return mFrameLayout != null && mFrameLayout.get() != null;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -346,17 +256,21 @@ public class BadgeItem {
     ///////////////////////////////////////////////////////////////////////////
 
     /**
+     * Toggle badge item.
+     *
      * @return this, to allow builder pattern
      */
-    public BadgeItem toggle() {
+    public ShapeBadgeItem toggle() {
         return toggle(true);
     }
 
     /**
+     * Toggle badge item.
+     *
      * @param animate whether to animate the change
      * @return this, to allow builder pattern
      */
-    public BadgeItem toggle(boolean animate) {
+    public ShapeBadgeItem toggle(boolean animate) {
         if (mIsHidden) {
             return show(animate);
         } else {
@@ -365,54 +279,67 @@ public class BadgeItem {
     }
 
     /**
+     * Show badge item.
+     *
      * @return this, to allow builder pattern
      */
-    public BadgeItem show() {
+    public ShapeBadgeItem show() {
         return show(true);
     }
 
     /**
+     * Show badge item.
+     *
      * @param animate whether to animate the change
      * @return this, to allow builder pattern
      */
-    public BadgeItem show(boolean animate) {
+    public ShapeBadgeItem show(boolean animate) {
         mIsHidden = false;
         if (isWeakReferenceValid()) {
-            TextView textView = mTextViewRef.get();
+            FrameLayout frameLayout = mFrameLayout.get();
             if (animate) {
-                textView.setScaleX(0);
-                textView.setScaleY(0);
-                textView.setVisibility(View.VISIBLE);
-                ViewPropertyAnimatorCompat animatorCompat = ViewCompat.animate(textView);
+                frameLayout.setScaleX(0);
+                frameLayout.setScaleY(0);
+                frameLayout.setVisibility(View.VISIBLE);
+                ViewPropertyAnimatorCompat animatorCompat = ViewCompat.animate(frameLayout);
                 animatorCompat.cancel();
                 animatorCompat.setDuration(mAnimationDuration);
                 animatorCompat.scaleX(1).scaleY(1);
                 animatorCompat.setListener(null);
                 animatorCompat.start();
             } else {
-                textView.setScaleX(1);
-                textView.setScaleY(1);
-                textView.setVisibility(View.VISIBLE);
+                frameLayout.setScaleX(1);
+                frameLayout.setScaleY(1);
+                frameLayout.setVisibility(View.VISIBLE);
             }
         }
         return this;
     }
 
     /**
+     * Hide badge item.
+     *
      * @return this, to allow builder pattern
      */
-    public BadgeItem hide() {
+    public ShapeBadgeItem hide() {
         return hide(true);
     }
 
+    protected ShapeBadgeItem setFrameLayout(FrameLayout mFrameLayout) {
+        this.mFrameLayout = new WeakReference<>(mFrameLayout);
+        return this;
+    }
+
     /**
+     * Hide badge item.
+     *
      * @param animate whether to animate the change
      * @return this, to allow builder pattern
      */
-    public BadgeItem hide(boolean animate) {
+    public ShapeBadgeItem hide(boolean animate) {
         mIsHidden = true;
         if (isWeakReferenceValid()) {
-            TextView textView = mTextViewRef.get();
+            FrameLayout textView = mFrameLayout.get();
             if (animate) {
                 ViewPropertyAnimatorCompat animatorCompat = ViewCompat.animate(textView);
                 animatorCompat.cancel();
@@ -443,9 +370,49 @@ public class BadgeItem {
     }
 
     /**
+     * Is hidden boolean.
+     *
      * @return if the badge is hidden
      */
     public boolean isHidden() {
         return mIsHidden;
+    }
+
+    /**
+     * Sets radius of badge.
+     *
+     * @param radius the radius
+     */
+    public ShapeBadgeItem setDimen(int radius) {
+        this.mDimen = radius;
+        return this;
+    }
+
+    /**
+     * Get radius int.
+     *
+     * @return the int
+     */
+    public int getDimen(){
+        return this.mDimen;
+    }
+
+    public int getShape() {
+        return shape;
+    }
+
+    public ShapeBadgeItem setShape(int shape) {
+        this.shape = shape;
+        return this;
+    }
+
+    public ShapeBadgeItem setMargins(int l, int t, int r, int b) {
+        this.marginArr = new int[] {l,t,r,b};
+        return this;
+    }
+
+
+    public int[] getMargins(){
+        return marginArr;
     }
 }

@@ -39,6 +39,7 @@ public class BottomNavigationItem {
     protected int mInActiveColor;
 
     protected BadgeItem mBadgeItem;
+    protected ShapeBadgeItem mShapeBadgeItem;
 
     /**
      * @param mIconResource resource for the Tab icon.
@@ -179,8 +180,17 @@ public class BottomNavigationItem {
      * @param badgeItem badge that needs to be displayed for this tab
      * @return this, to allow builder pattern
      */
-    public BottomNavigationItem setBadgeItem(@Nullable BadgeItem badgeItem) {
+    public BottomNavigationItem setTextBadgeItem(@Nullable BadgeItem badgeItem) {
         this.mBadgeItem = badgeItem;
+        return this;
+    }
+
+    /**
+     * @param shapeBadgeItem shape badge that needs to be displayed for this tab
+     * @return this, to allow builder pattern
+     */
+    public BottomNavigationItem setShapeBadgeItem(@Nullable ShapeBadgeItem shapeBadgeItem) {
+        this.mShapeBadgeItem = shapeBadgeItem;
         return this;
     }
 
@@ -262,8 +272,15 @@ public class BottomNavigationItem {
     /**
      * @return badge item that needs to set to respective view
      */
-    protected BadgeItem getBadgeItem() {
+    protected BadgeItem getTextBadgeItem() {
         return mBadgeItem;
+    }
+
+    /**
+     * @return badge item that needs to set to respective view
+     */
+    protected ShapeBadgeItem getShapeBadgeItem() {
+        return mShapeBadgeItem;
     }
 
 }
