@@ -2,6 +2,7 @@ package com.ashokvarma.bottomnavigation.utils;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.util.TypedValue;
 import android.view.WindowManager;
@@ -14,6 +15,8 @@ import android.view.WindowManager;
  * @since 19 Mar 2016
  */
 public class Utils {
+
+    public static final int NO_COLOR = Color.TRANSPARENT;
 
     private Utils() {}
 

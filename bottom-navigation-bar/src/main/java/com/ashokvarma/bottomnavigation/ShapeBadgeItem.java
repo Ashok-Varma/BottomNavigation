@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorRes;
-import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorCompat;
@@ -13,7 +12,6 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
 
@@ -78,7 +76,7 @@ public class ShapeBadgeItem {
     }
 
 
-    public Drawable getBadgeBackground(){
+    public Drawable getBadgeBackground() {
         return this.mBadgeBackground;
     }
 
@@ -224,7 +222,6 @@ public class ShapeBadgeItem {
             textView.setTextColor(getTextColor(textView.getContext()));
         }
     }*/
-
     private boolean isWeakReferenceValid() {
         return mFrameLayout != null && mFrameLayout.get() != null;
     }
@@ -393,7 +390,7 @@ public class ShapeBadgeItem {
      *
      * @return the int
      */
-    public int getDimen(){
+    public int getDimen() {
         return this.mDimen;
     }
 
@@ -407,12 +404,12 @@ public class ShapeBadgeItem {
     }
 
     public ShapeBadgeItem setMargins(int l, int t, int r, int b) {
-        this.marginArr = new int[] {l,t,r,b};
+        this.marginArr = new int[]{l, t, r, b};
         return this;
     }
 
 
-    public int[] getMargins(){
+    public int[] getMargins() {
         return marginArr;
     }
 }

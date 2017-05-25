@@ -152,7 +152,7 @@ class BottomNavigationTab extends FrameLayout {
         this.badgeItem = badgeItem;
     }
 
-    public void setShapeBadgeItem( ShapeBadgeItem shapeBadgeItem){
+    public void setShapeBadgeItem(ShapeBadgeItem shapeBadgeItem) {
         this.shapeBadgeItem = shapeBadgeItem;
     }
 
@@ -189,7 +189,7 @@ class BottomNavigationTab extends FrameLayout {
             badgeItem.select();
         }
 
-        if(shapeBadgeItem != null){
+        if (shapeBadgeItem != null) {
             shapeBadgeItem.select();
         }
     }
@@ -219,7 +219,7 @@ class BottomNavigationTab extends FrameLayout {
             badgeItem.unSelect();
         }
 
-        if(shapeBadgeItem != null){
+        if (shapeBadgeItem != null) {
             shapeBadgeItem.unSelect();
         }
     }

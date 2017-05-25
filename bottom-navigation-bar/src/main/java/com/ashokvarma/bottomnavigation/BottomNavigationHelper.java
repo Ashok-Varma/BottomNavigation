@@ -129,13 +129,13 @@ class BottomNavigationHelper {
         int activeColor = bottomNavigationItem.getActiveColor(context);
         int inActiveColor = bottomNavigationItem.getInActiveColor(context);
 
-        if (activeColor != -1) {
+        if (activeColor != Utils.NO_COLOR) {
             bottomNavigationTab.setActiveColor(activeColor);
         } else {
             bottomNavigationTab.setActiveColor(bottomNavigationBar.getActiveColor());
         }
 
-        if (inActiveColor != -1) {
+        if (inActiveColor != Utils.NO_COLOR) {
             bottomNavigationTab.setInactiveColor(inActiveColor);
         } else {
             bottomNavigationTab.setInactiveColor(bottomNavigationBar.getInActiveColor());
@@ -150,48 +150,47 @@ class BottomNavigationHelper {
 
         bottomNavigationTab.setItemBackgroundColor(bottomNavigationBar.getBackgroundColor());
 
-        if(bottomNavigationItem.getTextBadgeItem()!=null)
+        if (bottomNavigationItem.getTextBadgeItem() != null)
             setTextBadgeForTab(bottomNavigationItem.getTextBadgeItem(), bottomNavigationTab);
-        else if(bottomNavigationItem.getShapeBadgeItem()!=null)
+        else if (bottomNavigationItem.getShapeBadgeItem() != null)
             setShapeBadgeForTab(bottomNavigationItem.getShapeBadgeItem(), bottomNavigationTab);
     }
 
     private static void setShapeBadgeForTab(ShapeBadgeItem shapeBadgeItem, BottomNavigationTab bottomNavigationTab) {
-        if(shapeBadgeItem != null){
+        if (shapeBadgeItem != null) {
             Context context = bottomNavigationTab.getContext();
 
             int radius = Utils.dp2px(context, shapeBadgeItem.getDimen());
 
-            if( shapeBadgeItem.getShape() == ShapeBadgeItem.CIRCLE ){
-                bottomNavigationTab.shapeBadgeView.setBackgroundDrawable( context.getResources().getDrawable(R.drawable.shape_circle) );
-            }else if( shapeBadgeItem.getShape() == ShapeBadgeItem.SQUARE){
-                bottomNavigationTab.shapeBadgeView.setBackgroundDrawable( context.getResources().getDrawable(R.drawable.shape_rect) );
-            }else{
-                bottomNavigationTab.shapeBadgeView.setBackgroundDrawable( shapeBadgeItem.getBadgeBackground() );
+            if (shapeBadgeItem.getShape() == ShapeBadgeItem.CIRCLE) {
+                bottomNavigationTab.shapeBadgeView.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.shape_circle));
+            } else if (shapeBadgeItem.getShape() == ShapeBadgeItem.SQUARE) {
+                bottomNavigationTab.shapeBadgeView.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.shape_rect));
+            } else {
+                bottomNavigationTab.shapeBadgeView.setBackgroundDrawable(shapeBadgeItem.getBadgeBackground());
             }
 
-            shapeBadgeItem.setFrameLayout( bottomNavigationTab.shapeBadgeView );
-            bottomNavigationTab.setShapeBadgeItem( shapeBadgeItem);
+            shapeBadgeItem.setFrameLayout(bottomNavigationTab.shapeBadgeView);
+            bottomNavigationTab.setShapeBadgeItem(shapeBadgeItem);
 
-            GradientDrawable bgShape = (GradientDrawable)bottomNavigationTab.shapeBadgeView.getBackground();
-            bgShape.setColor( shapeBadgeItem.getBackgroundColor(context));
+            GradientDrawable bgShape = (GradientDrawable) bottomNavigationTab.shapeBadgeView.getBackground();
+            bgShape.setColor(shapeBadgeItem.getBackgroundColor(context));
 
 
-            if(shapeBadgeItem.getMargins() != null){
-                int left =   Utils.dp2px(context,  shapeBadgeItem.getMargins()[0]);
-                int top =   Utils.dp2px(context,  shapeBadgeItem.getMargins()[1]);
-                int right =   Utils.dp2px(context,  shapeBadgeItem.getMargins()[2]);
-                int bottom =   Utils.dp2px(context,  shapeBadgeItem.getMargins()[3]);
+            if (shapeBadgeItem.getMargins() != null) {
+                int left = Utils.dp2px(context, shapeBadgeItem.getMargins()[0]);
+                int top = Utils.dp2px(context, shapeBadgeItem.getMargins()[1]);
+                int right = Utils.dp2px(context, shapeBadgeItem.getMargins()[2]);
+                int bottom = Utils.dp2px(context, shapeBadgeItem.getMargins()[3]);
 
-                FrameLayout.LayoutParams fl = new FrameLayout.LayoutParams(radius, radius, shapeBadgeItem.getGravity() );
+                FrameLayout.LayoutParams fl = new FrameLayout.LayoutParams(radius, radius, shapeBadgeItem.getGravity());
                 fl.setMargins(left, top, right, bottom);
                 bottomNavigationTab.shapeBadgeView.setLayoutParams(fl);
 
             }
 
 
-
-            if(shapeBadgeItem.isHidden()){
+            if (shapeBadgeItem.isHidden()) {
                 // if hide is called before the initialisation of bottom-bar this will handle that
                 // by hiding it.
                 shapeBadgeItem.hide();
@@ -222,7 +221,7 @@ class BottomNavigationHelper {
             layoutParams.gravity = badgeItem.getGravity();
             bottomNavigationTab.textBadgeView.setLayoutParams(layoutParams);
 
-            if(badgeItem.isHidden()){
+            if (badgeItem.isHidden()) {
                 // if hide is called before the initialisation of bottom-bar this will handle that
                 // by hiding it.
                 badgeItem.hide();
