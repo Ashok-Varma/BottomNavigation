@@ -11,8 +11,6 @@
 
 This component that mimics the new [Material Design Bottom Navigation pattern][googlePage].
 
-**(currently under active development, expect to see new releases almost daily)**
-
 ## Features
 
 * This library offers ton of customisations that you can do to Bottom Navigation Bar.
