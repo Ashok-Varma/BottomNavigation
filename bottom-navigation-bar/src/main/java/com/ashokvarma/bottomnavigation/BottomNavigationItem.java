@@ -11,6 +11,8 @@ import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 
+import com.ashokvarma.bottomnavigation.utils.Utils;
+
 /**
  * Class description : Holds data for tabs (i.e data structure which holds all data to paint a tab)
  *
@@ -223,7 +225,7 @@ public class BottomNavigationItem {
         } else if (this.mActiveColor != 0) {
             return mActiveColor;
         } else {
-            return -1;
+            return Utils.NO_COLOR;
         }
     }
 
@@ -239,7 +241,7 @@ public class BottomNavigationItem {
         } else if (this.mInActiveColor != 0) {
             return mInActiveColor;
         } else {
-            return -1;
+            return Utils.NO_COLOR;
         }
     }
 

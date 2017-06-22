@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.widget.FrameLayout;
 
+import com.ashokvarma.bottomnavigation.utils.Utils;
+
 /**
  * Class description : This is utils class specific for this library, most the common code goes here.
  *
@@ -122,13 +124,13 @@ class BottomNavigationHelper {
         int activeColor = bottomNavigationItem.getActiveColor(context);
         int inActiveColor = bottomNavigationItem.getInActiveColor(context);
 
-        if (activeColor != -1) {
+        if (activeColor != Utils.NO_COLOR) {
             bottomNavigationTab.setActiveColor(activeColor);
         } else {
             bottomNavigationTab.setActiveColor(bottomNavigationBar.getActiveColor());
         }
 
-        if (inActiveColor != -1) {
+        if (inActiveColor != Utils.NO_COLOR) {
             bottomNavigationTab.setInactiveColor(inActiveColor);
         } else {
             bottomNavigationTab.setInactiveColor(bottomNavigationBar.getInActiveColor());
@@ -172,7 +174,7 @@ class BottomNavigationHelper {
             layoutParams.gravity = badgeItem.getGravity();
             bottomNavigationTab.badgeView.setLayoutParams(layoutParams);
 
-            if(badgeItem.isHidden()){
+            if (badgeItem.isHidden()) {
                 // if hide is called before the initialisation of bottom-bar this will handle that
                 // by hiding it.
                 badgeItem.hide();
