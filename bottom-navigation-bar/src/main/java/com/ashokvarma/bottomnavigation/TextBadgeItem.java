@@ -35,6 +35,10 @@ public class TextBadgeItem extends BadgeItem<TextBadgeItem> {
 
     private int mBorderWidth = 0;
 
+    @Override
+    TextBadgeItem getSubInstance() {
+        return this;
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // Public setter methods

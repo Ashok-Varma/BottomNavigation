@@ -29,6 +29,8 @@ abstract class BadgeItem<T extends BadgeItem<T>> {
 
     private int mAnimationDuration = 200;
 
+    abstract T getSubInstance();
+
     ///////////////////////////////////////////////////////////////////////////
     // Public setter methods
     ///////////////////////////////////////////////////////////////////////////
@@ -45,7 +47,7 @@ abstract class BadgeItem<T extends BadgeItem<T>> {
             layoutParams.gravity = gravity;
             textView.setLayoutParams(layoutParams);
         }
-        return (T) this;
+        return getSubInstance();
     }
 
     /**
@@ -54,7 +56,7 @@ abstract class BadgeItem<T extends BadgeItem<T>> {
      */
     public T setHideOnSelect(boolean hideOnSelect) {
         this.mHideOnSelect = hideOnSelect;
-        return (T) this;
+        return getSubInstance();
     }
 
     /**
@@ -63,7 +65,7 @@ abstract class BadgeItem<T extends BadgeItem<T>> {
      */
     public T setAnimationDuration(int animationDuration) {
         this.mAnimationDuration = animationDuration;
-        return (T) this;
+        return getSubInstance();
     }
 
 
@@ -71,27 +73,27 @@ abstract class BadgeItem<T extends BadgeItem<T>> {
     // Library only access method
     ///////////////////////////////////////////////////////////////////////////
 
-    void bindToBottomTab(BadgeItem badgeItem, BottomNavigationTab bottomNavigationTab) {
+    void bindToBottomTab(BottomNavigationTab bottomNavigationTab) {
         // set initial bindings
-        bottomNavigationTab.setBadgeItem(badgeItem);
-        badgeItem.setTextView(bottomNavigationTab.badgeView);
+        bottomNavigationTab.setBadgeItem(this);
+        setTextView(bottomNavigationTab.badgeView);
 
         // allow sub class to modify the things
-        bindToBottomTabInternal((T) badgeItem, bottomNavigationTab);
+        bindToBottomTabInternal(getSubInstance(), bottomNavigationTab);
 
         // make view visible because gone by default
         bottomNavigationTab.badgeView.setVisibility(View.VISIBLE);
 
         // set layout params based on gravity
         FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) bottomNavigationTab.badgeView.getLayoutParams();
-        layoutParams.gravity = badgeItem.getGravity();
+        layoutParams.gravity = getGravity();
         bottomNavigationTab.badgeView.setLayoutParams(layoutParams);
 
         // if hidden hide
-        if (badgeItem.isHidden()) {
+        if (isHidden()) {
             // if hide is called before the initialisation of bottom-bar this will handle that
             // by hiding it.
-            badgeItem.hide();
+            hide();
         }
     }
 
@@ -103,9 +105,9 @@ abstract class BadgeItem<T extends BadgeItem<T>> {
      * @param mTextView badge textView
      * @return this, to allow builder pattern
      */
-    T setTextView(TextView mTextView) {
+    private T setTextView(TextView mTextView) {
         this.mTextViewRef = new WeakReference<>(mTextView);
-        return (T) this;
+        return getSubInstance();
     }
 
     /**
@@ -213,7 +215,7 @@ abstract class BadgeItem<T extends BadgeItem<T>> {
                 textView.setVisibility(View.VISIBLE);
             }
         }
-        return (T) this;
+        return getSubInstance();
     }
 
     /**
@@ -257,7 +259,7 @@ abstract class BadgeItem<T extends BadgeItem<T>> {
                 textView.setVisibility(View.GONE);
             }
         }
-        return (T) this;
+        return getSubInstance();
     }
 
     /**

@@ -145,7 +145,7 @@ class BottomNavigationHelper {
 
         BadgeItem badgeItem = bottomNavigationItem.getBadgeItem();
         if (badgeItem != null) {
-            badgeItem.bindToBottomTab(badgeItem, bottomNavigationTab);
+            badgeItem.bindToBottomTab(bottomNavigationTab);
         }
     }
 
