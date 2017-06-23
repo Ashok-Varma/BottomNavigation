@@ -22,25 +22,25 @@ import com.ashokvarma.bottomnavigation.utils.Utils;
  */
 public class BottomNavigationItem {
 
-    protected int mIconResource;
-    protected Drawable mIcon;
+    private int mIconResource;
+    private Drawable mIcon;
 
-    protected int mInactiveIconResource;
-    protected Drawable mInactiveIcon;
-    protected boolean inActiveIconAvailable = false;
+    private int mInactiveIconResource;
+    private Drawable mInactiveIcon;
+    private boolean inActiveIconAvailable = false;
 
-    protected int mTitleResource;
-    protected String mTitle;
+    private int mTitleResource;
+    private String mTitle;
 
-    protected int mActiveColorResource;
-    protected String mActiveColorCode;
-    protected int mActiveColor;
+    private int mActiveColorResource;
+    private String mActiveColorCode;
+    private int mActiveColor;
 
-    protected int mInActiveColorResource;
-    protected String mInActiveColorCode;
-    protected int mInActiveColor;
+    private int mInActiveColorResource;
+    private String mInActiveColorCode;
+    private int mInActiveColor;
 
-    protected BadgeItem mBadgeItem;
+    private BadgeItem mBadgeItem;
 
     /**
      * @param mIconResource resource for the Tab icon.
@@ -170,11 +170,15 @@ public class BottomNavigationItem {
         return this;
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    // Library only access method
+    ///////////////////////////////////////////////////////////////////////////
+
     /**
      * @param context to fetch drawable
      * @return icon drawable
      */
-    protected Drawable getIcon(Context context) {
+    Drawable getIcon(Context context) {
         if (this.mIconResource != 0) {
             return ContextCompat.getDrawable(context, this.mIconResource);
         } else {
@@ -186,7 +190,7 @@ public class BottomNavigationItem {
      * @param context to fetch resource
      * @return title string
      */
-    protected String getTitle(Context context) {
+    String getTitle(Context context) {
         if (this.mTitleResource != 0) {
             return context.getString(this.mTitleResource);
         } else {
@@ -198,7 +202,7 @@ public class BottomNavigationItem {
      * @param context to fetch resources
      * @return in-active icon drawable
      */
-    protected Drawable getInactiveIcon(Context context) {
+    Drawable getInactiveIcon(Context context) {
         if (this.mInactiveIconResource != 0) {
             return ContextCompat.getDrawable(context, this.mInactiveIconResource);
         } else {
@@ -209,7 +213,7 @@ public class BottomNavigationItem {
     /**
      * @return if in-active icon is set
      */
-    protected boolean isInActiveIconAvailable() {
+    boolean isInActiveIconAvailable() {
         return inActiveIconAvailable;
     }
 
@@ -217,7 +221,7 @@ public class BottomNavigationItem {
      * @param context to fetch color
      * @return active color (or) -1 if no color is specified
      */
-    protected int getActiveColor(Context context) {
+    int getActiveColor(Context context) {
         if (this.mActiveColorResource != 0) {
             return ContextCompat.getColor(context, mActiveColorResource);
         } else if (!TextUtils.isEmpty(mActiveColorCode)) {
@@ -233,7 +237,7 @@ public class BottomNavigationItem {
      * @param context to fetch color
      * @return in-active color (or) -1 if no color is specified
      */
-    protected int getInActiveColor(Context context) {
+    int getInActiveColor(Context context) {
         if (this.mInActiveColorResource != 0) {
             return ContextCompat.getColor(context, mInActiveColorResource);
         } else if (!TextUtils.isEmpty(mInActiveColorCode)) {
@@ -248,7 +252,7 @@ public class BottomNavigationItem {
     /**
      * @return badge item that needs to set to respective view
      */
-    protected BadgeItem getBadgeItem() {
+    BadgeItem getBadgeItem() {
         return mBadgeItem;
     }
 

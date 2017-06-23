@@ -80,12 +80,12 @@ class ShiftingBottomNavigationTab extends BottomNavigationTab {
 //        super.initialise(setActiveColor);
 //    }
 
-    public class ResizeWidthAnimation extends Animation {
+    private class ResizeWidthAnimation extends Animation {
         private int mWidth;
         private int mStartWidth;
         private View mView;
 
-        public ResizeWidthAnimation(View view, int width) {
+        ResizeWidthAnimation(View view, int width) {
             mView = view;
             mWidth = width;
             mStartWidth = view.getWidth();

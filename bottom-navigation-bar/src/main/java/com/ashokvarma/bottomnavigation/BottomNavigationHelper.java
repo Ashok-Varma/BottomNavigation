@@ -5,11 +5,9 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.view.View;
 import android.view.ViewAnimationUtils;
-import android.widget.FrameLayout;
 
 import com.ashokvarma.bottomnavigation.utils.Utils;
 
@@ -145,50 +143,10 @@ class BottomNavigationHelper {
 
         bottomNavigationTab.setItemBackgroundColor(bottomNavigationBar.getBackgroundColor());
 
-        setBadgeForTab(bottomNavigationItem.getBadgeItem(), bottomNavigationTab);
-    }
-
-    /**
-     * Used to set badge for given tab
-     *
-     * @param badgeItem           holds badge data
-     * @param bottomNavigationTab bottom navigation tab to which badge needs to be attached
-     */
-    private static void setBadgeForTab(BadgeItem badgeItem, BottomNavigationTab bottomNavigationTab) {
+        BadgeItem badgeItem = bottomNavigationItem.getBadgeItem();
         if (badgeItem != null) {
-
-            Context context = bottomNavigationTab.getContext();
-
-            GradientDrawable shape = getBadgeDrawable(badgeItem, context);
-            bottomNavigationTab.badgeView.setBackgroundDrawable(shape);
-
-            bottomNavigationTab.setBadgeItem(badgeItem);
-            badgeItem.setTextView(bottomNavigationTab.badgeView);
-            bottomNavigationTab.badgeView.setVisibility(View.VISIBLE);
-
-            bottomNavigationTab.badgeView.setTextColor(badgeItem.getTextColor(context));
-            bottomNavigationTab.badgeView.setText(badgeItem.getText());
-
-
-            FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) bottomNavigationTab.badgeView.getLayoutParams();
-            layoutParams.gravity = badgeItem.getGravity();
-            bottomNavigationTab.badgeView.setLayoutParams(layoutParams);
-
-            if (badgeItem.isHidden()) {
-                // if hide is called before the initialisation of bottom-bar this will handle that
-                // by hiding it.
-                badgeItem.hide();
-            }
+            badgeItem.bindToBottomTab(badgeItem, bottomNavigationTab);
         }
-    }
-
-    static GradientDrawable getBadgeDrawable(BadgeItem badgeItem, Context context) {
-        GradientDrawable shape = new GradientDrawable();
-        shape.setShape(GradientDrawable.RECTANGLE);
-        shape.setCornerRadius(context.getResources().getDimensionPixelSize(R.dimen.badge_corner_radius));
-        shape.setColor(badgeItem.getBackgroundColor(context));
-        shape.setStroke(badgeItem.getBorderWidth(), badgeItem.getBorderColor(context));
-        return shape;
     }
 
     /**

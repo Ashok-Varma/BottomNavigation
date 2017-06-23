@@ -49,7 +49,7 @@ public class BottomNavigationBar extends FrameLayout {
 
     @IntDef({MODE_DEFAULT, MODE_FIXED, MODE_SHIFTING})
     @Retention(RetentionPolicy.SOURCE)
-    public @interface Mode {
+    @interface Mode {
     }
 
     public static final int BACKGROUND_STYLE_DEFAULT = 0;
@@ -58,7 +58,7 @@ public class BottomNavigationBar extends FrameLayout {
 
     @IntDef({BACKGROUND_STYLE_DEFAULT, BACKGROUND_STYLE_STATIC, BACKGROUND_STYLE_RIPPLE})
     @Retention(RetentionPolicy.SOURCE)
-    public @interface BackgroundStyle {
+    @interface BackgroundStyle {
     }
 
 
@@ -68,7 +68,7 @@ public class BottomNavigationBar extends FrameLayout {
 
     @IntDef({FAB_BEHAVIOUR_TRANSLATE_AND_STICK, FAB_BEHAVIOUR_DISAPPEAR, FAB_BEHAVIOUR_TRANSLATE_OUT})
     @Retention(RetentionPolicy.SOURCE)
-    public @interface FabBehaviour {
+    @interface FabBehaviour {
     }
 
     @Mode

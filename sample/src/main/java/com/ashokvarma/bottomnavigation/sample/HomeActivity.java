@@ -15,9 +15,9 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
-import com.ashokvarma.bottomnavigation.BadgeItem;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
+import com.ashokvarma.bottomnavigation.TextBadgeItem;
 import com.crashlytics.android.Crashlytics;
 
 import io.fabric.sdk.android.Fabric;
@@ -45,7 +45,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     int lastSelectedPosition = 0;
 
-    BadgeItem numberBadgeItem;
+    TextBadgeItem numberBadgeItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -179,7 +179,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         setScrollableText(lastSelectedPosition);
 
-        numberBadgeItem = new BadgeItem()
+        numberBadgeItem = new TextBadgeItem()
                 .setBorderWidth(4)
                 .setBackgroundColorResource(R.color.blue)
                 .setText("" + lastSelectedPosition)
