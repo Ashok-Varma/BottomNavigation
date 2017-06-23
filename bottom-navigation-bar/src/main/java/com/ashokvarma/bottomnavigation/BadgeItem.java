@@ -23,7 +23,7 @@ abstract class BadgeItem<T extends BadgeItem<T>> {
     private int mGravity = Gravity.TOP | Gravity.END;
     private boolean mHideOnSelect;
 
-    private WeakReference<TextView> mTextViewRef;
+    private WeakReference<BadgeTextView> mTextViewRef;
 
     private boolean mIsHidden = false;
 
@@ -75,6 +75,11 @@ abstract class BadgeItem<T extends BadgeItem<T>> {
 
     void bindToBottomTab(BottomNavigationTab bottomNavigationTab) {
         // set initial bindings
+        bottomNavigationTab.badgeView.clearPrevious();
+        if (bottomNavigationTab.badgeItem != null) {
+            // removing old reference
+            bottomNavigationTab.badgeItem.setTextView(null);
+        }
         bottomNavigationTab.setBadgeItem(this);
         setTextView(bottomNavigationTab.badgeView);
 
@@ -105,7 +110,7 @@ abstract class BadgeItem<T extends BadgeItem<T>> {
      * @param mTextView badge textView
      * @return this, to allow builder pattern
      */
-    private T setTextView(TextView mTextView) {
+    private T setTextView(BadgeTextView mTextView) {
         this.mTextViewRef = new WeakReference<>(mTextView);
         return getSubInstance();
     }
@@ -127,7 +132,7 @@ abstract class BadgeItem<T extends BadgeItem<T>> {
     /**
      * @return reference to text-view
      */
-    WeakReference<TextView> getTextView() {
+    WeakReference<BadgeTextView> getTextView() {
         return mTextViewRef;
     }
 

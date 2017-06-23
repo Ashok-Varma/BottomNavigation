@@ -24,7 +24,7 @@
             android:gravity="center"
             android:scaleType="fitXY" />
 
-        <TextView
+        <com.ashokvarma.bottomnavigation.BadgeTextView
             android:id="@+id/shifting_bottom_navigation_badge"
             style="@style/BadgeText"
             android:layout_width="wrap_content"

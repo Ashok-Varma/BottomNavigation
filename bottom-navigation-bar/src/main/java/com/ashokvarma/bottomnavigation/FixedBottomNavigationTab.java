@@ -48,7 +48,7 @@ class FixedBottomNavigationTab extends BottomNavigationTab {
         containerView = view.findViewById(R.id.fixed_bottom_navigation_container);
         labelView = (TextView) view.findViewById(R.id.fixed_bottom_navigation_title);
         iconView = (ImageView) view.findViewById(R.id.fixed_bottom_navigation_icon);
-        badgeView = (TextView) view.findViewById(R.id.fixed_bottom_navigation_badge);
+        badgeView = (BadgeTextView) view.findViewById(R.id.fixed_bottom_navigation_badge);
 
         labelScale = getResources().getDimension(R.dimen.fixed_label_inactive) / getResources().getDimension(R.dimen.fixed_label_active);
 

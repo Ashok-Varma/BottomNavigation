@@ -33,7 +33,7 @@ public class TextBadgeItem extends BadgeItem<TextBadgeItem> {
     private String mBorderColorCode;
     private int mBorderColor = Color.WHITE;
 
-    private int mBorderWidth = 0;
+    private int mBorderWidthInPixels = 0;
 
     @Override
     TextBadgeItem getSubInstance() {
@@ -150,11 +150,11 @@ public class TextBadgeItem extends BadgeItem<TextBadgeItem> {
     }
 
     /**
-     * @param borderWidth border width in pixels
+     * @param borderWidthInPixels border width in pixels
      * @return this, to allow builder pattern
      */
-    public TextBadgeItem setBorderWidth(int borderWidth) {
-        this.mBorderWidth = borderWidth;
+    public TextBadgeItem setBorderWidth(int borderWidthInPixels) {
+        this.mBorderWidthInPixels = borderWidthInPixels;
         refreshDrawable();
         return this;
     }
@@ -231,7 +231,7 @@ public class TextBadgeItem extends BadgeItem<TextBadgeItem> {
      * @return border width
      */
     private int getBorderWidth() {
-        return mBorderWidth;
+        return mBorderWidthInPixels;
     }
 
 

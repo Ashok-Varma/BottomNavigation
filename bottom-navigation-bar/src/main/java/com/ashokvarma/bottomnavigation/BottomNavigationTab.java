@@ -25,7 +25,6 @@ import android.widget.TextView;
  */
 class BottomNavigationTab extends FrameLayout {
 
-
     protected int paddingTopActive;
     protected int paddingTopInActive;
 
@@ -48,16 +47,14 @@ class BottomNavigationTab extends FrameLayout {
     View containerView;
     TextView labelView;
     ImageView iconView;
-    TextView badgeView;
+    BadgeTextView badgeView;
 
     public BottomNavigationTab(Context context) {
-        super(context);
-        init();
+        this(context,  null);
     }
 
     public BottomNavigationTab(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init();
+        this(context, attrs, 0);
     }
 
     public BottomNavigationTab(Context context, AttributeSet attrs, int defStyleAttr) {
