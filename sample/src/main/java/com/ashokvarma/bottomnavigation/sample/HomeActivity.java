@@ -12,9 +12,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
@@ -23,21 +26,20 @@ import com.ashokvarma.bottomnavigation.ShapeBadgeItem;
 import com.ashokvarma.bottomnavigation.TextBadgeItem;
 import com.crashlytics.android.Crashlytics;
 
+import java.util.Arrays;
+
 import io.fabric.sdk.android.Fabric;
 
-public class HomeActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener, BottomNavigationBar.OnTabSelectedListener {
+public class HomeActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener, BottomNavigationBar.OnTabSelectedListener, AdapterView.OnItemSelectedListener {
 
     BottomNavigationBar bottomNavigationBar;
 
     FloatingActionButton fabHome;
 
-    CheckBox modeFixed;
-    CheckBox modeShifting;
+    Spinner modeSpinner;
+    Spinner itemSpinner;
     CheckBox bgStatic;
     CheckBox bgRipple;
-    CheckBox items3;
-    CheckBox items4;
-    CheckBox items5;
     CheckBox autoHide;
 
     Button toggleHide;
@@ -63,13 +65,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
         fabHome = (FloatingActionButton) findViewById(R.id.fab_home);
 
-        modeFixed = (CheckBox) findViewById(R.id.mode_fixed);
-        modeShifting = (CheckBox) findViewById(R.id.mode_shifting);
+        modeSpinner = (Spinner) findViewById(R.id.mode_spinner);
+        itemSpinner = (Spinner) findViewById(R.id.item_spinner);
         bgStatic = (CheckBox) findViewById(R.id.bg_static);
         bgRipple = (CheckBox) findViewById(R.id.bg_ripple);
-        items3 = (CheckBox) findViewById(R.id.items_3);
-        items4 = (CheckBox) findViewById(R.id.items_4);
-        items5 = (CheckBox) findViewById(R.id.items_5);
         autoHide = (CheckBox) findViewById(R.id.auto_hide);
 
         toggleHide = (Button) findViewById(R.id.toggle_hide);
@@ -78,22 +77,25 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         message = (TextView) findViewById(R.id.message);
         scrollableText = (TextView) findViewById(R.id.scrollable_text);
 
-        modeFixed.setOnCheckedChangeListener(this);
-        modeShifting.setOnCheckedChangeListener(this);
+        modeSpinner.setOnItemSelectedListener(this);
+        itemSpinner.setOnItemSelectedListener(this);
         bgRipple.setOnCheckedChangeListener(this);
         bgStatic.setOnCheckedChangeListener(this);
-        items3.setOnCheckedChangeListener(this);
-        items4.setOnCheckedChangeListener(this);
-        items5.setOnCheckedChangeListener(this);
         autoHide.setOnCheckedChangeListener(this);
 
         toggleHide.setOnClickListener(this);
         toggleBadge.setOnClickListener(this);
         fabHome.setOnClickListener(this);
 
-        bottomNavigationBar.setTabSelectedListener(this);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Arrays.asList(new String[]{"MODE_DEFAULT", "MODE_FIXED", "MODE_SHIFTING", "MODE_FIXED_NO_TITLE", "MODE_SHIFTING_NO_TITLE"}));
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        modeSpinner.setAdapter(adapter);
 
-        refresh();
+        ArrayAdapter<String> itemAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Arrays.asList(new String[]{"3 items", "4 items", "5 items"}));
+        itemAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        itemSpinner.setAdapter(itemAdapter);
+
+        bottomNavigationBar.setTabSelectedListener(this);
     }
 
     @Override
@@ -150,33 +152,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.bg_static:
                 bgRipple.setChecked(!isChecked);
                 break;
-            case R.id.mode_fixed:
-                modeShifting.setChecked(!isChecked);
-                break;
-            case R.id.mode_shifting:
-                modeFixed.setChecked(!isChecked);
-                break;
-            case R.id.items_3:
-                if (isChecked) {
-                    items4.setChecked(false);
-                    items5.setChecked(false);
-                }
-                break;
-            case R.id.items_4:
-                if (isChecked) {
-                    items3.setChecked(false);
-                    items5.setChecked(false);
-                }
-                break;
-            case R.id.items_5:
-                if (isChecked) {
-                    items4.setChecked(false);
-                    items3.setChecked(false);
-                }
-                break;
-        }
-        if (!items5.isChecked() && !items3.isChecked() && !items4.isChecked()) {
-            buttonView.setChecked(true);
         }
         refresh();
     }
@@ -197,17 +172,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         shapeBadgeItem = new ShapeBadgeItem()
                 .setShape(ShapeBadgeItem.SHAPE_STAR_5_VERTICES)
-                .setShapeColorResource(this, R.color.teal)
+                .setShapeColorResource(R.color.teal)
                 .setGravity(Gravity.TOP | Gravity.END)
                 .setHideOnSelect(autoHide.isChecked());
 
-        if (modeFixed.isChecked()) {
-            bottomNavigationBar
-                    .setMode(BottomNavigationBar.MODE_FIXED);
-        } else if (modeShifting.isChecked()) {
-            bottomNavigationBar
-                    .setMode(BottomNavigationBar.MODE_SHIFTING);
-        }
+
+        bottomNavigationBar.setMode(modeSpinner.getSelectedItemPosition());
+
 
         if (bgStatic.isChecked()) {
             bottomNavigationBar
@@ -217,14 +188,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     .setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_RIPPLE);
         }
 
-        if (items3.isChecked()) {
+        if (itemSpinner.getSelectedItemPosition() == 0) {
             bottomNavigationBar
                     .addItem(new BottomNavigationItem(R.drawable.ic_location_on_white_24dp, "Nearby").setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
                     .addItem(new BottomNavigationItem(R.drawable.ic_find_replace_white_24dp, "Find").setActiveColorResource(R.color.teal))
                     .addItem(new BottomNavigationItem(R.drawable.ic_favorite_white_24dp, "Categories").setActiveColorResource(R.color.blue).setBadgeItem(shapeBadgeItem))
                     .setFirstSelectedPosition(lastSelectedPosition > 2 ? 2 : lastSelectedPosition)
                     .initialise();
-        } else if (items4.isChecked()) {
+        } else if (itemSpinner.getSelectedItemPosition() == 1) {
             bottomNavigationBar
                     .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
                     .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp, "Books").setActiveColorResource(R.color.teal))
@@ -232,7 +203,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV").setActiveColorResource(R.color.brown))
                     .setFirstSelectedPosition(lastSelectedPosition > 3 ? 3 : lastSelectedPosition)
                     .initialise();
-        } else if (items5.isChecked()) {
+        } else if (itemSpinner.getSelectedItemPosition() == 2) {
             bottomNavigationBar
                     .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
                     .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp, "Books").setActiveColorResource(R.color.teal))
@@ -288,5 +259,15 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 scrollableText.setText(R.string.para6);
                 break;
         }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        refresh();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

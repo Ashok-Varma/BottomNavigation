@@ -11,6 +11,7 @@
     android:paddingTop="@dimen/shifting_height_top_padding_inactive">
 
     <FrameLayout
+        android:id="@+id/shifting_bottom_navigation_icon_container"
         android:layout_width="@dimen/shifting_icon_badge_grid_width"
         android:layout_height="@dimen/shifting_icon_badge_grid_height"
         android:layout_gravity="center_horizontal|top">

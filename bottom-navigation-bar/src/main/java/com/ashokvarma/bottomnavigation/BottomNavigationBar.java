@@ -46,8 +46,10 @@ public class BottomNavigationBar extends FrameLayout {
     public static final int MODE_DEFAULT = 0;
     public static final int MODE_FIXED = 1;
     public static final int MODE_SHIFTING = 2;
+    public static final int MODE_FIXED_NO_TITLE = 3;
+    public static final int MODE_SHIFTING_NO_TITLE = 4;
 
-    @IntDef({MODE_DEFAULT, MODE_FIXED, MODE_SHIFTING})
+    @IntDef({MODE_DEFAULT, MODE_FIXED, MODE_SHIFTING, MODE_FIXED_NO_TITLE, MODE_SHIFTING_NO_TITLE})
     @Retention(RetentionPolicy.SOURCE)
     @interface Mode {
     }
@@ -160,6 +162,14 @@ public class BottomNavigationBar extends FrameLayout {
 
                 case MODE_SHIFTING:
                     mMode = MODE_SHIFTING;
+                    break;
+
+                case MODE_FIXED_NO_TITLE:
+                    mMode = MODE_FIXED_NO_TITLE;
+                    break;
+
+                case MODE_SHIFTING_NO_TITLE:
+                    mMode = MODE_SHIFTING_NO_TITLE;
                     break;
 
                 case MODE_DEFAULT:
@@ -375,17 +385,17 @@ public class BottomNavigationBar extends FrameLayout {
 
             int screenWidth = Utils.getScreenWidth(getContext());
 
-            if (mMode == MODE_FIXED) {
+            if (mMode == MODE_FIXED || mMode == MODE_FIXED_NO_TITLE) {
 
                 int[] widths = BottomNavigationHelper.getMeasurementsForFixedMode(getContext(), screenWidth, mBottomNavigationItems.size(), mScrollable);
                 int itemWidth = widths[0];
 
                 for (BottomNavigationItem currentItem : mBottomNavigationItems) {
                     FixedBottomNavigationTab bottomNavigationTab = new FixedBottomNavigationTab(getContext());
-                    setUpTab(bottomNavigationTab, currentItem, itemWidth, itemWidth);
+                    setUpTab(mMode == MODE_FIXED_NO_TITLE, bottomNavigationTab, currentItem, itemWidth, itemWidth);
                 }
 
-            } else if (mMode == MODE_SHIFTING) {
+            } else if (mMode == MODE_SHIFTING || mMode == MODE_SHIFTING_NO_TITLE) {
 
                 int[] widths = BottomNavigationHelper.getMeasurementsForShiftingMode(getContext(), screenWidth, mBottomNavigationItems.size(), mScrollable);
 
@@ -394,7 +404,7 @@ public class BottomNavigationBar extends FrameLayout {
 
                 for (BottomNavigationItem currentItem : mBottomNavigationItems) {
                     ShiftingBottomNavigationTab bottomNavigationTab = new ShiftingBottomNavigationTab(getContext());
-                    setUpTab(bottomNavigationTab, currentItem, itemWidth, itemActiveWidth);
+                    setUpTab(mMode == MODE_SHIFTING_NO_TITLE, bottomNavigationTab, currentItem, itemWidth, itemActiveWidth);
                 }
             }
 
@@ -473,12 +483,14 @@ public class BottomNavigationBar extends FrameLayout {
     /**
      * Internal method to setup tabs
      *
+     * @param isNoTitleMode       if no title mode is required
      * @param bottomNavigationTab Tab item
      * @param currentItem         data structure for tab item
      * @param itemWidth           tab item in-active width
      * @param itemActiveWidth     tab item active width
      */
-    private void setUpTab(BottomNavigationTab bottomNavigationTab, BottomNavigationItem currentItem, int itemWidth, int itemActiveWidth) {
+    private void setUpTab(boolean isNoTitleMode, BottomNavigationTab bottomNavigationTab, BottomNavigationItem currentItem, int itemWidth, int itemActiveWidth) {
+        bottomNavigationTab.setIsNoTitleMode(isNoTitleMode);
         bottomNavigationTab.setInactiveWidth(itemWidth);
         bottomNavigationTab.setActiveWidth(itemActiveWidth);
         bottomNavigationTab.setPosition(mBottomNavigationItems.indexOf(currentItem));

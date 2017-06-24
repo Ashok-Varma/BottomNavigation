@@ -7,8 +7,10 @@ import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
+import android.support.annotation.CallSuper;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -23,7 +25,9 @@ import android.widget.TextView;
  * @see FrameLayout
  * @since 19 Mar 2016
  */
-class BottomNavigationTab extends FrameLayout {
+abstract class BottomNavigationTab extends FrameLayout {
+
+    protected boolean isNoTitleMode;
 
     protected int paddingTopActive;
     protected int paddingTopInActive;
@@ -47,10 +51,11 @@ class BottomNavigationTab extends FrameLayout {
     View containerView;
     TextView labelView;
     ImageView iconView;
+    FrameLayout iconContainerView;
     BadgeTextView badgeView;
 
     public BottomNavigationTab(Context context) {
-        this(context,  null);
+        this(context, null);
     }
 
     public BottomNavigationTab(Context context, AttributeSet attrs) {
@@ -70,6 +75,14 @@ class BottomNavigationTab extends FrameLayout {
 
     void init() {
         setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
+    }
+
+    public void setIsNoTitleMode(boolean isNoTitleMode) {
+        this.isNoTitleMode = isNoTitleMode;
+    }
+
+    public boolean getIsNoTitleMode() {
+        return isNoTitleMode;
     }
 
     public void setActiveWidth(int activeWidth) {
@@ -178,6 +191,7 @@ class BottomNavigationTab extends FrameLayout {
         }
     }
 
+    @CallSuper
     public void initialise(boolean setActiveColor) {
         iconView.setSelected(false);
         if (isInActiveIconSet) {
@@ -219,5 +233,22 @@ class BottomNavigationTab extends FrameLayout {
             }
             iconView.setImageDrawable(mCompactIcon);
         }
+
+        if (isNoTitleMode) {
+            labelView.setVisibility(GONE);
+
+            FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) iconContainerView.getLayoutParams();
+            layoutParams.gravity = Gravity.CENTER;
+            setNoTitleIconContainerParams(layoutParams);
+            iconContainerView.setLayoutParams(layoutParams);
+
+            FrameLayout.LayoutParams iconLayoutParams = (FrameLayout.LayoutParams) iconView.getLayoutParams();
+            setNoTitleIconParams(iconLayoutParams);
+            iconView.setLayoutParams(iconLayoutParams);
+        }
     }
+
+    protected abstract void setNoTitleIconContainerParams(FrameLayout.LayoutParams layoutParams);
+
+    protected abstract void setNoTitleIconParams(FrameLayout.LayoutParams layoutParams);
 }

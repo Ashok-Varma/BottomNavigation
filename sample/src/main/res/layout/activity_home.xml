@@ -22,20 +22,21 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <CheckBox
-                    android:id="@+id/mode_fixed"
+                <Spinner
+                    android:id="@+id/mode_spinner"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/mode_fixed" />
+                    android:orientation="horizontal"
+                    android:padding="16dp" />
 
-                <CheckBox
-                    android:id="@+id/mode_shifting"
+                <Spinner
+                    android:id="@+id/item_spinner"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:checked="true"
-                    android:text="@string/mode_shifting" />
+                    android:orientation="horizontal"
+                    android:padding="16dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -57,34 +58,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/bs_ripple" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:id="@+id/items_3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/_3_items" />
-
-                <CheckBox
-                    android:id="@+id/items_4"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/_4_items" />
-
-                <CheckBox
-                    android:id="@+id/items_5"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:checked="true"
-                    android:text="@string/_5_items" />
             </LinearLayout>
 
             <CheckBox
@@ -136,15 +109,15 @@
         android:id="@+id/bottom_navigation_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"/>
-        <!--app:bnbAutoHideEnabled="false"/>-->
+        android:layout_gravity="bottom" />
+    <!--app:bnbAutoHideEnabled="false"/>-->
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_home"
-        android:src="@drawable/ic_favorite_white_24dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="16dp" />
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_favorite_white_24dp" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -6,6 +6,7 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -48,6 +49,7 @@ class FixedBottomNavigationTab extends BottomNavigationTab {
         containerView = view.findViewById(R.id.fixed_bottom_navigation_container);
         labelView = (TextView) view.findViewById(R.id.fixed_bottom_navigation_title);
         iconView = (ImageView) view.findViewById(R.id.fixed_bottom_navigation_icon);
+        iconContainerView = (FrameLayout) view.findViewById(R.id.fixed_bottom_navigation_icon_container);
         badgeView = (BadgeTextView) view.findViewById(R.id.fixed_bottom_navigation_badge);
 
         labelScale = getResources().getDimension(R.dimen.fixed_label_inactive) / getResources().getDimension(R.dimen.fixed_label_active);
@@ -69,8 +71,15 @@ class FixedBottomNavigationTab extends BottomNavigationTab {
         super.unSelect(setActiveColor, animationDuration);
     }
 
-//    @Override
-//    public void initialise(boolean setActiveColor) {
-//        super.initialise(setActiveColor);
-//    }
+    @Override
+    protected void setNoTitleIconContainerParams(FrameLayout.LayoutParams layoutParams) {
+        layoutParams.height = getContext().getResources().getDimensionPixelSize(R.dimen.fixed_no_title_icon_container_height);
+        layoutParams.width = getContext().getResources().getDimensionPixelSize(R.dimen.fixed_no_title_icon_container_width);
+    }
+
+    @Override
+    protected void setNoTitleIconParams(LayoutParams layoutParams) {
+        layoutParams.height = getContext().getResources().getDimensionPixelSize(R.dimen.fixed_no_title_icon_height);
+        layoutParams.width = getContext().getResources().getDimensionPixelSize(R.dimen.fixed_no_title_icon_width);
+    }
 }

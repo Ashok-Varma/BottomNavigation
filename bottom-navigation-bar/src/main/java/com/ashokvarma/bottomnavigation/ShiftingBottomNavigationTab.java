@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -48,6 +49,7 @@ class ShiftingBottomNavigationTab extends BottomNavigationTab {
         containerView = view.findViewById(R.id.shifting_bottom_navigation_container);
         labelView = (TextView) view.findViewById(R.id.shifting_bottom_navigation_title);
         iconView = (ImageView) view.findViewById(R.id.shifting_bottom_navigation_icon);
+        iconContainerView = (FrameLayout) view.findViewById(R.id.shifting_bottom_navigation_icon_container);
         badgeView = (BadgeTextView) view.findViewById(R.id.shifting_bottom_navigation_badge);
 
         super.init();
@@ -75,10 +77,17 @@ class ShiftingBottomNavigationTab extends BottomNavigationTab {
         labelView.animate().scaleY(0).scaleX(0).setDuration(0).start();
     }
 
-//    @Override
-//    public void initialise(boolean setActiveColor) {
-//        super.initialise(setActiveColor);
-//    }
+    @Override
+    protected void setNoTitleIconContainerParams(FrameLayout.LayoutParams layoutParams) {
+        layoutParams.height = getContext().getResources().getDimensionPixelSize(R.dimen.shifting_no_title_icon_container_height);
+        layoutParams.width = getContext().getResources().getDimensionPixelSize(R.dimen.shifting_no_title_icon_container_width);
+    }
+
+    @Override
+    protected void setNoTitleIconParams(LayoutParams layoutParams) {
+        layoutParams.height = getContext().getResources().getDimensionPixelSize(R.dimen.shifting_no_title_icon_height);
+        layoutParams.width = getContext().getResources().getDimensionPixelSize(R.dimen.shifting_no_title_icon_width);
+    }
 
     private class ResizeWidthAnimation extends Animation {
         private int mWidth;
@@ -96,11 +105,6 @@ class ShiftingBottomNavigationTab extends BottomNavigationTab {
             mView.getLayoutParams().width = mStartWidth + (int) ((mWidth - mStartWidth) * interpolatedTime);
             mView.requestLayout();
         }
-
-//        @Override
-//        public void initialize(int width, int height, int parentWidth, int parentHeight) {
-//            super.initialize(width, height, parentWidth, parentHeight);
-//        }
 
         @Override
         public boolean willChangeBounds() {
