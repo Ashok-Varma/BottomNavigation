@@ -12,7 +12,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 
 android {
-    compileSdkVersion Integer.parseInt(ANDROID_BUILD_SDK_VERSION)
+    compileSdkVersion Integer.parseInt(ANDROID_COMPILE_SDK_VERSION)
     buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
 
     dexOptions {
@@ -22,7 +22,7 @@ android {
 
     defaultConfig {
         applicationId "com.ashokvarma.bottomnavigation.sample"
-        minSdkVersion Integer.parseInt(ANDROID_BUILD_MIN_SDK_VERSION)
+        minSdkVersion Integer.parseInt(ANDROID_MIN_SDK_VERSION)
         targetSdkVersion Integer.parseInt(ANDROID_BUILD_TARGET_SDK_VERSION)
         versionCode Integer.parseInt(APP_VERSION_CODE)
         versionName project.APP_VERSION_NAME
