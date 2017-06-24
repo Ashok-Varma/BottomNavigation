@@ -10,7 +10,6 @@ import android.support.v7.widget.AppCompatTextView;
  *
  * @author ashokvarma
  * @version 1.0
- * @see AppCompatTextView
  * @since 23 Jun 2017
  */
 public class BadgeTextView extends AppCompatTextView {
@@ -74,7 +73,7 @@ public class BadgeTextView extends AppCompatTextView {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     protected void onDraw(Canvas canvas) {
@@ -85,7 +84,7 @@ public class BadgeTextView extends AppCompatTextView {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {

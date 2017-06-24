@@ -14,7 +14,7 @@ import android.widget.TextView;
  *
  * @author ashokvarma
  * @version 1.0
- * @see
+ * @see BadgeItem
  * @since 23 Jun 2017
  */
 public class TextBadgeItem extends BadgeItem<TextBadgeItem> {
@@ -160,7 +160,7 @@ public class TextBadgeItem extends BadgeItem<TextBadgeItem> {
 
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     TextBadgeItem getSubInstance() {
@@ -168,7 +168,7 @@ public class TextBadgeItem extends BadgeItem<TextBadgeItem> {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     void bindToBottomTabInternal(BottomNavigationTab bottomNavigationTab) {

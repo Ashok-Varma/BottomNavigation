@@ -23,7 +23,7 @@ import java.lang.annotation.RetentionPolicy;
  *
  * @author ashokvarma
  * @version 1.0
- * @see
+ * @see BadgeItem
  * @since 23 Jun 2017
  */
 public class ShapeBadgeItem extends BadgeItem<ShapeBadgeItem> {
@@ -183,7 +183,7 @@ public class ShapeBadgeItem extends BadgeItem<ShapeBadgeItem> {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     ShapeBadgeItem getSubInstance() {
@@ -191,7 +191,7 @@ public class ShapeBadgeItem extends BadgeItem<ShapeBadgeItem> {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     void bindToBottomTabInternal(BottomNavigationTab bottomNavigationTab) {
