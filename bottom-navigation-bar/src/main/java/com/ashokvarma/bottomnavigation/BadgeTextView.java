@@ -38,15 +38,27 @@ public class BadgeTextView extends AppCompatTextView {
         // method stub
     }
 
+    /**
+     * clear's all previous set values
+     */
     void clearPrevious() {
         mAreDimensOverridden = false;
         mShapeBadgeItem = null;
     }
 
+    /**
+     * @param shapeBadgeItem that can draw on top of the this view
+     */
     void setShapeBadgeItem(ShapeBadgeItem shapeBadgeItem) {
         mShapeBadgeItem = shapeBadgeItem;
     }
 
+    /**
+     * if width and height of the view needs to be changed
+     *
+     * @param width new width that needs to be set
+     * @param height new height that needs to be set
+     */
     void setDimens(int width, int height) {
         mAreDimensOverridden = true;
         mDesiredWidth = width;
@@ -54,10 +66,16 @@ public class BadgeTextView extends AppCompatTextView {
         requestLayout();
     }
 
+    /**
+     * invalidate's view so badgeItem can draw again
+     */
     void recallOnDraw() {
         invalidate();
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -66,6 +84,9 @@ public class BadgeTextView extends AppCompatTextView {
         }
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         if (mAreDimensOverridden) {

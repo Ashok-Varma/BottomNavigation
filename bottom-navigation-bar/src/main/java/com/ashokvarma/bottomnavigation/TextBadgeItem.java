@@ -35,11 +35,6 @@ public class TextBadgeItem extends BadgeItem<TextBadgeItem> {
 
     private int mBorderWidthInPixels = 0;
 
-    @Override
-    TextBadgeItem getSubInstance() {
-        return this;
-    }
-
     ///////////////////////////////////////////////////////////////////////////
     // Public setter methods
     ///////////////////////////////////////////////////////////////////////////
@@ -164,14 +159,25 @@ public class TextBadgeItem extends BadgeItem<TextBadgeItem> {
     ///////////////////////////////////////////////////////////////////////////
 
 
+    /**
+     * @inheritDoc
+     */
     @Override
-    void bindToBottomTabInternal(TextBadgeItem badgeItem, BottomNavigationTab bottomNavigationTab) {
+    TextBadgeItem getSubInstance() {
+        return this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    @Override
+    void bindToBottomTabInternal(BottomNavigationTab bottomNavigationTab) {
         Context context = bottomNavigationTab.getContext();
 
-        GradientDrawable shape = badgeItem.getBadgeDrawable(context);
+        GradientDrawable shape = getBadgeDrawable(context);
         bottomNavigationTab.badgeView.setBackgroundDrawable(shape);
-        bottomNavigationTab.badgeView.setTextColor(badgeItem.getTextColor(context));
-        bottomNavigationTab.badgeView.setText(badgeItem.getText());
+        bottomNavigationTab.badgeView.setTextColor(getTextColor(context));
+        bottomNavigationTab.badgeView.setText(getText());
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -239,6 +245,9 @@ public class TextBadgeItem extends BadgeItem<TextBadgeItem> {
     // Internal Methods
     ///////////////////////////////////////////////////////////////////////////
 
+    /**
+     * refresh's background drawable
+     */
     private void refreshDrawable() {
         if (isWeakReferenceValid()) {
             TextView textView = getTextView().get();
@@ -246,6 +255,9 @@ public class TextBadgeItem extends BadgeItem<TextBadgeItem> {
         }
     }
 
+    /**
+     * set's new text color
+     */
     private void setTextColor() {
         if (isWeakReferenceValid()) {
             TextView textView = getTextView().get();

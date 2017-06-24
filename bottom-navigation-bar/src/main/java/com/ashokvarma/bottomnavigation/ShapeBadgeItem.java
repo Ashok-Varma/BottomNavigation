@@ -43,9 +43,10 @@ public class ShapeBadgeItem extends BadgeItem<ShapeBadgeItem> {
 
     private
     @Shape
-    int mShape = SHAPE_OVAL;
+    int mShape = SHAPE_STAR_5_VERTICES;
 
     private String mShapeColorCode;
+    private int mShapeColorResource;
     private int mShapeColor = Color.RED;
 
     // init values set at bindToBottomTabInternal
@@ -71,6 +72,10 @@ public class ShapeBadgeItem extends BadgeItem<ShapeBadgeItem> {
     // public methods
     ///////////////////////////////////////////////////////////////////////////
 
+    /**
+     * @param shape new shape that needs to be drawn
+     * @return this, to allow builder pattern
+     */
     public ShapeBadgeItem setShape(@Shape int shape) {
         this.mShape = shape;
         refreshDraw();
@@ -78,12 +83,11 @@ public class ShapeBadgeItem extends BadgeItem<ShapeBadgeItem> {
     }
 
     /**
-     * @param context       to get color
      * @param colorResource resource for background color
      * @return this, to allow builder pattern
      */
-    public ShapeBadgeItem setShapeColorResource(Context context, @ColorRes int colorResource) {
-        this.mShapeColor = ContextCompat.getColor(context, colorResource);
+    public ShapeBadgeItem setShapeColorResource(@ColorRes int colorResource) {
+        this.mShapeColorResource = colorResource;
         refreshColor();
         return this;
     }
@@ -162,6 +166,11 @@ public class ShapeBadgeItem extends BadgeItem<ShapeBadgeItem> {
     // Library internal methods
     ///////////////////////////////////////////////////////////////////////////
 
+    /**
+     * draw's specified shape
+     *
+     * @param canvas on which shape has to be drawn
+     */
     void draw(Canvas canvas) {
         mCanvasRect.set(0.0f, 0.0f, canvas.getWidth(), canvas.getHeight());
         if (mShape == SHAPE_RECTANGLE) {
@@ -173,13 +182,19 @@ public class ShapeBadgeItem extends BadgeItem<ShapeBadgeItem> {
         }
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
     ShapeBadgeItem getSubInstance() {
         return this;
     }
 
+    /**
+     * @inheritDoc
+     */
     @Override
-    void bindToBottomTabInternal(ShapeBadgeItem badgeItem, BottomNavigationTab bottomNavigationTab) {
+    void bindToBottomTabInternal(BottomNavigationTab bottomNavigationTab) {
         if (mHeightInPixels == 0)
             mHeightInPixels = Utils.dp2px(bottomNavigationTab.getContext(), 12);
         if (mWidthInPixels == 0)
@@ -188,6 +203,7 @@ public class ShapeBadgeItem extends BadgeItem<ShapeBadgeItem> {
             mEdgeMarginInPx = Utils.dp2px(bottomNavigationTab.getContext(), 4);
 
         refreshMargin();
+        refreshColor();// so that user set color will be updated
 
         bottomNavigationTab.badgeView.setShapeBadgeItem(this);
 
@@ -202,8 +218,10 @@ public class ShapeBadgeItem extends BadgeItem<ShapeBadgeItem> {
     /**
      * @return shape color
      */
-    private int getShapeColor() {
-        if (!TextUtils.isEmpty(mShapeColorCode)) {
+    private int getShapeColor(Context context) {
+        if (this.mShapeColorResource != 0) {
+            return ContextCompat.getColor(context, mShapeColorResource);
+        } else if (!TextUtils.isEmpty(mShapeColorCode)) {
             return Color.parseColor(mShapeColorCode);
         } else {
             return mShapeColor;
@@ -215,18 +233,28 @@ public class ShapeBadgeItem extends BadgeItem<ShapeBadgeItem> {
     // Internal Methods
     ///////////////////////////////////////////////////////////////////////////
 
+    /**
+     * refresh's paint color if set and redraw's shape with new color
+     */
     private void refreshColor() {
-        mCanvasPaint.setColor(getShapeColor());
+        if (isWeakReferenceValid()) {
+            mCanvasPaint.setColor(getShapeColor(getTextView().get().getContext()));
+        }
         refreshDraw();
     }
 
+    /**
+     * notifies BadgeTextView to invalidate so it will draw again and redraws shape
+     */
     private void refreshDraw() {
-        mCanvasPaint.setColor(getShapeColor());
         if (isWeakReferenceValid()) {
             getTextView().get().recallOnDraw();
         }
     }
 
+    /**
+     * refresh's margin if set
+     */
     private void refreshMargin() {
         if (isWeakReferenceValid()) {
             ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) getTextView().get().getLayoutParams();
@@ -238,6 +266,11 @@ public class ShapeBadgeItem extends BadgeItem<ShapeBadgeItem> {
         }
     }
 
+    /**
+     * @param canvas  on which star needs to be drawn
+     * @param paint   used to draw star
+     * @param numOfPt no of points a star should have
+     */
     private void drawStar(Canvas canvas, Paint paint, int numOfPt) {
         double section = 2.0 * Math.PI / numOfPt;
 

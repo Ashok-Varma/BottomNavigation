@@ -29,7 +29,17 @@ abstract class BadgeItem<T extends BadgeItem<T>> {
 
     private int mAnimationDuration = 200;
 
+    /**
+     * @return subClass to allow Builder pattern
+     */
     abstract T getSubInstance();
+
+    /**
+     * if any extra binding is required binds all badgeItem, BottomNavigationTab and BadgeTextView
+     *
+     * @param bottomNavigationTab to which badgeItem needs to be attached
+     */
+    abstract void bindToBottomTabInternal(BottomNavigationTab bottomNavigationTab);
 
     ///////////////////////////////////////////////////////////////////////////
     // Public setter methods
@@ -73,6 +83,11 @@ abstract class BadgeItem<T extends BadgeItem<T>> {
     // Library only access method
     ///////////////////////////////////////////////////////////////////////////
 
+    /**
+     * binds all badgeItem, BottomNavigationTab and BadgeTextView
+     *
+     * @param bottomNavigationTab to which badgeItem needs to be attached
+     */
     void bindToBottomTab(BottomNavigationTab bottomNavigationTab) {
         // set initial bindings
         bottomNavigationTab.badgeView.clearPrevious();
@@ -84,7 +99,7 @@ abstract class BadgeItem<T extends BadgeItem<T>> {
         setTextView(bottomNavigationTab.badgeView);
 
         // allow sub class to modify the things
-        bindToBottomTabInternal(getSubInstance(), bottomNavigationTab);
+        bindToBottomTabInternal(bottomNavigationTab);
 
         // make view visible because gone by default
         bottomNavigationTab.badgeView.setVisibility(View.VISIBLE);
@@ -101,8 +116,6 @@ abstract class BadgeItem<T extends BadgeItem<T>> {
             hide();
         }
     }
-
-    abstract void bindToBottomTabInternal(T badgeItem, BottomNavigationTab bottomNavigationTab);
 
     /**
      * Internal method used to update view when ever changes are made
@@ -140,6 +153,9 @@ abstract class BadgeItem<T extends BadgeItem<T>> {
     // Internal Methods
     ///////////////////////////////////////////////////////////////////////////
 
+    /**
+     * @return returns if BadgeTextView's reference is valid
+     */
     boolean isWeakReferenceValid() {
         return mTextViewRef != null && mTextViewRef.get() != null;
     }
