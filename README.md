@@ -46,11 +46,12 @@ or Ivy:
 </dependency>
 ```
 
-
-## For Usage Docs [Visit Wiki][wikiLink]
-## For Usage Docs [Visit Wiki][wikiLink]
 ## For Usage Docs [Visit Wiki][wikiLink]
 
+## Migration from V1 to V2
+1. BadgeItem has been changed to TextBadgeItem
+2. New ShapeBadgeItem implementation changed. [check this page for new api usage](https://github.com/Ashok-Varma/BottomNavigation/wiki/Badges)
+3. hideText replaced with new modes. To use those mode should be set to MODE_FIXED_NO_TITLE / MODE_SHIFTING_NO_TITLE 
 
 ## License
 
