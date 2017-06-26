@@ -20,87 +20,96 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingBottom="16dp"
+                android:paddingTop="16dp">
+
 
                 <Spinner
                     android:id="@+id/mode_spinner"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_gravity="center_horizontal"
                     android:orientation="horizontal"
                     android:padding="16dp" />
 
                 <Spinner
-                    android:id="@+id/item_spinner"
-                    android:layout_width="0dp"
+                    android:id="@+id/bg_spinner"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_gravity="center_horizontal"
                     android:orientation="horizontal"
                     android:padding="16dp" />
-            </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/item_spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="16dp" />
+
+                    <Spinner
+                        android:id="@+id/shape_spinner"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:padding="16dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/toggle_hide"
+                        style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="1"
+                        android:padding="24dp"
+                        android:text="@string/toggle_hide" />
+
+                    <Button
+                        android:id="@+id/toggle_badge"
+                        style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="1"
+                        android:padding="24dp"
+                        android:text="@string/toggle_badge" />
+                </LinearLayout>
 
                 <CheckBox
-                    android:id="@+id/bg_static"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:checked="true"
-                    android:text="@string/bs_static" />
-
-                <CheckBox
-                    android:id="@+id/bg_ripple"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/bs_ripple" />
-            </LinearLayout>
-
-            <CheckBox
-                android:id="@+id/auto_hide"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="@string/auto_hide_badge" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/toggle_hide"
+                    android:id="@+id/auto_hide"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="@string/toggle_hide" />
-
-                <Button
-                    android:id="@+id/toggle_badge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="@string/toggle_badge" />
-
+                    android:text="@string/auto_hide_badge" />
             </LinearLayout>
 
             <TextView
                 android:id="@+id/message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:padding="16dp"
                 android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/scrollable_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:padding="16dp"
                 android:textSize="16sp" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
@@ -118,6 +127,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_favorite_white_24dp" />
+        android:src="@drawable/ic_favorite_white_24dp"
+        android:tint="@color/white" />
 
 </android.support.design.widget.CoordinatorLayout>

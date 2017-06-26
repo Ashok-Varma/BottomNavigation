@@ -32,7 +32,7 @@ class BottomNavigationHelper {
      * @param scrollable  is bottom bar scrollable
      * @return width of each tab
      */
-    public static int[] getMeasurementsForFixedMode(Context context, int screenWidth, int noOfTabs, boolean scrollable) {
+    static int[] getMeasurementsForFixedMode(Context context, int screenWidth, int noOfTabs, boolean scrollable) {
 
         int[] result = new int[2];
 
@@ -61,7 +61,7 @@ class BottomNavigationHelper {
      * @param scrollable  is bottom bar scrollable
      * @return min and max width of each tab
      */
-    public static int[] getMeasurementsForShiftingMode(Context context, int screenWidth, int noOfTabs, boolean scrollable) {
+    static int[] getMeasurementsForShiftingMode(Context context, int screenWidth, int noOfTabs, boolean scrollable) {
 
         int[] result = new int[2];
 
@@ -112,7 +112,7 @@ class BottomNavigationHelper {
      * @param bottomNavigationTab  view to which data need to be set
      * @param bottomNavigationBar  view which holds all the tabs
      */
-    public static void bindTabWithData(BottomNavigationItem bottomNavigationItem, BottomNavigationTab bottomNavigationTab, BottomNavigationBar bottomNavigationBar) {
+    static void bindTabWithData(BottomNavigationItem bottomNavigationItem, BottomNavigationTab bottomNavigationTab, BottomNavigationBar bottomNavigationBar) {
 
         Context context = bottomNavigationBar.getContext();
 
@@ -158,8 +158,8 @@ class BottomNavigationHelper {
      * @param newColor          the new color i.e ripple color
      * @param animationDuration duration for which animation runs
      */
-    public static void setBackgroundWithRipple(View clickedView, final View backgroundView,
-                                               final View bgOverlay, final int newColor, int animationDuration) {
+    static void setBackgroundWithRipple(View clickedView, final View backgroundView,
+                                        final View bgOverlay, final int newColor, int animationDuration) {
         int centerX = (int) (clickedView.getX() + (clickedView.getMeasuredWidth() / 2));
         int centerY = clickedView.getMeasuredHeight() / 2;
         int finalRadius = backgroundView.getWidth();

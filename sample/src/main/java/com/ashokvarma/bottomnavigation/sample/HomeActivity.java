@@ -37,9 +37,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     FloatingActionButton fabHome;
 
     Spinner modeSpinner;
+    Spinner shapeSpinner;
     Spinner itemSpinner;
-    CheckBox bgStatic;
-    CheckBox bgRipple;
+    Spinner bgSpinner;
     CheckBox autoHide;
 
     Button toggleHide;
@@ -66,9 +66,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         fabHome = (FloatingActionButton) findViewById(R.id.fab_home);
 
         modeSpinner = (Spinner) findViewById(R.id.mode_spinner);
+        bgSpinner = (Spinner) findViewById(R.id.bg_spinner);
+        shapeSpinner = (Spinner) findViewById(R.id.shape_spinner);
         itemSpinner = (Spinner) findViewById(R.id.item_spinner);
-        bgStatic = (CheckBox) findViewById(R.id.bg_static);
-        bgRipple = (CheckBox) findViewById(R.id.bg_ripple);
         autoHide = (CheckBox) findViewById(R.id.auto_hide);
 
         toggleHide = (Button) findViewById(R.id.toggle_hide);
@@ -78,22 +78,34 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         scrollableText = (TextView) findViewById(R.id.scrollable_text);
 
         modeSpinner.setOnItemSelectedListener(this);
+        bgSpinner.setOnItemSelectedListener(this);
+        shapeSpinner.setOnItemSelectedListener(this);
         itemSpinner.setOnItemSelectedListener(this);
-        bgRipple.setOnCheckedChangeListener(this);
-        bgStatic.setOnCheckedChangeListener(this);
         autoHide.setOnCheckedChangeListener(this);
 
         toggleHide.setOnClickListener(this);
         toggleBadge.setOnClickListener(this);
         fabHome.setOnClickListener(this);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Arrays.asList(new String[]{"MODE_DEFAULT", "MODE_FIXED", "MODE_SHIFTING", "MODE_FIXED_NO_TITLE", "MODE_SHIFTING_NO_TITLE"}));
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Arrays.asList(new String[]{"MODE_DEFAULT", "MODE_FIXED", "MODE_SHIFTING", "MODE_FIXED_NO_TITLE", "MODE_SHIFTING_NO_TITLE"}));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         modeSpinner.setAdapter(adapter);
+        modeSpinner.setSelection(2);
 
-        ArrayAdapter<String> itemAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Arrays.asList(new String[]{"3 items", "4 items", "5 items"}));
+        ArrayAdapter<String> itemAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Arrays.asList(new String[]{"3 items", "4 items", "5 items"}));
         itemAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         itemSpinner.setAdapter(itemAdapter);
+        itemSpinner.setSelection(2);
+
+        ArrayAdapter<String> shapeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Arrays.asList(new String[]{"SHAPE_OVAL", "SHAPE_RECTANGLE", "SHAPE_HEART", "SHAPE_STAR_3_VERTICES", "SHAPE_STAR_4_VERTICES", "SHAPE_STAR_5_VERTICES", "SHAPE_STAR_6_VERTICES"}));
+        shapeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        shapeSpinner.setAdapter(shapeAdapter);
+        shapeSpinner.setSelection(5);
+
+        ArrayAdapter<String> bgAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Arrays.asList(new String[]{"BACKGROUND_STYLE_DEFAULT", "BACKGROUND_STYLE_STATIC", "BACKGROUND_STYLE_RIPPLE"}));
+        bgAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        bgSpinner.setAdapter(bgAdapter);
+        bgSpinner.setSelection(1);
 
         bottomNavigationBar.setTabSelectedListener(this);
     }
@@ -144,15 +156,17 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        refresh();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
+    @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        switch (buttonView.getId()) {
-            case R.id.bg_ripple:
-                bgStatic.setChecked(!isChecked);
-                break;
-            case R.id.bg_static:
-                bgRipple.setChecked(!isChecked);
-                break;
-        }
         refresh();
     }
 
@@ -171,22 +185,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 .setHideOnSelect(autoHide.isChecked());
 
         shapeBadgeItem = new ShapeBadgeItem()
-                .setShape(ShapeBadgeItem.SHAPE_STAR_5_VERTICES)
+                .setShape(shapeSpinner.getSelectedItemPosition())
                 .setShapeColorResource(R.color.teal)
                 .setGravity(Gravity.TOP | Gravity.END)
                 .setHideOnSelect(autoHide.isChecked());
 
-
         bottomNavigationBar.setMode(modeSpinner.getSelectedItemPosition());
+        bottomNavigationBar.setBackgroundStyle(bgSpinner.getSelectedItemPosition());
 
-
-        if (bgStatic.isChecked()) {
-            bottomNavigationBar
-                    .setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC);
-        } else if (bgRipple.isChecked()) {
-            bottomNavigationBar
-                    .setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_RIPPLE);
-        }
 
         if (itemSpinner.getSelectedItemPosition() == 0) {
             bottomNavigationBar
@@ -259,15 +265,5 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 scrollableText.setText(R.string.para6);
                 break;
         }
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        refresh();
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
     }
 }

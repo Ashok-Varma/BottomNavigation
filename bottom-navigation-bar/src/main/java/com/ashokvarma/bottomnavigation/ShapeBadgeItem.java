@@ -30,13 +30,13 @@ public class ShapeBadgeItem extends BadgeItem<ShapeBadgeItem> {
 
     public static final int SHAPE_OVAL = 0;
     public static final int SHAPE_RECTANGLE = 1;
-    //    public static final int SHAPE_HEART = 2;
+    public static final int SHAPE_HEART = 2;
     public static final int SHAPE_STAR_3_VERTICES = 3;
     public static final int SHAPE_STAR_4_VERTICES = 4;
     public static final int SHAPE_STAR_5_VERTICES = 5;
     public static final int SHAPE_STAR_6_VERTICES = 6;
 
-    @IntDef({SHAPE_OVAL, SHAPE_RECTANGLE, SHAPE_STAR_3_VERTICES, SHAPE_STAR_4_VERTICES, SHAPE_STAR_5_VERTICES, SHAPE_STAR_6_VERTICES})
+    @IntDef({SHAPE_OVAL, SHAPE_RECTANGLE, SHAPE_HEART, SHAPE_STAR_3_VERTICES, SHAPE_STAR_4_VERTICES, SHAPE_STAR_5_VERTICES, SHAPE_STAR_6_VERTICES})
     @Retention(RetentionPolicy.SOURCE)
     @interface Shape {
     }
@@ -178,7 +178,9 @@ public class ShapeBadgeItem extends BadgeItem<ShapeBadgeItem> {
         } else if (mShape == SHAPE_OVAL) {
             canvas.drawOval(mCanvasRect, mCanvasPaint);
         } else if (mShape == SHAPE_STAR_3_VERTICES || mShape == SHAPE_STAR_4_VERTICES || mShape == SHAPE_STAR_5_VERTICES || mShape == SHAPE_STAR_6_VERTICES) {
-            drawStar(canvas, mCanvasPaint, mShape);
+            drawStar(canvas, mShape);
+        } else if (mShape == SHAPE_HEART) {
+            drawHeart(canvas);
         }
     }
 
@@ -268,11 +270,12 @@ public class ShapeBadgeItem extends BadgeItem<ShapeBadgeItem> {
 
     /**
      * @param canvas  on which star needs to be drawn
-     * @param paint   used to draw star
      * @param numOfPt no of points a star should have
      */
-    private void drawStar(Canvas canvas, Paint paint, int numOfPt) {
+    private void drawStar(Canvas canvas, int numOfPt) {
         double section = 2.0 * Math.PI / numOfPt;
+        double halfSection = section / 2.0d;
+        double antiClockRotation = getStarAntiClockRotationOffset(numOfPt);
 
         float x = (float) canvas.getWidth() / 2.0f;
         float y = (float) canvas.getHeight() / 2.0f;
@@ -286,27 +289,53 @@ public class ShapeBadgeItem extends BadgeItem<ShapeBadgeItem> {
             innerRadius = canvas.getWidth() * 0.25f;
         }
 
-
         mPath.reset();
 
         mPath.moveTo(
-                (float) (x + radius * Math.cos(0)),
-                (float) (y + radius * Math.sin(0)));
+                (float) (x + radius * Math.cos(0 - antiClockRotation)),
+                (float) (y + radius * Math.sin(0 - antiClockRotation)));
         mPath.lineTo(
-                (float) (x + innerRadius * Math.cos(0 + section / 2.0)),
-                (float) (y + innerRadius * Math.sin(0 + section / 2.0)));
+                (float) (x + innerRadius * Math.cos(0 + halfSection - antiClockRotation)),
+                (float) (y + innerRadius * Math.sin(0 + halfSection - antiClockRotation)));
 
         for (int i = 1; i < numOfPt; i++) {
             mPath.lineTo(
-                    (float) (x + radius * Math.cos(section * i)),
-                    (float) (y + radius * Math.sin(section * i)));
+                    (float) (x + radius * Math.cos(section * i - antiClockRotation)),
+                    (float) (y + radius * Math.sin(section * i - antiClockRotation)));
             mPath.lineTo(
-                    (float) (x + innerRadius * Math.cos(section * i + section / 2.0)),
-                    (float) (y + innerRadius * Math.sin(section * i + section / 2.0)));
+                    (float) (x + innerRadius * Math.cos(section * i + halfSection - antiClockRotation)),
+                    (float) (y + innerRadius * Math.sin(section * i + halfSection - antiClockRotation)));
         }
 
         mPath.close();
 
-        canvas.drawPath(mPath, paint);
+        canvas.drawPath(mPath, mCanvasPaint);
+    }
+
+    /**
+     * offset to make star shape look straight
+     *
+     * @param numOfPt no of points a star should have
+     */
+    private double getStarAntiClockRotationOffset(int numOfPt) {
+        if (numOfPt == 5) {
+            return 2.0 * Math.PI / 20.0d; // quarter of (section angle for 5 point star) = 36 degrees
+        } else if (numOfPt == 6) {
+            return 2.0 * Math.PI / 12.0d; // half the (section angle for 6 point star) = 60 degrees
+        }
+        return 0;
+    }
+
+    private void drawHeart(Canvas canvas) {
+        float curveLength = canvas.getHeight() / 3;
+
+        mPath.reset();
+        mPath.moveTo(canvas.getWidth() / 2, canvas.getHeight());// bottom part
+        mPath.lineTo(curveLength / 3, 7 * curveLength / 4);
+        mPath.arcTo(new RectF(0, 0, canvas.getWidth() / 2, 2 * curveLength), -225, 225);
+        mPath.arcTo(new RectF(canvas.getWidth() / 2, 0, canvas.getWidth(), 2 * curveLength), -180, 225);
+        mPath.close();
+
+        canvas.drawPath(mPath, mCanvasPaint);
     }
 }
