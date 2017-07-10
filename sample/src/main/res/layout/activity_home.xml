@@ -105,12 +105,10 @@
                 android:padding="16dp"
                 android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/scrollable_text"
+            <FrameLayout
+                android:id="@+id/home_activity_frag_container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:textSize="16sp" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

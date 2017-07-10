@@ -9,6 +9,7 @@ buildscript {
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 apply plugin: 'io.fabric'
 
 android {
@@ -43,6 +44,7 @@ android {
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
+    mavenCentral()
 }
 
 ext {
@@ -69,4 +71,5 @@ dependencies {
 
     // Espresso Ui Testing dependencies
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }

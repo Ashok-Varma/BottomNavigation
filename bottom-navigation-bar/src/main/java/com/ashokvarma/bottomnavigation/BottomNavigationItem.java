@@ -165,7 +165,16 @@ public class BottomNavigationItem {
      * @param badgeItem badge that needs to be displayed for this tab
      * @return this, to allow builder pattern
      */
-    public BottomNavigationItem setBadgeItem(@Nullable BadgeItem badgeItem) {
+    public BottomNavigationItem setBadgeItem(@Nullable ShapeBadgeItem badgeItem) {
+        this.mBadgeItem = badgeItem;
+        return this;
+    }
+
+    /**
+     * @param badgeItem badge that needs to be displayed for this tab
+     * @return this, to allow builder pattern
+     */
+    public BottomNavigationItem setBadgeItem(@Nullable TextBadgeItem badgeItem) {
         this.mBadgeItem = badgeItem;
         return this;
     }
