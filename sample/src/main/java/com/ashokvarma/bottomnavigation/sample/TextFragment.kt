@@ -17,6 +17,18 @@ import android.widget.TextView
  * @see
  * @since 10 Jul 2017
  */
+internal const val KEY_MESSAGE = "message"
+
+fun newTextFragmentInstance(message: String): TextFragment {
+    val textFragment = TextFragment()
+
+    val args = Bundle()
+    args.putString(KEY_MESSAGE, message)
+
+    textFragment.arguments = args
+    return textFragment
+}
+
 class TextFragment : Fragment() {
 
     internal var msg = ""
@@ -32,20 +44,5 @@ class TextFragment : Fragment() {
         val view = inflater!!.inflate(R.layout.fragment_text, container, false)
         (view.findViewById(R.id.tf_textview) as TextView).text = msg
         return view
-    }
-
-    companion object {
-
-        private val KEY_MESSAGE = "message"
-
-        fun newInstance(message: String): TextFragment {
-            val textFragment = TextFragment()
-
-            val args = Bundle()
-            args.putString(KEY_MESSAGE, message)
-
-            textFragment.arguments = args
-            return textFragment
-        }
     }
 }

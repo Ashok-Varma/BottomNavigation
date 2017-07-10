@@ -70,21 +70,20 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener, CompoundButton.O
 
         message = findViewById(R.id.message) as TextView
 
-        fragment1 = TextFragment.newInstance(getString(R.string.para1))
-        fragment2 = TextFragment.newInstance(getString(R.string.para2))
-        fragment3 = TextFragment.newInstance(getString(R.string.para3))
-        fragment4 = TextFragment.newInstance(getString(R.string.para4))
-        fragment5 = TextFragment.newInstance(getString(R.string.para5))
-        fragment6 = TextFragment.newInstance(getString(R.string.para6))
+        fragment1 = newTextFragmentInstance(getString(R.string.para1))
+        fragment2 = newTextFragmentInstance(getString(R.string.para2))
+        fragment3 = newTextFragmentInstance(getString(R.string.para3))
+        fragment4 = newTextFragmentInstance(getString(R.string.para4))
+        fragment5 = newTextFragmentInstance(getString(R.string.para5))
+        fragment6 = newTextFragmentInstance(getString(R.string.para6))
 
         numberBadgeItem = TextBadgeItem()
                 .setBorderWidth(4)
                 .setBackgroundColorResource(R.color.blue)
-                .setText("" + lastSelectedPosition)
+                .setText("0")
                 .setHideOnSelect(autoHide.isChecked)
 
         shapeBadgeItem = ShapeBadgeItem()
-                .setShape(shapeSpinner.selectedItemPosition)
                 .setShapeColorResource(R.color.teal)
                 .setGravity(Gravity.TOP or Gravity.END)
                 .setHideOnSelect(autoHide.isChecked)
@@ -169,6 +168,15 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener, CompoundButton.O
     }
 
     private fun refresh() {
+        numberBadgeItem
+                .show()
+                .setText("" + lastSelectedPosition)
+                .setHideOnSelect(autoHide.isChecked)
+
+        shapeBadgeItem
+                .show()
+                .setShape(shapeSpinner.selectedItemPosition)
+                .setHideOnSelect(autoHide.isChecked)
 
         bottomNavigationBar.clearAll()
         //        bottomNavigationBar.setFab(fabHome, BottomNavigationBar.FAB_BEHAVIOUR_TRANSLATE_AND_STICK);
