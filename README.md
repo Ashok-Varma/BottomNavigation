@@ -71,7 +71,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
- [wikiLink]: https://github.com/Ashok-Varma/BottomNavigation/wiki/Usage
+ [wikiLink]: https://github.com/Ashok-Varma/BottomNavigation/wiki
  [googlePlayStoreLink]: https://play.google.com/store/apps/details?id=com.ashokvarma.bottomnavigation.sample
  [googlePage]: https://www.google.com/design/spec/components/bottom-navigation.html
  [mavenAarDownload]:  https://repo1.maven.org/maven2/com/ashokvarma/android/bottom-navigation-bar/2.0.2/bottom-navigation-bar-2.0.2.aar
