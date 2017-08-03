@@ -14,7 +14,7 @@
     </dimen><!-- 8(Top Padding) - 12/2(extra padding due to badges) = 2 -->
     <dimen name="fixed_height_top_padding_active">0dp
     </dimen><!-- 6(Top Padding) - 12/2(extra padding due to badges) = 0 -->
-    <dimen name="fixed_height_bottom_padding">10dp</dimen>
+    <dimen name="fixed_height_bottom_padding">7dp</dimen>
 
     <dimen name="fixed_label_active">14sp</dimen>
     <dimen name="fixed_label_inactive">12sp</dimen>
@@ -40,7 +40,7 @@
     <dimen name="shifting_no_title_icon_width">32dp</dimen>
     <dimen name="shifting_height_bottom_padding_inactive">16dp
     </dimen><!-- not used because in inactive state text-view will be hidden and for icon top padding would be enough -->
-    <dimen name="shifting_height_bottom_padding_active">10dp</dimen>
+    <dimen name="shifting_height_bottom_padding_active">7dp</dimen>
     <dimen name="shifting_height_top_padding_active">0dp
     </dimen><!-- 6(Top padding) - 12/2(extra padding due to badges) = 0 -->
     <dimen name="shifting_height_top_padding_inactive">10dp
