@@ -42,7 +42,7 @@ class TextFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_text, container, false)
-        (view.findViewById(R.id.tf_textview) as TextView).text = msg
+        (view.findViewById<TextView>(R.id.tf_textview)).text = msg
         return view
     }
 }

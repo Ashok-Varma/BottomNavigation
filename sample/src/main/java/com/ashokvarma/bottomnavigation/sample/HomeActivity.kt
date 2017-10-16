@@ -56,19 +56,19 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener, CompoundButton.O
         setContentView(R.layout.activity_home)
 
         // All lateinit's
-        bottomNavigationBar = findViewById(R.id.bottom_navigation_bar) as BottomNavigationBar
-        fabHome = findViewById(R.id.fab_home) as FloatingActionButton
+        bottomNavigationBar = findViewById<BottomNavigationBar>(R.id.bottom_navigation_bar)
+        fabHome = findViewById<FloatingActionButton>(R.id.fab_home)
 
-        modeSpinner = findViewById(R.id.mode_spinner) as Spinner
-        bgSpinner = findViewById(R.id.bg_spinner) as Spinner
-        shapeSpinner = findViewById(R.id.shape_spinner) as Spinner
-        itemSpinner = findViewById(R.id.item_spinner) as Spinner
-        autoHide = findViewById(R.id.auto_hide) as CheckBox
+        modeSpinner = findViewById<Spinner>(R.id.mode_spinner)
+        bgSpinner = findViewById<Spinner>(R.id.bg_spinner)
+        shapeSpinner = findViewById<Spinner>(R.id.shape_spinner)
+        itemSpinner = findViewById<Spinner>(R.id.item_spinner)
+        autoHide = findViewById<CheckBox>(R.id.auto_hide)
 
-        toggleHide = findViewById(R.id.toggle_hide) as Button
-        toggleBadge = findViewById(R.id.toggle_badge) as Button
+        toggleHide = findViewById<Button>(R.id.toggle_hide)
+        toggleBadge = findViewById<Button>(R.id.toggle_badge)
 
-        message = findViewById(R.id.message) as TextView
+        message = findViewById<TextView>(R.id.message)
 
         fragment1 = newTextFragmentInstance(getString(R.string.para1))
         fragment2 = newTextFragmentInstance(getString(R.string.para2))
@@ -89,22 +89,22 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener, CompoundButton.O
                 .setHideOnSelect(autoHide.isChecked)
 
         // adapters
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, Arrays.asList(*arrayOf("MODE_DEFAULT", "MODE_FIXED", "MODE_SHIFTING", "MODE_FIXED_NO_TITLE", "MODE_SHIFTING_NO_TITLE")))
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, Arrays.asList("MODE_DEFAULT", "MODE_FIXED", "MODE_SHIFTING", "MODE_FIXED_NO_TITLE", "MODE_SHIFTING_NO_TITLE"))
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         modeSpinner.adapter = adapter
         modeSpinner.setSelection(2)
 
-        val itemAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, Arrays.asList(*arrayOf("3 items", "4 items", "5 items")))
+        val itemAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, Arrays.asList("3 items", "4 items", "5 items"))
         itemAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         itemSpinner.adapter = itemAdapter
         itemSpinner.setSelection(2)
 
-        val shapeAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, Arrays.asList(*arrayOf("SHAPE_OVAL", "SHAPE_RECTANGLE", "SHAPE_HEART", "SHAPE_STAR_3_VERTICES", "SHAPE_STAR_4_VERTICES", "SHAPE_STAR_5_VERTICES", "SHAPE_STAR_6_VERTICES")))
+        val shapeAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, Arrays.asList("SHAPE_OVAL", "SHAPE_RECTANGLE", "SHAPE_HEART", "SHAPE_STAR_3_VERTICES", "SHAPE_STAR_4_VERTICES", "SHAPE_STAR_5_VERTICES", "SHAPE_STAR_6_VERTICES"))
         shapeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         shapeSpinner.adapter = shapeAdapter
         shapeSpinner.setSelection(5)
 
-        val bgAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, Arrays.asList(*arrayOf("BACKGROUND_STYLE_DEFAULT", "BACKGROUND_STYLE_STATIC", "BACKGROUND_STYLE_RIPPLE")))
+        val bgAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, Arrays.asList("BACKGROUND_STYLE_DEFAULT", "BACKGROUND_STYLE_STATIC", "BACKGROUND_STYLE_RIPPLE"))
         bgAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         bgSpinner.adapter = bgAdapter
         bgSpinner.setSelection(1)

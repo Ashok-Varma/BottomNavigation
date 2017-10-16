@@ -25,6 +25,10 @@ ext {
 }
 
 android {
+    lintOptions {
+        abortOnError false
+    }
+
     compileSdkVersion Integer.parseInt(ANDROID_COMPILE_SDK_VERSION)
     buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
 
@@ -40,6 +44,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
 }
 
 ext {
@@ -47,9 +55,9 @@ ext {
 }
 
 dependencies {
-    testCompile 'junit:junit:4.12'
-    compile "com.android.support:appcompat-v7:${supportLibraryVersion}"
-    compile "com.android.support:design:${supportLibraryVersion}"
+    testImplementation 'junit:junit:4.12'
+    implementation "com.android.support:appcompat-v7:${supportLibraryVersion}"
+    implementation "com.android.support:design:${supportLibraryVersion}"
 }
 
 // Place it at the end of the file
