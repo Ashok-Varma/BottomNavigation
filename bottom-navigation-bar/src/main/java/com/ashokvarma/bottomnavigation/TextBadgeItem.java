@@ -35,6 +35,8 @@ public class TextBadgeItem extends BadgeItem<TextBadgeItem> {
 
     private int mBorderWidthInPixels = 0;
 
+    private int radius = 0;
+
     ///////////////////////////////////////////////////////////////////////////
     // Public setter methods
     ///////////////////////////////////////////////////////////////////////////
@@ -120,6 +122,16 @@ public class TextBadgeItem extends BadgeItem<TextBadgeItem> {
      */
     public TextBadgeItem setBorderColorResource(@ColorRes int colorResource) {
         this.mBorderColorResource = colorResource;
+        refreshDrawable();
+        return this;
+    }
+
+    /**
+     * @param radius corner radius
+     * @return this, to allow builder pattern
+     * */
+    public TextBadgeItem setCornerRadius(int radius) {
+        this.radius = radius;
         refreshDrawable();
         return this;
     }
@@ -272,9 +284,17 @@ public class TextBadgeItem extends BadgeItem<TextBadgeItem> {
     private GradientDrawable getBadgeDrawable(Context context) {
         GradientDrawable shape = new GradientDrawable();
         shape.setShape(GradientDrawable.RECTANGLE);
-        shape.setCornerRadius(context.getResources().getDimensionPixelSize(R.dimen.badge_corner_radius));
+        shape.setCornerRadius(getRadius(context));
         shape.setColor(getBackgroundColor(context));
         shape.setStroke(getBorderWidth(), getBorderColor(context));
         return shape;
+    }
+
+    private int getRadius(Context context) {
+        if (radius == 0) {
+            return context.getResources().getDimensionPixelSize(R.dimen.badge_corner_radius);
+        } else {
+            return radius;
+        }
     }
 }
