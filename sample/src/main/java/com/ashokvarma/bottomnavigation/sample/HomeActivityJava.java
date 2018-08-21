@@ -35,7 +35,6 @@ import io.fabric.sdk.android.Fabric;
  *
  * @author ashokvarma
  * @version 1.0
- * @see
  * @since 10 Jul 2017
  */
 public class HomeActivityJava extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener, BottomNavigationBar.OnTabSelectedListener, AdapterView.OnItemSelectedListener {
