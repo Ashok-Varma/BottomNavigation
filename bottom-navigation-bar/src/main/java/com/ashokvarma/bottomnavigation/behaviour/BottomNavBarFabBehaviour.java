@@ -136,9 +136,8 @@ public class BottomNavBarFabBehaviour extends CoordinatorLayout.Behavior<Floatin
                         view.getTranslationY() - viewHeight);
             }
         }
-        float[] returnValues = {minOffset, viewHeight};
 
-        return returnValues;
+        return new float[]{minOffset, viewHeight};
     }
 
     private float getFabTranslationYForSnackBar(CoordinatorLayout parent,
