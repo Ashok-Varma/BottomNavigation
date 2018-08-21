@@ -342,7 +342,7 @@ public class BottomNavigationBar extends FrameLayout {
     }
 
     /**
-     * will be public once all bugs are ressolved.
+     * will be public once all bugs are resolved.
      */
     private BottomNavigationBar setScrollable(boolean scrollable) {
         mScrollable = scrollable;
