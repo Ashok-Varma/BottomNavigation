@@ -143,15 +143,17 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener, CompoundButton.O
     }
 
     override fun onClick(v: View) {
-        if (v.id == R.id.toggle_hide) {
-            bottomNavigationBar.toggle()
-        } else if (v.id == R.id.toggle_badge) {
-            numberBadgeItem.toggle()
-            shapeBadgeItem.toggle()
-        } else if (v.id == R.id.fab_home) {
-            val snackbar = Snackbar.make(message, "Fab Clicked", Snackbar.LENGTH_LONG)
-            snackbar.setAction("dismiss") { snackbar.dismiss() }
-            snackbar.show()
+        when (v.id) {
+            R.id.toggle_hide -> bottomNavigationBar.toggle()
+            R.id.toggle_badge -> {
+                numberBadgeItem.toggle()
+                shapeBadgeItem.toggle()
+            }
+            R.id.fab_home -> {
+                val snackbar = Snackbar.make(message, "Fab Clicked", Snackbar.LENGTH_LONG)
+                snackbar.setAction("dismiss") { snackbar.dismiss() }
+                snackbar.show()
+            }
         }
     }
 
@@ -186,30 +188,34 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener, CompoundButton.O
         bottomNavigationBar.setBackgroundStyle(bgSpinner.selectedItemPosition)
 
 
-        if (itemSpinner.selectedItemPosition == 0) {
-            bottomNavigationBar
-                    .addItem(BottomNavigationItem(R.drawable.ic_location_on_white_24dp, "Nearby").setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
-                    .addItem(BottomNavigationItem(R.drawable.ic_find_replace_white_24dp, "Find").setActiveColorResource(R.color.teal))
-                    .addItem(BottomNavigationItem(R.drawable.ic_favorite_white_24dp, "Categories").setActiveColorResource(R.color.blue).setBadgeItem(shapeBadgeItem))
-                    .initialise()
-            bottomNavigationBar.selectTab(if (lastSelectedPosition > 2) 2 else lastSelectedPosition, true)
-        } else if (itemSpinner.selectedItemPosition == 1) {
-            bottomNavigationBar
-                    .addItem(BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
-                    .addItem(BottomNavigationItem(R.drawable.ic_book_white_24dp, "Books").setActiveColorResource(R.color.teal))
-                    .addItem(BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "Music").setActiveColorResource(R.color.blue).setBadgeItem(shapeBadgeItem))
-                    .addItem(BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV").setActiveColorResource(R.color.brown))
-                    .initialise()
-            bottomNavigationBar.selectTab(if (lastSelectedPosition > 3) 3 else lastSelectedPosition, true)
-        } else if (itemSpinner.selectedItemPosition == 2) {
-            bottomNavigationBar
-                    .addItem(BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
-                    .addItem(BottomNavigationItem(R.drawable.ic_book_white_24dp, "Books").setActiveColorResource(R.color.teal))
-                    .addItem(BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "Music").setActiveColorResource(R.color.blue).setBadgeItem(shapeBadgeItem))
-                    .addItem(BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV").setActiveColorResource(R.color.brown))
-                    .addItem(BottomNavigationItem(R.drawable.ic_videogame_asset_white_24dp, "Games").setActiveColorResource(R.color.grey))
-                    .initialise()
-            bottomNavigationBar.selectTab(lastSelectedPosition, true)
+        when (itemSpinner.selectedItemPosition) {
+            0 -> {
+                bottomNavigationBar
+                        .addItem(BottomNavigationItem(R.drawable.ic_location_on_white_24dp, "Nearby").setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
+                        .addItem(BottomNavigationItem(R.drawable.ic_find_replace_white_24dp, "Find").setActiveColorResource(R.color.teal))
+                        .addItem(BottomNavigationItem(R.drawable.ic_favorite_white_24dp, "Categories").setActiveColorResource(R.color.blue).setBadgeItem(shapeBadgeItem))
+                        .initialise()
+                bottomNavigationBar.selectTab(if (lastSelectedPosition > 2) 2 else lastSelectedPosition, true)
+            }
+            1 -> {
+                bottomNavigationBar
+                        .addItem(BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
+                        .addItem(BottomNavigationItem(R.drawable.ic_book_white_24dp, "Books").setActiveColorResource(R.color.teal))
+                        .addItem(BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "Music").setActiveColorResource(R.color.blue).setBadgeItem(shapeBadgeItem))
+                        .addItem(BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV").setActiveColorResource(R.color.brown))
+                        .initialise()
+                bottomNavigationBar.selectTab(if (lastSelectedPosition > 3) 3 else lastSelectedPosition, true)
+            }
+            2 -> {
+                bottomNavigationBar
+                        .addItem(BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
+                        .addItem(BottomNavigationItem(R.drawable.ic_book_white_24dp, "Books").setActiveColorResource(R.color.teal))
+                        .addItem(BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "Music").setActiveColorResource(R.color.blue).setBadgeItem(shapeBadgeItem))
+                        .addItem(BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV").setActiveColorResource(R.color.brown))
+                        .addItem(BottomNavigationItem(R.drawable.ic_videogame_asset_white_24dp, "Games").setActiveColorResource(R.color.grey))
+                        .initialise()
+                bottomNavigationBar.selectTab(lastSelectedPosition, true)
+            }
         }
 
     }
