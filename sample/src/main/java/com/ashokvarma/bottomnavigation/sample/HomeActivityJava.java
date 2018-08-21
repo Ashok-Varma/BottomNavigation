@@ -76,19 +76,19 @@ public class HomeActivityJava extends AppCompatActivity implements View.OnClickL
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_home);
 
-        bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
-        fabHome = (FloatingActionButton) findViewById(R.id.fab_home);
+        bottomNavigationBar = findViewById(R.id.bottom_navigation_bar);
+        fabHome = findViewById(R.id.fab_home);
 
-        modeSpinner = (Spinner) findViewById(R.id.mode_spinner);
-        bgSpinner = (Spinner) findViewById(R.id.bg_spinner);
-        shapeSpinner = (Spinner) findViewById(R.id.shape_spinner);
-        itemSpinner = (Spinner) findViewById(R.id.item_spinner);
-        autoHide = (CheckBox) findViewById(R.id.auto_hide);
+        modeSpinner = findViewById(R.id.mode_spinner);
+        bgSpinner = findViewById(R.id.bg_spinner);
+        shapeSpinner = findViewById(R.id.shape_spinner);
+        itemSpinner = findViewById(R.id.item_spinner);
+        autoHide = findViewById(R.id.auto_hide);
 
-        toggleHide = (Button) findViewById(R.id.toggle_hide);
-        toggleBadge = (Button) findViewById(R.id.toggle_badge);
+        toggleHide = findViewById(R.id.toggle_hide);
+        toggleBadge = findViewById(R.id.toggle_badge);
 
-        message = (TextView) findViewById(R.id.message);
+        message = findViewById(R.id.message);
 
         fragment1 = TextFragmentKt.newTextFragmentInstance(getString(R.string.para1));
         fragment2 = TextFragmentKt.newTextFragmentInstance(getString(R.string.para2));

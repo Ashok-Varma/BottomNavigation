@@ -47,10 +47,10 @@ class FixedBottomNavigationTab extends BottomNavigationTab {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View view = inflater.inflate(R.layout.fixed_bottom_navigation_item, this, true);
         containerView = view.findViewById(R.id.fixed_bottom_navigation_container);
-        labelView = (TextView) view.findViewById(R.id.fixed_bottom_navigation_title);
-        iconView = (ImageView) view.findViewById(R.id.fixed_bottom_navigation_icon);
-        iconContainerView = (FrameLayout) view.findViewById(R.id.fixed_bottom_navigation_icon_container);
-        badgeView = (BadgeTextView) view.findViewById(R.id.fixed_bottom_navigation_badge);
+        labelView = view.findViewById(R.id.fixed_bottom_navigation_title);
+        iconView = view.findViewById(R.id.fixed_bottom_navigation_icon);
+        iconContainerView = view.findViewById(R.id.fixed_bottom_navigation_icon_container);
+        badgeView = view.findViewById(R.id.fixed_bottom_navigation_badge);
 
         labelScale = getResources().getDimension(R.dimen.fixed_label_inactive) / getResources().getDimension(R.dimen.fixed_label_active);
 
