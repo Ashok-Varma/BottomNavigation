@@ -26,8 +26,6 @@ import com.ashokvarma.bottomnavigation.ShapeBadgeItem;
 import com.ashokvarma.bottomnavigation.TextBadgeItem;
 import com.crashlytics.android.Crashlytics;
 
-import java.util.Arrays;
-
 import io.fabric.sdk.android.Fabric;
 
 /**
@@ -97,22 +95,22 @@ public class HomeActivityJava extends AppCompatActivity implements View.OnClickL
         fragment5 = TextFragmentKt.newTextFragmentInstance(getString(R.string.para5));
         fragment6 = TextFragmentKt.newTextFragmentInstance(getString(R.string.para6));
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Arrays.asList(new String[]{"MODE_DEFAULT", "MODE_FIXED", "MODE_SHIFTING", "MODE_FIXED_NO_TITLE", "MODE_SHIFTING_NO_TITLE"}));
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, new String[]{"MODE_DEFAULT", "MODE_FIXED", "MODE_SHIFTING", "MODE_FIXED_NO_TITLE", "MODE_SHIFTING_NO_TITLE"});
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         modeSpinner.setAdapter(adapter);
         modeSpinner.setSelection(2);
 
-        ArrayAdapter<String> itemAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Arrays.asList(new String[]{"3 items", "4 items", "5 items"}));
+        ArrayAdapter<String> itemAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, new String[]{"3 items", "4 items", "5 items"});
         itemAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         itemSpinner.setAdapter(itemAdapter);
         itemSpinner.setSelection(2);
 
-        ArrayAdapter<String> shapeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Arrays.asList(new String[]{"SHAPE_OVAL", "SHAPE_RECTANGLE", "SHAPE_HEART", "SHAPE_STAR_3_VERTICES", "SHAPE_STAR_4_VERTICES", "SHAPE_STAR_5_VERTICES", "SHAPE_STAR_6_VERTICES"}));
+        ArrayAdapter<String> shapeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, new String[]{"SHAPE_OVAL", "SHAPE_RECTANGLE", "SHAPE_HEART", "SHAPE_STAR_3_VERTICES", "SHAPE_STAR_4_VERTICES", "SHAPE_STAR_5_VERTICES", "SHAPE_STAR_6_VERTICES"});
         shapeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         shapeSpinner.setAdapter(shapeAdapter);
         shapeSpinner.setSelection(5);
 
-        ArrayAdapter<String> bgAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Arrays.asList(new String[]{"BACKGROUND_STYLE_DEFAULT", "BACKGROUND_STYLE_STATIC", "BACKGROUND_STYLE_RIPPLE"}));
+        ArrayAdapter<String> bgAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, new String[]{"BACKGROUND_STYLE_DEFAULT", "BACKGROUND_STYLE_STATIC", "BACKGROUND_STYLE_RIPPLE"});
         bgAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         bgSpinner.setAdapter(bgAdapter);
         bgSpinner.setSelection(1);
