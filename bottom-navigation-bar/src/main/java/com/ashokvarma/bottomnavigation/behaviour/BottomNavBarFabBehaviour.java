@@ -87,7 +87,7 @@ public class BottomNavBarFabBehaviour extends CoordinatorLayout.Behavior<Floatin
         float bottomBarTranslation = bottomBarParameters[0];
         float bottomBarHeight = bottomBarParameters[1];
 
-        float targetTransY = 0;
+        float targetTransY;
         if (snackBarTranslation >= bottomBarTranslation) {
             // when snackBar is below BottomBar in translation present.
             targetTransY = bottomBarTranslation;
@@ -103,7 +103,7 @@ public class BottomNavBarFabBehaviour extends CoordinatorLayout.Behavior<Floatin
 //            }
 //        }
 
-        final float currentTransY = ViewCompat.getTranslationY(fab);
+        final float currentTransY = fab.getTranslationY();
 
         // Make sure that any current animation is cancelled
         ensureOrCancelAnimator(fab);
@@ -115,7 +115,7 @@ public class BottomNavBarFabBehaviour extends CoordinatorLayout.Behavior<Floatin
             mFabTranslationYAnimator.translationY(targetTransY).start();
         } else {
             // Now update the translation Y
-            ViewCompat.setTranslationY(fab, targetTransY);
+            fab.setTranslationY(targetTransY);
         }
     }
 
@@ -133,12 +133,11 @@ public class BottomNavBarFabBehaviour extends CoordinatorLayout.Behavior<Floatin
             if (view instanceof BottomNavigationBar) {
                 viewHeight = view.getHeight();
                 minOffset = Math.min(minOffset,
-                        ViewCompat.getTranslationY(view) - viewHeight);
+                        view.getTranslationY() - viewHeight);
             }
         }
-        float[] returnValues = {minOffset, viewHeight};
 
-        return returnValues;
+        return new float[]{minOffset, viewHeight};
     }
 
     private float getFabTranslationYForSnackBar(CoordinatorLayout parent,
@@ -149,7 +148,7 @@ public class BottomNavBarFabBehaviour extends CoordinatorLayout.Behavior<Floatin
             final View view = dependencies.get(i);
             if (view instanceof Snackbar.SnackbarLayout && parent.doViewsOverlap(fab, view)) {
                 minOffset = Math.min(minOffset,
-                        ViewCompat.getTranslationY(view) - view.getHeight());
+                        view.getTranslationY() - view.getHeight());
             }
         }
 

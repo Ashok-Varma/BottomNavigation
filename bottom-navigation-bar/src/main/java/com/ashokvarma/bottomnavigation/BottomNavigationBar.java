@@ -214,9 +214,9 @@ public class BottomNavigationBar extends FrameLayout {
 
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View parentView = inflater.inflate(R.layout.bottom_navigation_bar_container, this, true);
-        mBackgroundOverlay = (FrameLayout) parentView.findViewById(R.id.bottom_navigation_bar_overLay);
-        mContainer = (FrameLayout) parentView.findViewById(R.id.bottom_navigation_bar_container);
-        mTabContainer = (LinearLayout) parentView.findViewById(R.id.bottom_navigation_bar_item_container);
+        mBackgroundOverlay = parentView.findViewById(R.id.bottom_navigation_bar_overLay);
+        mContainer = parentView.findViewById(R.id.bottom_navigation_bar_container);
+        mTabContainer = parentView.findViewById(R.id.bottom_navigation_bar_item_container);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             this.setOutlineProvider(ViewOutlineProvider.BOUNDS);
@@ -342,7 +342,7 @@ public class BottomNavigationBar extends FrameLayout {
     }
 
     /**
-     * will be public once all bugs are ressolved.
+     * will be public once all bugs are resolved.
      */
     private BottomNavigationBar setScrollable(boolean scrollable) {
         mScrollable = scrollable;

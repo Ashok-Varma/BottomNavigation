@@ -100,27 +100,37 @@ class BadgeTextView extends AppCompatTextView {
             int height;
 
             //Measure Width
-            if (widthMode == MeasureSpec.EXACTLY) {
-                //Must be this size
-                width = widthSize;
-            } else if (widthMode == MeasureSpec.AT_MOST) {
-                //Can't be bigger than...
-                width = Math.min(mDesiredWidth, widthSize);
-            } else {
-                //Be whatever you want
-                width = mDesiredWidth;
+            switch (widthMode) {
+                case MeasureSpec.EXACTLY:
+                    //Must be this size
+                    width = widthSize;
+                    break;
+                case MeasureSpec.AT_MOST:
+                    //Can't be bigger than...
+                    width = Math.min(mDesiredWidth, widthSize);
+                    break;
+                case MeasureSpec.UNSPECIFIED:
+                default:
+                    //Be whatever you want
+                    width = mDesiredWidth;
+                    break;
             }
 
             //Measure Height
-            if (heightMode == MeasureSpec.EXACTLY) {
-                //Must be this size
-                height = heightSize;
-            } else if (heightMode == MeasureSpec.AT_MOST) {
-                //Can't be bigger than...
-                height = Math.min(mDesiredHeight, heightSize);
-            } else {
-                //Be whatever you want
-                height = mDesiredHeight;
+            switch (heightMode) {
+                case MeasureSpec.EXACTLY:
+                    //Must be this size
+                    height = heightSize;
+                    break;
+                case MeasureSpec.AT_MOST:
+                    //Can't be bigger than...
+                    height = Math.min(mDesiredHeight, heightSize);
+                    break;
+                case MeasureSpec.UNSPECIFIED:
+                default:
+                    //Be whatever you want
+                    height = mDesiredHeight;
+                    break;
             }
 
             //MUST CALL THIS

@@ -71,7 +71,7 @@ public class BottomVerticalScrollBehavior<V extends View> extends VerticalScroll
     }
 
     private void updateSnackBarPosition(CoordinatorLayout parent, V child, View dependency) {
-        updateSnackBarPosition(parent, child, dependency, ViewCompat.getTranslationY(child) - child.getHeight());
+        updateSnackBarPosition(parent, child, dependency, child.getTranslationY() - child.getHeight());
     }
 
     private void updateSnackBarPosition(CoordinatorLayout parent, V child, View dependency, float translationY) {
