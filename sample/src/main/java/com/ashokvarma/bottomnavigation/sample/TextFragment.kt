@@ -31,18 +31,18 @@ fun newTextFragmentInstance(message: String): TextFragment {
 
 class TextFragment : Fragment() {
 
-    internal var msg = ""
+    private var msg: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        msg = arguments!!.getString(KEY_MESSAGE, "")
+        msg = arguments?.getString(KEY_MESSAGE, "")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_text, container, false)
-        (view.findViewById<TextView>(R.id.tf_textview)).text = msg
+        (view.findViewById<TextView>(R.id.tf_textview)).text = msg ?: ""
         return view
     }
 }
