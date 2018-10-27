@@ -15,47 +15,44 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.ashokvarma.bottomnavigation.BottomNavigationItem
 import com.ashokvarma.bottomnavigation.ShapeBadgeItem
 import com.ashokvarma.bottomnavigation.TextBadgeItem
-import com.crashlytics.android.Crashlytics
-import io.fabric.sdk.android.Fabric
 import java.util.*
 
 class HomeActivity : AppCompatActivity(), View.OnClickListener, CompoundButton.OnCheckedChangeListener, BottomNavigationBar.OnTabSelectedListener, AdapterView.OnItemSelectedListener {
 
     // Views
-    internal lateinit var bottomNavigationBar: BottomNavigationBar
+    private lateinit var bottomNavigationBar: BottomNavigationBar
 
-    internal lateinit var fabHome: FloatingActionButton
+    private lateinit var fabHome: FloatingActionButton
 
-    internal lateinit var modeSpinner: Spinner
-    internal lateinit var shapeSpinner: Spinner
-    internal lateinit var itemSpinner: Spinner
-    internal lateinit var bgSpinner: Spinner
-    internal lateinit var autoHide: CheckBox
+    private lateinit var modeSpinner: Spinner
+    private lateinit var shapeSpinner: Spinner
+    private lateinit var itemSpinner: Spinner
+    private lateinit var bgSpinner: Spinner
+    private lateinit var autoHide: CheckBox
 
-    internal lateinit var toggleHide: Button
-    internal lateinit var toggleBadge: Button
+    private lateinit var toggleHide: Button
+    private lateinit var toggleBadge: Button
 
-    internal lateinit var message: TextView
+    private lateinit var message: TextView
 
-    internal lateinit var fragment1: TextFragment
-    internal lateinit var fragment2: TextFragment
-    internal lateinit var fragment3: TextFragment
-    internal lateinit var fragment4: TextFragment
-    internal lateinit var fragment5: TextFragment
-    internal lateinit var fragment6: TextFragment
+    private lateinit var fragment1: TextFragment
+    private lateinit var fragment2: TextFragment
+    private lateinit var fragment3: TextFragment
+    private lateinit var fragment4: TextFragment
+    private lateinit var fragment5: TextFragment
+    private lateinit var fragment6: TextFragment
 
     // Variables
-    internal var lastSelectedPosition = 0
+    private var lastSelectedPosition = 0
 
-    internal lateinit var numberBadgeItem: TextBadgeItem
-    internal lateinit var shapeBadgeItem: ShapeBadgeItem
+    private lateinit var numberBadgeItem: TextBadgeItem
+    private lateinit var shapeBadgeItem: ShapeBadgeItem
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Fabric.with(this, Crashlytics())
         setContentView(R.layout.activity_home)
 
-        // All lateinit's
+        // All late init's
         bottomNavigationBar = findViewById(R.id.bottom_navigation_bar)
         fabHome = findViewById(R.id.fab_home)
 
