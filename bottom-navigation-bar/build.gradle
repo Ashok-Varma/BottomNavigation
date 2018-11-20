@@ -56,8 +56,8 @@ ext {
 
 dependencies {
     testImplementation 'junit:junit:4.12'
-    implementation "com.android.support:appcompat-v7:${supportLibraryVersion}"
-    implementation "com.android.support:design:${supportLibraryVersion}"
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'com.google.android.material:material:1.1.0-alpha01'
 }
 
 // Place it at the end of the file
