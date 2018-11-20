@@ -173,14 +173,22 @@ public class ShapeBadgeItem extends BadgeItem<ShapeBadgeItem> {
      */
     void draw(Canvas canvas) {
         mCanvasRect.set(0.0f, 0.0f, canvas.getWidth(), canvas.getHeight());
-        if (mShape == SHAPE_RECTANGLE) {
-            canvas.drawRect(mCanvasRect, mCanvasPaint);
-        } else if (mShape == SHAPE_OVAL) {
-            canvas.drawOval(mCanvasRect, mCanvasPaint);
-        } else if (mShape == SHAPE_STAR_3_VERTICES || mShape == SHAPE_STAR_4_VERTICES || mShape == SHAPE_STAR_5_VERTICES || mShape == SHAPE_STAR_6_VERTICES) {
-            drawStar(canvas, mShape);
-        } else if (mShape == SHAPE_HEART) {
-            drawHeart(canvas);
+        switch (mShape) {
+            case SHAPE_RECTANGLE:
+                canvas.drawRect(mCanvasRect, mCanvasPaint);
+                break;
+            case SHAPE_OVAL:
+                canvas.drawOval(mCanvasRect, mCanvasPaint);
+                break;
+            case SHAPE_STAR_3_VERTICES:
+            case SHAPE_STAR_4_VERTICES:
+            case SHAPE_STAR_5_VERTICES:
+            case SHAPE_STAR_6_VERTICES:
+                drawStar(canvas, mShape);
+                break;
+            case SHAPE_HEART:
+                drawHeart(canvas);
+                break;
         }
     }
 

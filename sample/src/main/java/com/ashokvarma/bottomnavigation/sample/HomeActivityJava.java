@@ -24,18 +24,12 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.ashokvarma.bottomnavigation.ShapeBadgeItem;
 import com.ashokvarma.bottomnavigation.TextBadgeItem;
-import com.crashlytics.android.Crashlytics;
-
-import java.util.Arrays;
-
-import io.fabric.sdk.android.Fabric;
 
 /**
  * Class description
  *
  * @author ashokvarma
  * @version 1.0
- * @see
  * @since 10 Jul 2017
  */
 public class HomeActivityJava extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener, BottomNavigationBar.OnTabSelectedListener, AdapterView.OnItemSelectedListener {
@@ -74,22 +68,21 @@ public class HomeActivityJava extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_home);
 
-        bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
-        fabHome = (FloatingActionButton) findViewById(R.id.fab_home);
+        bottomNavigationBar = findViewById(R.id.bottom_navigation_bar);
+        fabHome = findViewById(R.id.fab_home);
 
-        modeSpinner = (Spinner) findViewById(R.id.mode_spinner);
-        bgSpinner = (Spinner) findViewById(R.id.bg_spinner);
-        shapeSpinner = (Spinner) findViewById(R.id.shape_spinner);
-        itemSpinner = (Spinner) findViewById(R.id.item_spinner);
-        autoHide = (CheckBox) findViewById(R.id.auto_hide);
+        modeSpinner = findViewById(R.id.mode_spinner);
+        bgSpinner = findViewById(R.id.bg_spinner);
+        shapeSpinner = findViewById(R.id.shape_spinner);
+        itemSpinner = findViewById(R.id.item_spinner);
+        autoHide = findViewById(R.id.auto_hide);
 
-        toggleHide = (Button) findViewById(R.id.toggle_hide);
-        toggleBadge = (Button) findViewById(R.id.toggle_badge);
+        toggleHide = findViewById(R.id.toggle_hide);
+        toggleBadge = findViewById(R.id.toggle_badge);
 
-        message = (TextView) findViewById(R.id.message);
+        message = findViewById(R.id.message);
 
         fragment1 = TextFragmentKt.newTextFragmentInstance(getString(R.string.para1));
         fragment2 = TextFragmentKt.newTextFragmentInstance(getString(R.string.para2));
@@ -98,22 +91,22 @@ public class HomeActivityJava extends AppCompatActivity implements View.OnClickL
         fragment5 = TextFragmentKt.newTextFragmentInstance(getString(R.string.para5));
         fragment6 = TextFragmentKt.newTextFragmentInstance(getString(R.string.para6));
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Arrays.asList(new String[]{"MODE_DEFAULT", "MODE_FIXED", "MODE_SHIFTING", "MODE_FIXED_NO_TITLE", "MODE_SHIFTING_NO_TITLE"}));
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, new String[]{"MODE_DEFAULT", "MODE_FIXED", "MODE_SHIFTING", "MODE_FIXED_NO_TITLE", "MODE_SHIFTING_NO_TITLE"});
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         modeSpinner.setAdapter(adapter);
         modeSpinner.setSelection(2);
 
-        ArrayAdapter<String> itemAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Arrays.asList(new String[]{"3 items", "4 items", "5 items"}));
+        ArrayAdapter<String> itemAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, new String[]{"3 items", "4 items", "5 items"});
         itemAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         itemSpinner.setAdapter(itemAdapter);
         itemSpinner.setSelection(2);
 
-        ArrayAdapter<String> shapeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Arrays.asList(new String[]{"SHAPE_OVAL", "SHAPE_RECTANGLE", "SHAPE_HEART", "SHAPE_STAR_3_VERTICES", "SHAPE_STAR_4_VERTICES", "SHAPE_STAR_5_VERTICES", "SHAPE_STAR_6_VERTICES"}));
+        ArrayAdapter<String> shapeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, new String[]{"SHAPE_OVAL", "SHAPE_RECTANGLE", "SHAPE_HEART", "SHAPE_STAR_3_VERTICES", "SHAPE_STAR_4_VERTICES", "SHAPE_STAR_5_VERTICES", "SHAPE_STAR_6_VERTICES"});
         shapeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         shapeSpinner.setAdapter(shapeAdapter);
         shapeSpinner.setSelection(5);
 
-        ArrayAdapter<String> bgAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Arrays.asList(new String[]{"BACKGROUND_STYLE_DEFAULT", "BACKGROUND_STYLE_STATIC", "BACKGROUND_STYLE_RIPPLE"}));
+        ArrayAdapter<String> bgAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, new String[]{"BACKGROUND_STYLE_DEFAULT", "BACKGROUND_STYLE_STATIC", "BACKGROUND_STYLE_RIPPLE"});
         bgAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         bgSpinner.setAdapter(bgAdapter);
         bgSpinner.setSelection(1);
@@ -153,26 +146,30 @@ public class HomeActivityJava extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.toggle_hide) {
-            if (bottomNavigationBar != null) {
-                bottomNavigationBar.toggle();
-            }
-        } else if (v.getId() == R.id.toggle_badge) {
-            if (numberBadgeItem != null) {
-                numberBadgeItem.toggle();
-            }
-            if (shapeBadgeItem != null) {
-                shapeBadgeItem.toggle();
-            }
-        } else if (v.getId() == R.id.fab_home) {
-            final Snackbar snackbar = Snackbar.make(message, "Fab Clicked", Snackbar.LENGTH_LONG);
-            snackbar.setAction("dismiss", new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    snackbar.dismiss();
+        switch (v.getId()) {
+            case R.id.toggle_hide:
+                if (bottomNavigationBar != null) {
+                    bottomNavigationBar.toggle();
                 }
-            });
-            snackbar.show();
+                break;
+            case R.id.toggle_badge:
+                if (numberBadgeItem != null) {
+                    numberBadgeItem.toggle();
+                }
+                if (shapeBadgeItem != null) {
+                    shapeBadgeItem.toggle();
+                }
+                break;
+            case R.id.fab_home:
+                final Snackbar snackbar = Snackbar.make(message, "Fab Clicked", Snackbar.LENGTH_LONG);
+                snackbar.setAction("dismiss", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        snackbar.dismiss();
+                    }
+                });
+                snackbar.show();
+                break;
         }
     }
 
@@ -215,30 +212,34 @@ public class HomeActivityJava extends AppCompatActivity implements View.OnClickL
         bottomNavigationBar.setBackgroundStyle(bgSpinner.getSelectedItemPosition());
 
 
-        if (itemSpinner.getSelectedItemPosition() == 0) {
-            bottomNavigationBar
-                    .addItem(new BottomNavigationItem(R.drawable.ic_location_on_white_24dp, "Nearby").setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
-                    .addItem(new BottomNavigationItem(R.drawable.ic_find_replace_white_24dp, "Find").setActiveColorResource(R.color.teal))
-                    .addItem(new BottomNavigationItem(R.drawable.ic_favorite_white_24dp, "Categories").setActiveColorResource(R.color.blue).setBadgeItem(shapeBadgeItem))
-                    .setFirstSelectedPosition(lastSelectedPosition > 2 ? 2 : lastSelectedPosition)
-                    .initialise();
-        } else if (itemSpinner.getSelectedItemPosition() == 1) {
-            bottomNavigationBar
-                    .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
-                    .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp, "Books").setActiveColorResource(R.color.teal))
-                    .addItem(new BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "Music").setActiveColorResource(R.color.blue).setBadgeItem(shapeBadgeItem))
-                    .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV").setActiveColorResource(R.color.brown))
-                    .setFirstSelectedPosition(lastSelectedPosition > 3 ? 3 : lastSelectedPosition)
-                    .initialise();
-        } else if (itemSpinner.getSelectedItemPosition() == 2) {
-            bottomNavigationBar
-                    .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
-                    .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp, "Books").setActiveColorResource(R.color.teal))
-                    .addItem(new BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "Music").setActiveColorResource(R.color.blue).setBadgeItem(shapeBadgeItem))
-                    .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV").setActiveColorResource(R.color.brown))
-                    .addItem(new BottomNavigationItem(R.drawable.ic_videogame_asset_white_24dp, "Games").setActiveColorResource(R.color.grey))
-                    .setFirstSelectedPosition(lastSelectedPosition)
-                    .initialise();
+        switch (itemSpinner.getSelectedItemPosition()) {
+            case 0:
+                bottomNavigationBar
+                        .addItem(new BottomNavigationItem(R.drawable.ic_location_on_white_24dp, "Nearby").setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_find_replace_white_24dp, "Find").setActiveColorResource(R.color.teal))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_favorite_white_24dp, "Categories").setActiveColorResource(R.color.blue).setBadgeItem(shapeBadgeItem))
+                        .setFirstSelectedPosition(lastSelectedPosition > 2 ? 2 : lastSelectedPosition)
+                        .initialise();
+                break;
+            case 1:
+                bottomNavigationBar
+                        .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp, "Books").setActiveColorResource(R.color.teal))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "Music").setActiveColorResource(R.color.blue).setBadgeItem(shapeBadgeItem))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV").setActiveColorResource(R.color.brown))
+                        .setFirstSelectedPosition(lastSelectedPosition > 3 ? 3 : lastSelectedPosition)
+                        .initialise();
+                break;
+            case 2:
+                bottomNavigationBar
+                        .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp, "Books").setActiveColorResource(R.color.teal))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "Music").setActiveColorResource(R.color.blue).setBadgeItem(shapeBadgeItem))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV").setActiveColorResource(R.color.brown))
+                        .addItem(new BottomNavigationItem(R.drawable.ic_videogame_asset_white_24dp, "Games").setActiveColorResource(R.color.grey))
+                        .setFirstSelectedPosition(lastSelectedPosition)
+                        .initialise();
+                break;
         }
     }
 

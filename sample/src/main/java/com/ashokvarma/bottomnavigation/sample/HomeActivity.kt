@@ -15,60 +15,57 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.ashokvarma.bottomnavigation.BottomNavigationItem
 import com.ashokvarma.bottomnavigation.ShapeBadgeItem
 import com.ashokvarma.bottomnavigation.TextBadgeItem
-import com.crashlytics.android.Crashlytics
-import io.fabric.sdk.android.Fabric
 import java.util.*
 
 class HomeActivity : AppCompatActivity(), View.OnClickListener, CompoundButton.OnCheckedChangeListener, BottomNavigationBar.OnTabSelectedListener, AdapterView.OnItemSelectedListener {
 
     // Views
-    lateinit internal var bottomNavigationBar: BottomNavigationBar
+    private lateinit var bottomNavigationBar: BottomNavigationBar
 
-    lateinit internal var fabHome: FloatingActionButton
+    private lateinit var fabHome: FloatingActionButton
 
-    lateinit internal var modeSpinner: Spinner
-    lateinit internal var shapeSpinner: Spinner
-    lateinit internal var itemSpinner: Spinner
-    lateinit internal var bgSpinner: Spinner
-    lateinit internal var autoHide: CheckBox
+    private lateinit var modeSpinner: Spinner
+    private lateinit var shapeSpinner: Spinner
+    private lateinit var itemSpinner: Spinner
+    private lateinit var bgSpinner: Spinner
+    private lateinit var autoHide: CheckBox
 
-    lateinit internal var toggleHide: Button
-    lateinit internal var toggleBadge: Button
+    private lateinit var toggleHide: Button
+    private lateinit var toggleBadge: Button
 
-    lateinit internal var message: TextView
+    private lateinit var message: TextView
 
-    lateinit internal var fragment1: TextFragment
-    lateinit internal var fragment2: TextFragment
-    lateinit internal var fragment3: TextFragment
-    lateinit internal var fragment4: TextFragment
-    lateinit internal var fragment5: TextFragment
-    lateinit internal var fragment6: TextFragment
+    private lateinit var fragment1: TextFragment
+    private lateinit var fragment2: TextFragment
+    private lateinit var fragment3: TextFragment
+    private lateinit var fragment4: TextFragment
+    private lateinit var fragment5: TextFragment
+    private lateinit var fragment6: TextFragment
 
     // Variables
-    internal var lastSelectedPosition = 0
+    private var lastSelectedPosition = 0
 
-    lateinit internal var numberBadgeItem: TextBadgeItem
-    lateinit internal var shapeBadgeItem: ShapeBadgeItem
+    private lateinit var numberBadgeItem: TextBadgeItem
+    private lateinit var shapeBadgeItem: ShapeBadgeItem
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Fabric.with(this, Crashlytics())
         setContentView(R.layout.activity_home)
 
-        // All lateinit's
-        bottomNavigationBar = findViewById<BottomNavigationBar>(R.id.bottom_navigation_bar)
-        fabHome = findViewById<FloatingActionButton>(R.id.fab_home)
+        // All late init's
+        bottomNavigationBar = findViewById(R.id.bottom_navigation_bar)
+        fabHome = findViewById(R.id.fab_home)
 
-        modeSpinner = findViewById<Spinner>(R.id.mode_spinner)
-        bgSpinner = findViewById<Spinner>(R.id.bg_spinner)
-        shapeSpinner = findViewById<Spinner>(R.id.shape_spinner)
-        itemSpinner = findViewById<Spinner>(R.id.item_spinner)
-        autoHide = findViewById<CheckBox>(R.id.auto_hide)
+        modeSpinner = findViewById(R.id.mode_spinner)
+        bgSpinner = findViewById(R.id.bg_spinner)
+        shapeSpinner = findViewById(R.id.shape_spinner)
+        itemSpinner = findViewById(R.id.item_spinner)
+        autoHide = findViewById(R.id.auto_hide)
 
-        toggleHide = findViewById<Button>(R.id.toggle_hide)
-        toggleBadge = findViewById<Button>(R.id.toggle_badge)
+        toggleHide = findViewById(R.id.toggle_hide)
+        toggleBadge = findViewById(R.id.toggle_badge)
 
-        message = findViewById<TextView>(R.id.message)
+        message = findViewById(R.id.message)
 
         fragment1 = newTextFragmentInstance(getString(R.string.para1))
         fragment2 = newTextFragmentInstance(getString(R.string.para2))
@@ -143,15 +140,17 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener, CompoundButton.O
     }
 
     override fun onClick(v: View) {
-        if (v.id == R.id.toggle_hide) {
-            bottomNavigationBar.toggle()
-        } else if (v.id == R.id.toggle_badge) {
-            numberBadgeItem.toggle()
-            shapeBadgeItem.toggle()
-        } else if (v.id == R.id.fab_home) {
-            val snackbar = Snackbar.make(message, "Fab Clicked", Snackbar.LENGTH_LONG)
-            snackbar.setAction("dismiss") { snackbar.dismiss() }
-            snackbar.show()
+        when (v.id) {
+            R.id.toggle_hide -> bottomNavigationBar.toggle()
+            R.id.toggle_badge -> {
+                numberBadgeItem.toggle()
+                shapeBadgeItem.toggle()
+            }
+            R.id.fab_home -> {
+                val snackbar = Snackbar.make(message, "Fab Clicked", Snackbar.LENGTH_LONG)
+                snackbar.setAction("dismiss") { snackbar.dismiss() }
+                snackbar.show()
+            }
         }
     }
 
@@ -186,30 +185,34 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener, CompoundButton.O
         bottomNavigationBar.setBackgroundStyle(bgSpinner.selectedItemPosition)
 
 
-        if (itemSpinner.selectedItemPosition == 0) {
-            bottomNavigationBar
-                    .addItem(BottomNavigationItem(R.drawable.ic_location_on_white_24dp, "Nearby").setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
-                    .addItem(BottomNavigationItem(R.drawable.ic_find_replace_white_24dp, "Find").setActiveColorResource(R.color.teal))
-                    .addItem(BottomNavigationItem(R.drawable.ic_favorite_white_24dp, "Categories").setActiveColorResource(R.color.blue).setBadgeItem(shapeBadgeItem))
-                    .initialise()
-            bottomNavigationBar.selectTab(if (lastSelectedPosition > 2) 2 else lastSelectedPosition, true)
-        } else if (itemSpinner.selectedItemPosition == 1) {
-            bottomNavigationBar
-                    .addItem(BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
-                    .addItem(BottomNavigationItem(R.drawable.ic_book_white_24dp, "Books").setActiveColorResource(R.color.teal))
-                    .addItem(BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "Music").setActiveColorResource(R.color.blue).setBadgeItem(shapeBadgeItem))
-                    .addItem(BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV").setActiveColorResource(R.color.brown))
-                    .initialise()
-            bottomNavigationBar.selectTab(if (lastSelectedPosition > 3) 3 else lastSelectedPosition, true)
-        } else if (itemSpinner.selectedItemPosition == 2) {
-            bottomNavigationBar
-                    .addItem(BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
-                    .addItem(BottomNavigationItem(R.drawable.ic_book_white_24dp, "Books").setActiveColorResource(R.color.teal))
-                    .addItem(BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "Music").setActiveColorResource(R.color.blue).setBadgeItem(shapeBadgeItem))
-                    .addItem(BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV").setActiveColorResource(R.color.brown))
-                    .addItem(BottomNavigationItem(R.drawable.ic_videogame_asset_white_24dp, "Games").setActiveColorResource(R.color.grey))
-                    .initialise()
-            bottomNavigationBar.selectTab(lastSelectedPosition, true)
+        when (itemSpinner.selectedItemPosition) {
+            0 -> {
+                bottomNavigationBar
+                        .addItem(BottomNavigationItem(R.drawable.ic_location_on_white_24dp, "Nearby").setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
+                        .addItem(BottomNavigationItem(R.drawable.ic_find_replace_white_24dp, "Find").setActiveColorResource(R.color.teal))
+                        .addItem(BottomNavigationItem(R.drawable.ic_favorite_white_24dp, "Categories").setActiveColorResource(R.color.blue).setBadgeItem(shapeBadgeItem))
+                        .initialise()
+                bottomNavigationBar.selectTab(if (lastSelectedPosition > 2) 2 else lastSelectedPosition, true)
+            }
+            1 -> {
+                bottomNavigationBar
+                        .addItem(BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
+                        .addItem(BottomNavigationItem(R.drawable.ic_book_white_24dp, "Books").setActiveColorResource(R.color.teal))
+                        .addItem(BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "Music").setActiveColorResource(R.color.blue).setBadgeItem(shapeBadgeItem))
+                        .addItem(BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV").setActiveColorResource(R.color.brown))
+                        .initialise()
+                bottomNavigationBar.selectTab(if (lastSelectedPosition > 3) 3 else lastSelectedPosition, true)
+            }
+            2 -> {
+                bottomNavigationBar
+                        .addItem(BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem))
+                        .addItem(BottomNavigationItem(R.drawable.ic_book_white_24dp, "Books").setActiveColorResource(R.color.teal))
+                        .addItem(BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "Music").setActiveColorResource(R.color.blue).setBadgeItem(shapeBadgeItem))
+                        .addItem(BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV").setActiveColorResource(R.color.brown))
+                        .addItem(BottomNavigationItem(R.drawable.ic_videogame_asset_white_24dp, "Games").setActiveColorResource(R.color.grey))
+                        .initialise()
+                bottomNavigationBar.selectTab(lastSelectedPosition, true)
+            }
         }
 
     }
