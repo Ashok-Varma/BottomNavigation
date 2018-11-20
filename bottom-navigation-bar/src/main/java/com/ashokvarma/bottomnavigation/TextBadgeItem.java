@@ -35,7 +35,7 @@ public class TextBadgeItem extends BadgeItem<TextBadgeItem> {
 
     private int mBorderWidthInPixels = 0;
 
-    private int radius = 0;
+    private int radius = -1;
 
     ///////////////////////////////////////////////////////////////////////////
     // Public setter methods
@@ -252,6 +252,18 @@ public class TextBadgeItem extends BadgeItem<TextBadgeItem> {
         return mBorderWidthInPixels;
     }
 
+     /**
+     * @param context to fetch color
+     * @return radius
+     */
+    private int getRadius(Context context) {
+        if (radius < 0) {
+            return context.getResources().getDimensionPixelSize(R.dimen.badge_corner_radius);
+        } else {
+            return radius;
+        }
+    }
+
 
     ///////////////////////////////////////////////////////////////////////////
     // Internal Methods
@@ -288,13 +300,5 @@ public class TextBadgeItem extends BadgeItem<TextBadgeItem> {
         shape.setColor(getBackgroundColor(context));
         shape.setStroke(getBorderWidth(), getBorderColor(context));
         return shape;
-    }
-
-    private int getRadius(Context context) {
-        if (radius == 0) {
-            return context.getResources().getDimensionPixelSize(R.dimen.badge_corner_radius);
-        } else {
-            return radius;
-        }
     }
 }
