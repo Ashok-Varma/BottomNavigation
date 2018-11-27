@@ -1,6 +1,6 @@
 package com.ashokvarma.sample;
 
-import androidx.test.rule.ActivityTestRule;
+import android.support.test.rule.ActivityTestRule;
 
 import com.ashokvarma.bottomnavigation.sample.HomeActivity;
 import com.ashokvarma.bottomnavigation.sample.R;
@@ -8,10 +8,10 @@ import com.ashokvarma.bottomnavigation.sample.R;
 import org.junit.Rule;
 import org.junit.Test;
 
-import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
 /**
  * Class description

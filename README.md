@@ -37,7 +37,7 @@ Download [the latest JAR][mavenAarDownload] or grab via Maven:
 ```
 or Gradle:
 ```groovy
-implementation 'com.ashokvarma.android:bottom-navigation-bar:2.1.0'
+compile 'com.ashokvarma.android:bottom-navigation-bar:2.1.0'
 ```
 or Ivy:
 ```xml
