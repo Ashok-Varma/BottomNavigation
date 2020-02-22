@@ -7,7 +7,6 @@ android {
     }
 
     compileSdkVersion Integer.parseInt(ANDROID_COMPILE_SDK_VERSION)
-    buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
 
     dexOptions {
         maxProcessCount 2
@@ -17,11 +16,11 @@ android {
     defaultConfig {
         applicationId "com.ashokvarma.bottomnavigation.sample"
         minSdkVersion Integer.parseInt(ANDROID_MIN_SDK_VERSION)
-        targetSdkVersion Integer.parseInt(ANDROID_BUILD_TARGET_SDK_VERSION)
+        targetSdkVersion 29
         versionCode Integer.parseInt(APP_VERSION_CODE)
         versionName project.APP_VERSION_NAME
 
-        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     buildTypes {
         release {
@@ -34,8 +33,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -43,25 +42,21 @@ repositories {
     mavenCentral()
 }
 
-ext {
-    supportLibraryVersion = project.ANDROID_SUPPORT_LIBRARY_VERSION
-}
-
 dependencies {
     testImplementation 'junit:junit:4.12'
-    implementation "com.android.support:appcompat-v7:${supportLibraryVersion}"
-    implementation "com.android.support:design:${supportLibraryVersion}"
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'com.google.android.material:material:1.2.0-alpha05'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation project(':bottom-navigation-bar')
 
     // Testing-only dependencies
     // Android testing support library's runner and rules
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test:rules:1.0.2'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test:rules:1.2.0'
     // Force usage of support annotations in the test app, since it is internally used by the runner module.
     // to avoid Conflict with dependency 'com.android.support:support-annotations'. Resolved versions for app (23.4.0) and test app (23.1.1) differ.
-    androidTestImplementation "com.android.support:support-annotations:${supportLibraryVersion}"
+    androidTestImplementation 'androidx.annotation:annotation:1.1.0'
 
     // Espresso Ui Testing dependencies
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
