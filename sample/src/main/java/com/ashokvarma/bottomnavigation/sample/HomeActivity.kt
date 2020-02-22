@@ -225,15 +225,15 @@ class HomeActivity() : AppCompatActivity(), View.OnClickListener, CompoundButton
 
     override fun onTabSelected(position: Int) {
         lastSelectedPosition = position
-        setMessageText(position.toString() + " Tab Selected")
-        numberBadgeItem.setText(Integer.toString(position))
+        setMessageText("${position + 1} Tab Selected")
+        numberBadgeItem.setText((position + 1).toString())
         replaceFragments(position)
     }
 
     override fun onTabUnselected(position: Int) {}
 
     override fun onTabReselected(position: Int) {
-        setMessageText(position.toString() + " Tab Reselected")
+        setMessageText("${position + 1} Tab Reselected")
     }
 
     private fun setMessageText(messageText: String) {
