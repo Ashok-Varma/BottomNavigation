@@ -5,14 +5,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Build;
-import android.support.annotation.ColorRes;
-import android.support.annotation.IntDef;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.view.ViewPropertyAnimatorCompat;
-import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,9 +14,18 @@ import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import androidx.annotation.ColorRes;
+import androidx.annotation.IntDef;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.ViewPropertyAnimatorCompat;
+import androidx.interpolator.view.animation.LinearOutSlowInInterpolator;
+
 import com.ashokvarma.bottomnavigation.behaviour.BottomNavBarFabBehaviour;
 import com.ashokvarma.bottomnavigation.behaviour.BottomVerticalScrollBehavior;
 import com.ashokvarma.bottomnavigation.utils.Utils;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

@@ -24,8 +24,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 public class HomeScreenTest {
 
     @Rule
-    public ActivityTestRule<HomeActivity> mHomeActivityTestRule =
-            new ActivityTestRule<HomeActivity>(HomeActivity.class);
+    public ActivityTestRule<HomeActivity> mHomeActivityTestRule = new ActivityTestRule<>(HomeActivity.class);
 
 
     @Test
@@ -38,7 +37,7 @@ public class HomeScreenTest {
         onView(withId(R.id.nested_scroll_view))
                 .perform(Utils.swipeDownSlow());
 
-        onView(withId(R.id.items_3))
+        onView(withId(R.id.auto_hide))
                 .perform(click());
 
         onView(isRoot()).perform(Utils.waitId(R.id.nested_scroll_view, 150 * 1000));
